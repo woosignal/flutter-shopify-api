@@ -13,9 +13,6 @@
 // IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
 // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-import 'package:woosignal/models/image.dart';
-import 'package:woosignal/models/response/dimension.dart';
-
 import '../meta_data.dart';
 
 class Product {
@@ -54,7 +51,6 @@ class Product {
   final bool? backordered;
   final bool? soldIndividually;
   final String? weight;
-  final Dimension dimensions;
   final bool? shippingRequired;
   final bool? shippingTaxable;
   final String? shippingClass;
@@ -69,7 +65,6 @@ class Product {
   final String? purchaseNote;
   final List<Category> categories;
   final List<Tag> tags;
-  final List<Image> images;
   final List<Attribute> attributes;
   final List<DefaultAttribute> defaultAttributes;
   final List<int>? variations;
@@ -114,7 +109,6 @@ class Product {
       this.backordered,
       this.soldIndividually,
       this.weight,
-      this.dimensions,
       this.shippingRequired,
       this.shippingTaxable,
       this.shippingClass,
@@ -129,7 +123,6 @@ class Product {
       this.purchaseNote,
       this.categories,
       this.tags,
-      this.images,
       this.attributes,
       this.defaultAttributes,
       this.variations,
@@ -179,7 +172,6 @@ class Product {
         backordered = json['backordered'],
         soldIndividually = json['sold_individually'],
         weight = json['weight'].toString(),
-        dimensions = Dimension.fromJson(json['dimensions']),
         shippingRequired = json['shipping_required'],
         shippingTaxable = json['shipping_taxable'],
         shippingClass = json['shipping_class'],
@@ -196,8 +188,6 @@ class Product {
             .map((i) => Category.fromJson(i))
             .toList(),
         tags = (json['tags'] as List).map((i) => Tag.fromJson(i)).toList(),
-        images =
-            (json['images'] as List).map((i) => Image.fromJson(i)).toList(),
         attributes = (json['attributes'] as List)
             .map((i) => Attribute.fromJson(i))
             .toList(),

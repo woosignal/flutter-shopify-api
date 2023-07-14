@@ -13,7 +13,7 @@
 // IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
 // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-class OrderWC {
+class OrderShopify {
   String? paymentMethod;
   String? paymentMethodTitle;
   bool? setPaid;
@@ -31,7 +31,7 @@ class OrderWC {
   List<ShippingLines>? shippingLines;
   String? transactionId;
 
-  OrderWC(
+  OrderShopify(
       {this.paymentMethod,
       this.paymentMethodTitle,
       this.setPaid,
@@ -49,7 +49,7 @@ class OrderWC {
       this.shippingLines,
       this.transactionId});
 
-  OrderWC.fromJson(Map<String, dynamic> json) {
+  OrderShopify.fromJson(Map<String, dynamic> json) {
     paymentMethod = json['payment_method'];
     paymentMethodTitle = json['payment_method_title'];
     setPaid = json['set_paid'];

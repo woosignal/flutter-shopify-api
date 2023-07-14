@@ -16,7 +16,7 @@
 import 'dart:convert';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
-import 'package:woosignal/helpers/shared_pref.dart';
+import '/helpers/shared_pref.dart';
 import 'dart:io' show Platform;
 
 class ApiProvider {
@@ -42,7 +42,8 @@ class ApiProvider {
         "version": androidDeviceInfo.version.sdkInt.toString(),
         "uuid": uuid,
         "platform_type": "android",
-        "api_version": "$_version/v3"
+        "api_version": "$_version/v1",
+        "sdk_name": "woosignal-shopify"
       };
     } else if (Platform.isIOS) {
       IosDeviceInfo iosDeviceInfo = await deviceInfo.iosInfo;
@@ -53,7 +54,8 @@ class ApiProvider {
         "version": iosDeviceInfo.systemVersion,
         "uuid": uuid,
         "platform_type": "ios",
-        "api_version": "$_version/v3"
+        "api_version": "$_version/v1",
+        "sdk_name": "woosignal-shopify"
       };
     }
   }

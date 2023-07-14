@@ -13,7 +13,7 @@
 // IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
 // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-import 'package:woosignal/models/menu_link.dart';
+import '/models/menu_link.dart';
 
 class WooSignalApp {
   String? appName;
