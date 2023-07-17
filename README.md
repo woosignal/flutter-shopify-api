@@ -31,7 +31,7 @@ import 'package:woosignal_shopify/woosignal_shopify.dart';
 
 ...
 
-// EXAMPLE GET PRODUCTS
+// EXAMPLE GET PRODUCT
 _getProducts() async {
 
         // Step 1 - Initialize WooSignal
