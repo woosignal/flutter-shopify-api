@@ -73,20 +73,21 @@ class WooSignal {
     }
   }
 
-  Map<String, dynamic> _standardPayload(String type, json, String path) =>
-      {"type": type, "payload": json, "path": path};
-
   /// WooSignal Request
   Future<T?> _wooSignalRequest<T>(
       {dynamic payload = const {},
       required String method,
       required String path,
-      required T Function(dynamic json) jsonResponse,
-      String postUrl = "/request"}) async {
+      required T Function(dynamic json) jsonResponse}) async {
     _printLog("Parameters: $payload");
-    payload = _standardPayload(method, payload, path);
 
-    dynamic json = await _apiProvider.post(postUrl, payload);
+    dynamic json;
+    if (method == 'get') {
+     json = await _apiProvider.get(path, data: payload);
+    }
+    if (method == 'post') {
+      json = await _apiProvider.post(path, {"data": payload});
+    }
     if (json is Map<String, dynamic> && json.containsKey('error')) {
       _printLog(json['error']);
       return null;
@@ -199,7 +200,6 @@ class WooSignal {
       method: "get",
       path: "ws/cart_check",
       payload: cartLines,
-      postUrl: "/ws/cart_check",
       jsonResponse: (json) => json,
     );
   }
@@ -209,7 +209,6 @@ class WooSignal {
     return await _wooSignalRequest<bool>(
       method: "get",
       path: "ws/app-status",
-      postUrl: "/ws/app-status",
       jsonResponse: (json) =>
       (json['status'] == "200" && json['result']['value'] == 1)
           ? true
@@ -220,66 +219,17 @@ class WooSignal {
 
   /// https://woosignal.com/docs/api/1.0/products
   Future<List<Product>> getProducts(
-      {int? page,
-      int? perPage,
-      String? search,
-      String? after,
-      String? before,
-      String? order,
-      String? orderBy,
-      String? slug,
-      String? status,
-      String? type,
-      String? sku,
-      String? category,
-      String? tag,
-      String? shippingClass,
-      String? attribute,
-      String? attributeTerm,
-      String? taxClass,
-      String? minPrice,
-      String? maxPrice,
-      String? stockStatus,
-      List<int>? exclude,
-      List<int>? parentExclude,
-      List<int>? include,
-      List<int>? parent,
-      int? offset,
-      bool? featured,
-      bool? onSale}) async {
+      {int? limit,
+        String? productType
+      }) async {
     Map<String, dynamic> payload = {};
-    if (page != null) payload["page"] = page;
-    if (perPage != null) payload["per_page"] = perPage;
-    if (search != null) payload["search"] = search;
-    if (after != null) payload["after"] = after;
-    if (before != null) payload["before"] = before;
-    if (order != null) payload["order"] = order;
-    if (orderBy != null) payload["orderby"] = orderBy;
-    if (slug != null) payload["slug"] = slug;
-    if (status != null) payload["status"] = status;
-    if (type != null) payload["type"] = type;
-    if (sku != null) payload["sku"] = sku;
-    if (category != null) payload["category"] = category;
-    if (tag != null) payload["tag"] = tag;
-    if (shippingClass != null) payload["shipping_class"] = shippingClass;
-    if (attribute != null) payload["attribute"] = attribute;
-    if (attributeTerm != null) payload["attribute_term"] = attributeTerm;
-    if (taxClass != null) payload["tax_class"] = taxClass;
-    if (minPrice != null) payload["min_price"] = minPrice;
-    if (maxPrice != null) payload["max_price"] = maxPrice;
-    if (stockStatus != null) payload["stock_status"] = stockStatus;
-    if (exclude != null) payload["exclude"] = exclude;
-    if (parentExclude != null) payload["parent_exclude"] = parentExclude;
-    if (include != null) payload["include"] = include;
-    if (parent != null) payload["parent"] = parent;
-    if (offset != null) payload["offset"] = offset;
-    if (featured != null) payload["featured"] = featured;
-    if (onSale != null) payload["on_sale"] = onSale;
+    if (limit != null) payload["limit"] = limit;
+    if (productType != null) payload["product_type"] = productType;
 
     return await _wooSignalRequest<List<Product>>(
-          method: "get",
-          payload: payload,
           path: "products",
+          method: "post",
+          payload: payload,
           jsonResponse: (json) =>
               (json as List).map((i) => Product.fromJson(i)).toList(),
         ) ??

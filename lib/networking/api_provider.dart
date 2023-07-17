@@ -77,7 +77,7 @@ class ApiProvider {
 
   /// Init Dio class
   _initDio() {
-    BaseOptions options = BaseOptions(baseUrl: "https://api.woosignal.com/v3");
+    BaseOptions options = BaseOptions(baseUrl: "https://api.woosignal.com/shopify/v1/");
     _dio = Dio(options);
   }
 
