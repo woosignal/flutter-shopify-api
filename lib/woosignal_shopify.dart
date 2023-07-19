@@ -20,8 +20,6 @@ import '/networking/api_provider.dart';
 import '/models/response/product.dart';
 import 'package:encrypt/encrypt.dart' as enc;
 import 'package:encrypt/encrypt.dart';
-import 'package:http/http.dart' as http;
-import 'package:woosignal/models/response/ProductsListModel.dart';
 import 'dart:convert';
 
 /// WooSignal Package version
@@ -244,21 +242,7 @@ class WooSignal {
       jsonResponse: (json) => Product.fromJson(json),
     );
   }
-  //fetch list of products by using url and then use ProductsListModel
-  Future<ProductsListModel> fetchProductsList() async {
-    final url = 'https://api.woosignal.com/shopify/v1/products';
 
-    try {
-      final response = await http.get(Uri.parse(url));
-      if (response.statusCode == 200) {
-        return ProductsListModel.fromJson(json.decode(response.body));
-      } else {
-        throw Exception('Failed to load data');
-      }
-    } catch (e) {
-      throw Exception('Error: $e');
-    }
-  }
 
 
 }
