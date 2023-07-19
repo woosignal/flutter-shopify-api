@@ -244,8 +244,8 @@ class WooSignal {
       jsonResponse: (json) => Product.fromJson(json),
     );
   }
-
-  Future<ProductsListModel> fetchDataFromAPI() async {
+  //fetch list of products by using url and then use ProductsListModel
+  Future<ProductsListModel> fetchProductsList() async {
     final url = 'https://api.woosignal.com/shopify/v1/products';
 
     try {
