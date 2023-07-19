@@ -17,15 +17,12 @@ library woosignal_shopify;
 
 import 'dart:convert';
 
-import 'package:woosignal/models/response/ProductsListModel.dart';
+import 'package:woosignal_shopify/models/response/products_response.dart';
 
 import '/models/response/woosignal_app.dart';
 import '/networking/api_provider.dart';
-import '/models/response/product.dart';
-import '/models/payload/order_wc.dart';
 import 'package:encrypt/encrypt.dart' as enc;
 import 'package:encrypt/encrypt.dart';
-import 'package:http/http.dart' as http;
 
 /// WooSignal Package version
 const String wooSignalVersion = "1.0.0";
@@ -221,7 +218,7 @@ class WooSignal {
   }
 
   /// https://woosignal.com/docs/api/1.0/products
-  Future<List<Product>> getProducts(
+  Future<ProductsResponse?> getProducts(
       {int? limit,
         String? productType
       }) async {
@@ -229,38 +226,11 @@ class WooSignal {
     if (limit != null) payload["limit"] = limit;
     if (productType != null) payload["product_type"] = productType;
 
-    return await _wooSignalRequest<List<Product>>(
+    return await _wooSignalRequest<ProductsResponse>(
           path: "products",
           method: "post",
           payload: payload,
-          jsonResponse: (json) =>
-              (json as List).map((i) => Product.fromJson(i)).toList(),
-        ) ??
-        [];
+          jsonResponse: (json) => ProductsResponse.fromJson(json)
+        );
   }
-
-  /// https://woosignal.com/docs/api/1.0/products#retrive-a-product-api-call
-  Future<Product?> retrieveProduct({required int id}) async {
-    return await _wooSignalRequest<Product?>(
-      method: "get",
-      path: "products/${id.toString()}",
-      jsonResponse: (json) => Product.fromJson(json),
-    );
-  }
-
-//Fetch Product Lists By using URL and ProductListModel
-  Future<ProductsListModel> fetchDataFromAPI() async {
-    final url = 'https://api.woosignal.com/shopify/v1/products';
-    try {
-      final response = await http.get(Uri.parse(url));
-      if (response.statusCode == 200) {
-        return ProductsListModel.fromJson(json.decode(response.body));
-      } else {
-        throw Exception('Failed to load data');
-      }
-    } catch (e) {
-      throw Exception('Error: $e');
-    }
-  }
-
 }

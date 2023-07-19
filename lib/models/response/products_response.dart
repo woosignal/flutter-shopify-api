@@ -1,9 +1,9 @@
-class ProductsListModel {
+class ProductsResponse {
   List<Products>? products;
 
-  ProductsListModel({this.products});
+  ProductsResponse({this.products});
 
-  ProductsListModel.fromJson(Map<String, dynamic> json) {
+  ProductsResponse.fromJson(Map<String, dynamic> json) {
     if (json['products'] != null) {
       products = <Products>[];
       json['products'].forEach((v) {
@@ -31,7 +31,7 @@ class Products {
   String? handle;
   String? updatedAt;
   String? publishedAt;
-  Null? templateSuffix;
+  String? templateSuffix;
   String? status;
   String? publishedScope;
   String? tags;
