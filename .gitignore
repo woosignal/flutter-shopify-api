@@ -2,6 +2,7 @@
 .dart_tool/
 .packages
 .flutter-plugins
+.idea/
 
 # Conventional directory for build outputs.
 build/
