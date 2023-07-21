@@ -1,5 +1,4 @@
 library woosignal_shopify;
-
 // Copyright (c) 2023, WooSignal Ltd.
 // All rights reserved.
 //
@@ -15,14 +14,15 @@ library woosignal_shopify;
 // IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
 // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-import 'dart:convert';
 
 import 'package:woosignal_shopify/models/response/products_response.dart';
 
 import '/models/response/woosignal_app.dart';
 import '/networking/api_provider.dart';
+import '/models/response/product.dart';
 import 'package:encrypt/encrypt.dart' as enc;
 import 'package:encrypt/encrypt.dart';
+import 'dart:convert';
 
 /// WooSignal Package version
 const String wooSignalVersion = "1.0.0";
