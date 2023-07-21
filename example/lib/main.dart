@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:woosignal/woosignal_shopify.dart';
-import 'package:woosignal/models/response/product.dart';
+import 'package:woosignal_shopify/woosignal_shopify.dart';
 
 void woosignalWoocommerceExample() => runApp(MyApp());
 
@@ -33,10 +32,10 @@ class _MyHomePageState extends State<MyHomePage> {
     // CREATING AN INSTANCE FOR WOOSIGNAL
     await WooSignal.instance.init(appKey: "your app key");
 
-    List<Product> products = await WooSignal.instance.getProducts();
-    if (products.isNotEmpty) {
-      _productName = products[0].name ?? "";
-    }
+    // ProductResponse? product = await WooSignal.instance.getProducts();
+    // if (products.isNotEmpty) {
+    //   _productName = products[0].name ?? "";
+    // }
     setState(() {});
   }
 
