@@ -15,11 +15,9 @@ library woosignal_shopify;
 // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-import 'package:woosignal_shopify/models/response/products_response.dart';
-
+import '/models/response/products_response.dart';
 import '/models/response/woosignal_app.dart';
 import '/networking/api_provider.dart';
-import '/models/response/product.dart';
 import 'package:encrypt/encrypt.dart' as enc;
 import 'package:encrypt/encrypt.dart';
 import 'dart:convert';
