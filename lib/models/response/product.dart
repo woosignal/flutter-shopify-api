@@ -15,7 +15,7 @@
 
 import '../meta_data.dart';
 
-class Product {
+class  Product {
   final int? id;
   final String? name;
   final String? slug;

@@ -1,5 +1,4 @@
 library woosignal_shopify;
-
 // Copyright (c) 2023, WooSignal Ltd.
 // All rights reserved.
 //
@@ -15,14 +14,15 @@ library woosignal_shopify;
 // IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
 // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-import 'dart:convert';
+
+import 'package:woosignal_shopify/models/response/products_response.dart';
 
 import '/models/response/woosignal_app.dart';
 import '/networking/api_provider.dart';
 import '/models/response/product.dart';
-import '/models/payload/order_wc.dart';
 import 'package:encrypt/encrypt.dart' as enc;
 import 'package:encrypt/encrypt.dart';
+import 'dart:convert';
 
 /// WooSignal Package version
 const String wooSignalVersion = "1.0.0";
@@ -218,7 +218,7 @@ class WooSignal {
   }
 
   /// https://woosignal.com/docs/api/1.0/products
-  Future<List<Product>> getProducts(
+  Future<ProductsResponse?> getProducts(
       {int? limit,
         String? productType
       }) async {
@@ -226,22 +226,11 @@ class WooSignal {
     if (limit != null) payload["limit"] = limit;
     if (productType != null) payload["product_type"] = productType;
 
-    return await _wooSignalRequest<List<Product>>(
+    return await _wooSignalRequest<ProductsResponse>(
           path: "products",
           method: "post",
           payload: payload,
-          jsonResponse: (json) =>
-              (json as List).map((i) => Product.fromJson(i)).toList(),
-        ) ??
-        [];
-  }
-
-  /// https://woosignal.com/docs/api/1.0/products#retrive-a-product-api-call
-  Future<Product?> retrieveProduct({required int id}) async {
-    return await _wooSignalRequest<Product?>(
-      method: "get",
-      path: "products/${id.toString()}",
-      jsonResponse: (json) => Product.fromJson(json),
-    );
+          jsonResponse: (json) => ProductsResponse.fromJson(json)
+        );
   }
 }

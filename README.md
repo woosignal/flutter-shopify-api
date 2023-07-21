@@ -15,7 +15,7 @@ In your flutter project add the dependency:
 ``` dart 
 dependencies:
   ...
-  shopify: ^1.0.0
+  woosignal_shopify: ^1.0.0
 ```
 
 ### Usage example #
@@ -31,7 +31,7 @@ import 'package:woosignal_shopify/woosignal_shopify.dart';
 
 ...
 
-// EXAMPLE GET PRODUCTS
+// EXAMPLE GET PRODUCT
 _getProducts() async {
 
         // Step 1 - Initialize WooSignal
