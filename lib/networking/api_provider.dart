@@ -57,6 +57,17 @@ class ApiProvider {
         "api_version": "$_version/v1",
         "sdk_name": "woosignal-shopify"
       };
+    } else if (Platform.environment.containsKey('FLUTTER_TEST')) {
+      _deviceMeta = {
+        "model": 'X Model',
+        "brand": 'X Brand',
+        "manufacturer": "X Manufacturer",
+        "version": 'X Version',
+        "uuid": '1234567890',
+        "platform_type": "testing",
+        "api_version": "$_version/v1",
+        "sdk_name": "woosignal-shopify"
+      };
     }
   }
 

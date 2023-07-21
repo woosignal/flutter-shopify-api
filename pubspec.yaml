@@ -1,4 +1,4 @@
-name: woosignal_shopify
+name: woosignal
 description: Shopify REST API for dart, connect a Shopify store and start developing with our interface for their API endpoints.
 version: 1.0.0
 homepage: https://woosignal.com
@@ -15,6 +15,8 @@ dependencies:
   shared_preferences: ^2.2.0
   encrypt: ^5.0.1
   uuid: ^3.0.6
+  http: ^0.13.3
+  fluttertoast: ^8.0.8
 
   flutter:
     sdk: flutter
