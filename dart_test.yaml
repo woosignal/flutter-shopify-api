@@ -1,3 +1,7 @@
 tags:
   products:
   get-products:
+  product:
+  get-product:
+  count:
+  get-Count:

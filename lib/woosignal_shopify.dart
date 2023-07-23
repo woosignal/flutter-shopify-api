@@ -15,6 +15,9 @@ library woosignal_shopify;
 // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
+import 'package:woosignal_shopify/models/response/count_response.dart';
+import 'package:woosignal_shopify/models/response/product_response.dart';
+
 import '/models/response/products_response.dart';
 import '/models/response/woosignal_app.dart';
 import '/networking/api_provider.dart';
@@ -218,11 +221,45 @@ class WooSignal {
   /// https://woosignal.com/docs/api/1.0/products
   Future<ProductsResponse?> getProducts(
       {int? limit,
-        String? productType
+        String? productType,
+        int? collection_id,
+        DateTime? created_at_max,
+        DateTime? created_at_min,
+        String? fields,
+        String? handle,
+        List<int>? ids,
+        String? presentment_currencies,
+        DateTime? published_at_max,
+        DateTime? published_at_min,
+        String? published_status,
+        int? since_id,
+        String? status,
+        String? title,
+        DateTime? updated_at_max,
+        DateTime? updated_at_min,
+        String? vendor,
+
       }) async {
     Map<String, dynamic> payload = {};
     if (limit != null) payload["limit"] = limit;
     if (productType != null) payload["product_type"] = productType;
+    if (collection_id != null) payload["collection_id"] = collection_id;
+    if (created_at_max != null) payload["created_at_max"] = created_at_max;
+    if (created_at_min != null) payload["created_at_min"] = created_at_min;
+    if (fields != null) payload["fields"] = fields;
+    if (handle != null) payload["handle"] = handle;
+    if (ids != null) payload["ids"] = ids;
+    if (presentment_currencies != null) payload["presentment_currencies"] = presentment_currencies;
+    if (published_at_max != null) payload["published_at_max"] = published_at_max;
+    if (published_at_min != null) payload["published_at_min"] = published_at_min;
+    if (published_status != null) payload["published_status"] = published_status;
+    if (since_id != null) payload["since_id"] = since_id;
+    if (status != null) payload["status"] = status;
+    if (title != null) payload["title"] = title;
+    if (updated_at_max != null) payload["updated_at_max"] = updated_at_max;
+    if (updated_at_min != null) payload["updated_at_min"] = updated_at_min;
+    if (vendor != null) payload["vendor"] = vendor;
+
 
     return await _wooSignalRequest<ProductsResponse>(
           path: "products",
@@ -231,4 +268,66 @@ class WooSignal {
           jsonResponse: (json) => ProductsResponse.fromJson(json)
         );
   }
+
+
+  Future<ProductResponse?> getProduct(
+      {int? product_id,
+        String? fields
+
+
+      }) async {
+    Map<String, dynamic> payload = {};
+    if (product_id != null) payload["product_id"] = product_id;
+    if (fields != null) payload["fields"] = fields;
+
+
+
+    return await _wooSignalRequest<ProductResponse>(
+        path: "product",
+        method: "post",
+        payload: payload,
+        jsonResponse: (json) => ProductResponse.fromJson(json)
+    );
+  }
+
+
+  Future<CountResponse?> getCount(
+      { String? productType,
+        int? collection_id,
+        DateTime? created_at_max,
+        DateTime? created_at_min,
+        DateTime? published_at_max,
+        DateTime? published_at_min,
+        String? published_status,
+        DateTime? updated_at_max,
+        DateTime? updated_at_min,
+        String? vendor,
+
+      }) async {
+    Map<String, dynamic> payload = {};
+    if (productType != null) payload["productType"] = productType;
+    if (collection_id != null) payload["collection_id"] = collection_id;
+    if (created_at_max != null) payload["created_at_max"] = created_at_max;
+    if (created_at_min != null) payload["created_at_min"] = created_at_min;
+    if (published_at_max != null) payload["published_at_max"] = published_at_max;
+    if (published_at_min != null) payload["published_at_min"] = published_at_min;
+    if (published_status != null) payload["published_status"] = published_status;
+    if (updated_at_max != null) payload["updated_at_max"] = updated_at_max;
+    if (updated_at_min != null) payload["updated_at_min"] = updated_at_min;
+    if (vendor != null) payload["vendor"] = vendor;
+
+
+
+    return await _wooSignalRequest<CountResponse>(
+        path: "count",
+        method: "post",
+        payload: payload,
+        jsonResponse: (json) => CountResponse.fromJson(json)
+    );
+  }
 }
+
+
+
+
+

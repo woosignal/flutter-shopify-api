@@ -1,27 +1,32 @@
-class ProductsResponse {
-  List<Products>? products;
+class ProductResponse {
+  Product? product;
 
-  ProductsResponse({this.products});
+  ProductResponse({this.product});
 
-  ProductsResponse.fromJson(Map<String, dynamic> json) {
-    if (json['products'] != null) {
-      products = <Products>[];
-      json['products'].forEach((v) {
-        products!.add(new Products.fromJson(v));
-      });
+  // ProductResponse.fromJson(Map<String, dynamic> json) {
+  //   product =
+  //   json['product'] != null ? new Product.fromJson(json['product']) : null;
+  // }
+
+  ProductResponse.fromJson(Map<String, dynamic>? json) {
+    if (json != null && json is Map<String, dynamic> && json.containsKey('product')) {
+      product = Product.fromJson(json['product']);
+    } else {
+      // If 'product' is not present or is null in the JSON, set 'product' to null.
+      product = null;
     }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.products != null) {
-      data['products'] = this.products!.map((v) => v.toJson()).toList();
+    if (this.product != null) {
+      data['product'] = this.product!.toJson();
     }
     return data;
   }
 }
 
-class Products {
+class Product {
   int? id;
   String? title;
   String? bodyHtml;
@@ -41,8 +46,8 @@ class Products {
   List<Images>? images;
   Images? image;
 
-  Products(
-      {this.id,
+  Product(
+      { required this.id,
         this.title,
         this.bodyHtml,
         this.vendor,
@@ -61,7 +66,7 @@ class Products {
         this.images,
         this.image});
 
-  Products.fromJson(Map<String, dynamic> json) {
+  Product.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
     bodyHtml = json['body_html'];
