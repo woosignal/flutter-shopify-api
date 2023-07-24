@@ -1,3 +1,7 @@
 tags:
   products:
   get-products:
+  get-shop:
+  store-properties:
+  countries-properties:
+  get-countries:

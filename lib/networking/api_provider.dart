@@ -88,7 +88,8 @@ class ApiProvider {
 
   /// Init Dio class
   _initDio() {
-    BaseOptions options = BaseOptions(baseUrl: "https://api.woosignal.com/shopify/v1/");
+    BaseOptions options =
+        BaseOptions(baseUrl: "https://api.woosignal.com/shopify/v1/");
     _dio = Dio(options);
   }
 
@@ -125,8 +126,7 @@ class ApiProvider {
   /// HTTP POST request using a [url] and [data] payload
   Future<dynamic> post(url, data) async {
     try {
-      Response response =
-          await _dio.post(url, data: {"data": json.encode(data)});
+      Response response = await _dio.post(url, data: data);
       return response.data;
     } catch (error, stacktrace) {
       _printLog("$error stackTrace: $stacktrace");

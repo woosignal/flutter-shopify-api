@@ -41,7 +41,9 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/test.dart';
+import 'package:woosignal_shopify/models/response/countries_response.dart';
 import 'package:woosignal_shopify/models/response/products_response.dart';
+import 'package:woosignal_shopify/models/response/shop_response.dart';
 import 'package:woosignal_shopify/woosignal_shopify.dart';
 
 void main() {
@@ -68,4 +70,39 @@ void main() {
     }, tags: ['get-products']);
 
   }, tags: ['products']);
+
+  group('Testing Shopify Products', () {
+
+    test('get shop', () async {
+
+      ShopResponse? shopResponse = await WooSignal.instance.getShop();
+
+      expect(shopResponse is ShopResponse, true);
+
+      expect(shopResponse != null, true);
+
+    }, tags: ['get-shop']);
+
+
+
+  }, tags: ['store-properties']);
+
+/// test for countries retrieval
+  group('Testing Shopify countries', () {
+
+    test('get countries', () async {
+
+      CountriesResponse? countriesResponse = await WooSignal.instance.getCountries();
+
+      expect(countriesResponse is CountriesResponse, true);
+
+      expect(countriesResponse != null, true);
+
+    }, tags: ['get-countries']);
+
+
+
+  }, tags: ['countries-properties']);
+
+
 }

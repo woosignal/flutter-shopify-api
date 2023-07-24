@@ -15,6 +15,9 @@ library woosignal_shopify;
 // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
+import 'package:woosignal_shopify/models/response/countries_response.dart';
+import 'package:woosignal_shopify/models/response/shop_response.dart';
+
 import '/models/response/products_response.dart';
 import '/models/response/woosignal_app.dart';
 import '/networking/api_provider.dart';
@@ -84,7 +87,7 @@ class WooSignal {
      json = await _apiProvider.get(path, data: payload);
     }
     if (method == 'post') {
-      json = await _apiProvider.post(path, {"data": payload});
+      json = await _apiProvider.post(path, payload);
     }
     if (json is Map<String, dynamic> && json.containsKey('error')) {
       _printLog(json['error']);
@@ -231,4 +234,35 @@ class WooSignal {
           jsonResponse: (json) => ProductsResponse.fromJson(json)
         );
   }
+
+
+
+  /// https://woosignal.com/docs/api/1.0/shop
+  Future<ShopResponse?> getShop({String? fields,
+      }) async {
+    Map<String, dynamic> payload = {};
+    if (fields != null) payload["fields"] = fields;
+
+    return await _wooSignalRequest<ShopResponse>(
+        path: "shop",
+        method: "post",
+        payload: payload,
+        jsonResponse: (json) => ShopResponse.fromJson(json)
+    );
+  }
+
+  /// https://woosignal.com/docs/api/1.0/countries
+  Future<CountriesResponse?> getCountries({String? fields,
+      }) async {
+    Map<String, dynamic> payload = {};
+    if (fields != null) payload["fields"] = fields;
+
+    return await _wooSignalRequest<CountriesResponse>(
+        path: "countries",
+        method: "post",
+        payload: payload,
+        jsonResponse: (json) => CountriesResponse.fromJson(json)
+    );
+  }
+
 }
