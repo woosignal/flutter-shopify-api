@@ -1,41 +1,71 @@
-import 'dart:io';
+//  import 'dart:io';
+//
+// import 'package:http/http.dart' as http;
+// import 'package:http/testing.dart';
+// import 'package:flutter_test/flutter_test.dart';
+//
+//
+// void main() {
+//
+//   test('api data testing', () async {
+//     Future<http.Response> _mockRequest(http.Request request) async {
+//       if (request.url
+//           .toString()
+//           .startsWith('https://api.woosignal.com/shopify/v1/shop')) {
+//         return http.Response(
+//             File('test/test_resources/shop_data.json').readAsStringSync(),
+//             200,
+//             headers: {
+//               HttpHeaders.contentTypeHeader: 'application/json',
+//             });
+//       }
+//       return http.Response('Error: Unknown endpoint', 404);
+//     }
+//
+//
+//   //   final apiProvider = ApiProvider(MockClient(_mockRequest));
+//   //   final user = await apiProvider.getUser();
+//   //   expect(user.userId, 1);
+//   //   expect(user.id, 1);
+//   //   expect(
+//   //     user.title,
+//   //     'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
+//   //   );
+//   //   expect(
+//   //     user.body,
+//   //     'quia et suscipit suscipit recusandae consequuntur expedita et cum reprehenderit molestiae ut ut quas totam nostrum rerum est autem sunt rem eveniet architecto',
+//   //   );
+//   });
 
-import 'package:http/http.dart' as http;
-import 'package:http/testing.dart';
-import 'package:flutter_test/flutter_test.dart';
 
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:test/test.dart';
+import 'package:woosignal_shopify/models/response/products_response.dart';
+import 'package:woosignal_shopify/woosignal_shopify.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences.setMockInitialValues({});
 
-  test('api data testing', () async {
-    Future<http.Response> _mockRequest(http.Request request) async {
-      if (request.url
-          .toString()
-          .startsWith('https://api.woosignal.com/shopify/v1/shop')) {
-        return http.Response(
-            File('test/test_resources/shop_data.json').readAsStringSync(),
-            200,
-            headers: {
-              HttpHeaders.contentTypeHeader: 'application/json',
-            });
-      }
-      return http.Response('Error: Unknown endpoint', 404);
-    }
-
-
-  //   final apiProvider = ApiProvider(MockClient(_mockRequest));
-  //   final user = await apiProvider.getUser();
-  //   expect(user.userId, 1);
-  //   expect(user.id, 1);
-  //   expect(
-  //     user.title,
-  //     'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
-  //   );
-  //   expect(
-  //     user.body,
-  //     'quia et suscipit suscipit recusandae consequuntur expedita et cum reprehenderit molestiae ut ut quas totam nostrum rerum est autem sunt rem eveniet architecto',
-  //   );
+  setUp(() async {
+    await WooSignal.instance.init(
+      appKey: "app_affb6434339b34443a297c2e40a3edab7102137e6d67de9abfe612b749bd",
+      debugMode: false,
+    );
   });
 
+  group('Testing Shopify Products', () {
 
+    test('get products', () async {
+
+      ProductsResponse? productsResponse = await WooSignal.instance.getProducts();
+
+      expect(productsResponse is ProductsResponse, true);
+
+      expect(productsResponse?.products!.isNotEmpty, true);
+
+    }, tags: ['get-products']);
+
+  }, tags: ['products']);
 }
