@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:woosignal/woosignal_shopify.dart';
 import 'package:woosignal/models/response/product.dart';
 
-void woosignalWoocommerceExample() => runApp(MyApp());
+void main(){
+  runApp(MyApp());
+}
+//void woosignalWoocommerceExample() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
@@ -12,10 +15,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'WooSignal Demo Home Page'),
+       home: MyHomePage(title: 'WooSignal Demo Home Page'),
+
     );
   }
 }
+
+
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key, required this.title}) : super(key: key);
