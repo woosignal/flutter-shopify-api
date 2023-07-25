@@ -14,11 +14,9 @@ library woosignal_shopify;
 // IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
 // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-
+import 'package:woosignal_shopify/models/product_image.dart';
 import 'package:woosignal_shopify/models/response/product_image_count_response.dart';
-import 'package:woosignal_shopify/models/response/product_image_response.dart';
 import 'package:woosignal_shopify/models/response/product_images_response.dart';
-
 import '/models/response/products_response.dart';
 import '/models/response/woosignal_app.dart';
 import '/networking/api_provider.dart';
@@ -251,18 +249,19 @@ class WooSignal {
     );
   }
 
-  Future<ProductImageResponse?> getProductImage(
+  Future<ProductImage?> getProductImage(
       {required int imageId,
         required int productId,
         String? fields,
       }) async {
     Map<String, dynamic> payload = {};
     if (fields != null) payload["fields"] = fields;
-    return await _wooSignalRequest<ProductImageResponse>(
+
+    return await _wooSignalRequest<ProductImage>(
         path: "products/$productId/image/$imageId",
         method: "post",
         payload: payload,
-        jsonResponse: (json) => ProductImageResponse.fromJson(json)
+        jsonResponse: (json) => ProductImage.fromJson(json['image'])
     );
   }
 
@@ -272,6 +271,7 @@ class WooSignal {
       }) async {
     Map<String, dynamic> payload = {};
     if (sinceId != null) payload["since_id"] = sinceId;
+
     return await _wooSignalRequest<ProductImageCountResponse>(
         path: "products/$productId/images/count",
         method: "post",

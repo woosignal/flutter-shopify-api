@@ -1,22 +1,19 @@
-class ProductImageResponse {
-  Image? image;
+// Copyright (c) 2023, WooSignal Ltd.
+// All rights reserved.
+//
+// Redistribution and use in source and binary forms are permitted
+// provided that the above copyright notice and this paragraph are
+// duplicated in all such forms and that any documentation,
+// advertising materials, and other materials related to such
+// distribution and use acknowledge that the software was developed
+// by the WooSignal. The name of the
+// WooSignal may not be used to endorse or promote products derived
+// from this software without specific prior written permission.
+// THIS SOFTWARE IS PROVIDED ``AS IS'' AND WITHOUT ANY EXPRESS OR
+// IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+// WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-  ProductImageResponse({this.image});
-
-  ProductImageResponse.fromJson(Map<String, dynamic> json) {
-    image = json['image'] != null ? Image.fromJson(json['image']) : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    if (image != null) {
-      data['image'] = image!.toJson();
-    }
-    return data;
-  }
-}
-
-class Image {
+class ProductImage {
   int? id;
   int? productId;
   int? position;
@@ -29,7 +26,7 @@ class Image {
   List<int>? variantIds;
   String? adminGraphqlApiId;
 
-  Image(
+  ProductImage(
       {this.id,
         this.productId,
         this.position,
@@ -42,7 +39,7 @@ class Image {
         this.variantIds,
         this.adminGraphqlApiId});
 
-  Image.fromJson(Map<String, dynamic> json) {
+  ProductImage.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     productId = json['product_id'];
     position = json['position'];
@@ -57,7 +54,7 @@ class Image {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
+    final Map<String, dynamic> data = {};
     data['id'] = id;
     data['product_id'] = productId;
     data['position'] = position;
