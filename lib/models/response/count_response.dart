@@ -8,8 +8,8 @@ class CountResponse {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['count'] = this.count;
+    final Map<String, dynamic> data = {};
+    data['count'] = count;
     return data;
   }
 }

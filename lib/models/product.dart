@@ -1,30 +1,3 @@
-class ProductResponse {
-  Product? product;
-
-  ProductResponse({this.product});
-
-  // ProductResponse.fromJson(Map<String, dynamic> json) {
-  //   product =
-  //   json['product'] != null ? new Product.fromJson(json['product']) : null;
-  // }
-
-  ProductResponse.fromJson(Map<String, dynamic>? json) {
-    if (json != null && json is Map<String, dynamic> && json.containsKey('product')) {
-      product = Product.fromJson(json['product']);
-    } else {
-      // If 'product' is not present or is null in the JSON, set 'product' to null.
-      product = null;
-    }
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.product != null) {
-      data['product'] = this.product!.toJson();
-    }
-    return data;
-  }
-}
 
 class Product {
   int? id;
@@ -47,7 +20,7 @@ class Product {
   Images? image;
 
   Product(
-      { required this.id,
+      {this.id,
         this.title,
         this.bodyHtml,
         this.vendor,
@@ -84,51 +57,51 @@ class Product {
     if (json['variants'] != null) {
       variants = <Variants>[];
       json['variants'].forEach((v) {
-        variants!.add(new Variants.fromJson(v));
+        variants!.add(Variants.fromJson(v));
       });
     }
     if (json['options'] != null) {
       options = <Options>[];
       json['options'].forEach((v) {
-        options!.add(new Options.fromJson(v));
+        options!.add(Options.fromJson(v));
       });
     }
     if (json['images'] != null) {
       images = <Images>[];
       json['images'].forEach((v) {
-        images!.add(new Images.fromJson(v));
+        images!.add(Images.fromJson(v));
       });
     }
-    image = json['image'] != null ? new Images.fromJson(json['image']) : null;
+    image = json['image'] != null ? Images.fromJson(json['image']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['body_html'] = this.bodyHtml;
-    data['vendor'] = this.vendor;
-    data['product_type'] = this.productType;
-    data['created_at'] = this.createdAt;
-    data['handle'] = this.handle;
-    data['updated_at'] = this.updatedAt;
-    data['published_at'] = this.publishedAt;
-    data['template_suffix'] = this.templateSuffix;
-    data['status'] = this.status;
-    data['published_scope'] = this.publishedScope;
-    data['tags'] = this.tags;
-    data['admin_graphql_api_id'] = this.adminGraphqlApiId;
-    if (this.variants != null) {
-      data['variants'] = this.variants!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = {};
+    data['id'] = id;
+    data['title'] = title;
+    data['body_html'] = bodyHtml;
+    data['vendor'] = vendor;
+    data['product_type'] = productType;
+    data['created_at'] = createdAt;
+    data['handle'] = handle;
+    data['updated_at'] = updatedAt;
+    data['published_at'] = publishedAt;
+    data['template_suffix'] = templateSuffix;
+    data['status'] = status;
+    data['published_scope'] = publishedScope;
+    data['tags'] = tags;
+    data['admin_graphql_api_id'] = adminGraphqlApiId;
+    if (variants != null) {
+      data['variants'] = variants!.map((v) => v.toJson()).toList();
     }
-    if (this.options != null) {
-      data['options'] = this.options!.map((v) => v.toJson()).toList();
+    if (options != null) {
+      data['options'] = options!.map((v) => v.toJson()).toList();
     }
-    if (this.images != null) {
-      data['images'] = this.images!.map((v) => v.toJson()).toList();
+    if (images != null) {
+      data['images'] = images!.map((v) => v.toJson()).toList();
     }
-    if (this.image != null) {
-      data['image'] = this.image!.toJson();
+    if (image != null) {
+      data['image'] = image!.toJson();
     }
     return data;
   }
@@ -220,33 +193,33 @@ class Variants {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['product_id'] = this.productId;
-    data['title'] = this.title;
-    data['price'] = this.price;
-    data['sku'] = this.sku;
-    data['position'] = this.position;
-    data['inventory_policy'] = this.inventoryPolicy;
-    data['compare_at_price'] = this.compareAtPrice;
-    data['fulfillment_service'] = this.fulfillmentService;
-    data['inventory_management'] = this.inventoryManagement;
-    data['option1'] = this.option1;
-    data['option2'] = this.option2;
-    data['option3'] = this.option3;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['taxable'] = this.taxable;
-    data['barcode'] = this.barcode;
-    data['grams'] = this.grams;
-    data['image_id'] = this.imageId;
-    data['weight'] = this.weight;
-    data['weight_unit'] = this.weightUnit;
-    data['inventory_item_id'] = this.inventoryItemId;
-    data['inventory_quantity'] = this.inventoryQuantity;
-    data['old_inventory_quantity'] = this.oldInventoryQuantity;
-    data['requires_shipping'] = this.requiresShipping;
-    data['admin_graphql_api_id'] = this.adminGraphqlApiId;
+    final Map<String, dynamic> data = {};
+    data['id'] = id;
+    data['product_id'] = productId;
+    data['title'] = title;
+    data['price'] = price;
+    data['sku'] = sku;
+    data['position'] = position;
+    data['inventory_policy'] = inventoryPolicy;
+    data['compare_at_price'] = compareAtPrice;
+    data['fulfillment_service'] = fulfillmentService;
+    data['inventory_management'] = inventoryManagement;
+    data['option1'] = option1;
+    data['option2'] = option2;
+    data['option3'] = option3;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    data['taxable'] = taxable;
+    data['barcode'] = barcode;
+    data['grams'] = grams;
+    data['image_id'] = imageId;
+    data['weight'] = weight;
+    data['weight_unit'] = weightUnit;
+    data['inventory_item_id'] = inventoryItemId;
+    data['inventory_quantity'] = inventoryQuantity;
+    data['old_inventory_quantity'] = oldInventoryQuantity;
+    data['requires_shipping'] = requiresShipping;
+    data['admin_graphql_api_id'] = adminGraphqlApiId;
     return data;
   }
 }
@@ -269,12 +242,12 @@ class Options {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['product_id'] = this.productId;
-    data['name'] = this.name;
-    data['position'] = this.position;
-    data['values'] = this.values;
+    final Map<String, dynamic> data = {};
+    data['id'] = id;
+    data['product_id'] = productId;
+    data['name'] = name;
+    data['position'] = position;
+    data['values'] = values;
     return data;
   }
 }
@@ -320,18 +293,18 @@ class Images {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['product_id'] = this.productId;
-    data['position'] = this.position;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['alt'] = this.alt;
-    data['width'] = this.width;
-    data['height'] = this.height;
-    data['src'] = this.src;
-    data['variant_ids'] = this.variantIds;
-    data['admin_graphql_api_id'] = this.adminGraphqlApiId;
+    final Map<String, dynamic> data = {};
+    data['id'] = id;
+    data['product_id'] = productId;
+    data['position'] = position;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    data['alt'] = alt;
+    data['width'] = width;
+    data['height'] = height;
+    data['src'] = src;
+    data['variant_ids'] = variantIds;
+    data['admin_graphql_api_id'] = adminGraphqlApiId;
     return data;
   }
 }
