@@ -1,3 +1,6 @@
 tags:
   products:
   get-products:
+  get-product-images:
+  products-single-product-image:
+  products-count-of-product-images:
