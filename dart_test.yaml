@@ -5,3 +5,5 @@ tags:
   store-properties:
   countries-properties:
   get-countries:
+  get-policies:
+  policies-properties:
