@@ -9,3 +9,5 @@ tags:
   policies-properties:
   get-shipping-zones:
   shipping-zones-properties:
+  shipping-provinces:
+  get-provinces:

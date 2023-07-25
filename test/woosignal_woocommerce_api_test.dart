@@ -43,6 +43,7 @@ import 'package:test/test.dart';
 import 'package:woosignal_shopify/models/response/countries_response.dart';
 import 'package:woosignal_shopify/models/response/policies_response.dart';
 import 'package:woosignal_shopify/models/response/products_response.dart';
+import 'package:woosignal_shopify/models/response/provinces_response.dart';
 import 'package:woosignal_shopify/models/response/shipping_zones_response.dart';
 import 'package:woosignal_shopify/models/response/shop_response.dart';
 import 'package:woosignal_shopify/woosignal_shopify.dart';
@@ -115,5 +116,16 @@ void main() {
       expect(shippingZonesResponse != null, true);
     }, tags: ['get-shipping-zones']);
   }, tags: ['shipping-zones-properties']);
-}
 
+  /// test for policies retrieval
+  group('Testing Shopify provinces', () {
+    test('get provinces', () async {
+      ProvincesResponse? provincesResponse =
+          await WooSignal.instance.getProvinces(id: 765701030200);
+
+      expect(provincesResponse is ProvincesResponse, true);
+
+      expect(provincesResponse != null, true);
+    }, tags: ['get-provinces']);
+  }, tags: ['shipping-provinces']);
+}

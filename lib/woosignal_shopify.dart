@@ -17,6 +17,7 @@ library woosignal_shopify;
 
 import 'package:woosignal_shopify/models/response/countries_response.dart';
 import 'package:woosignal_shopify/models/response/policies_response.dart';
+import 'package:woosignal_shopify/models/response/provinces_response.dart';
 import 'package:woosignal_shopify/models/response/shop_response.dart';
 
 import '/models/response/products_response.dart';
@@ -291,6 +292,20 @@ class WooSignal {
         method: "post",
         payload: payload,
         jsonResponse: (json) => ShippingZonesResponse.fromJson(json)
+    );
+  }
+  /// https://woosignal.com/docs/api/1.0/provinces/{countryId}
+  Future<ProvincesResponse?> getProvinces({String? fields,
+   required int id,
+      }) async {
+    Map<String, dynamic> payload = {};
+    if (fields != null) payload["fields"] = fields;
+
+    return await _wooSignalRequest<ProvincesResponse>(
+        path: "provinces/$id",
+        method: "post",
+        payload: payload,
+        jsonResponse: (json) => ProvincesResponse.fromJson(json)
     );
   }
 
