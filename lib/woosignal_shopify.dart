@@ -222,14 +222,14 @@ class WooSignal {
       {int? limit,
         String? productType,
         int? collectionId,
-        DateTime? createdAtMax,
-        DateTime? createdAtMin,
+        String? createdAtMax,
+        String? createdAtMin,
         String? fields,
         String? handle,
         List<int>? ids,
         String? presentmentCurrencies,
-        DateTime? publishedAtMax,
-        DateTime? publishedAtMin,
+        String? publishedAtMax,
+        String? publishedAtMin,
         String? publishedStatus,
         int? sinceId,
         String? status,
@@ -282,15 +282,15 @@ class WooSignal {
   }
 
   Future<CountResponse?> getProductCount(
-      { String? productType,
+      {String? productType,
         int? collectionId,
-        DateTime? createdAtMax,
-        DateTime? createdAtMin,
-        DateTime? publishedAtMax,
-        DateTime? publishedAtMin,
+        String? createdAtMax,
+        String? createdAtMin,
+        String? publishedAtMax,
+        String? publishedAtMin,
         String? publishedStatus,
-        DateTime? updatedAtMax,
-        DateTime? updatedAtMin,
+        String? updatedAtMax,
+        String? updatedAtMin,
         String? vendor,
       }) async {
     Map<String, dynamic> payload = {};
@@ -313,8 +313,3 @@ class WooSignal {
     );
   }
 }
-
-
-
-
-
