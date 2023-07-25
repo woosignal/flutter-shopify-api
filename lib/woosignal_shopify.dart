@@ -14,7 +14,9 @@ library woosignal_shopify;
 // IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
 // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-
+import 'package:woosignal_shopify/models/product_image.dart';
+import 'package:woosignal_shopify/models/response/product_image_count_response.dart';
+import 'package:woosignal_shopify/models/response/product_images_response.dart';
 import 'package:woosignal_shopify/models/product.dart';
 import 'package:woosignal_shopify/models/response/count_response.dart';
 import '/models/response/products_response.dart';
@@ -259,11 +261,11 @@ class WooSignal {
     if (vendor != null) payload["vendor"] = vendor;
 
     return await _wooSignalRequest<ProductsResponse>(
-          path: "products",
-          method: "post",
-          payload: payload,
-          jsonResponse: (json) => ProductsResponse.fromJson(json)
-        );
+        path: "products",
+        method: "post",
+        payload: payload,
+        jsonResponse: (json) => ProductsResponse.fromJson(json)
+    );
   }
 
   Future<Product?> getProduct(
@@ -310,6 +312,53 @@ class WooSignal {
         method: "post",
         payload: payload,
         jsonResponse: (json) => CountResponse.fromJson(json)
+    );
+  }
+
+  Future<ProductImagesResponse?> getProductImages(
+      {required int productId,
+        String? fields,
+        int? sinceId,
+      }) async {
+    Map<String, dynamic> payload = {};
+    if (fields != null) payload["fields"] = fields;
+    if (sinceId != null) payload["since_id"] = sinceId;
+    return await _wooSignalRequest<ProductImagesResponse>(
+        path: "products/$productId/images",
+        method: "post",
+        payload: payload,
+        jsonResponse: (json) => ProductImagesResponse.fromJson(json)
+    );
+  }
+
+  Future<ProductImage?> getProductImage(
+      {required int imageId,
+        required int productId,
+        String? fields,
+      }) async {
+    Map<String, dynamic> payload = {};
+    if (fields != null) payload["fields"] = fields;
+
+    return await _wooSignalRequest<ProductImage>(
+        path: "products/$productId/image/$imageId",
+        method: "post",
+        payload: payload,
+        jsonResponse: (json) => ProductImage.fromJson(json['image'])
+    );
+  }
+
+  Future<ProductImageCountResponse?> getProductImageCount(
+      {required int? productId,
+        int? sinceId,
+      }) async {
+    Map<String, dynamic> payload = {};
+    if (sinceId != null) payload["since_id"] = sinceId;
+
+    return await _wooSignalRequest<ProductImageCountResponse>(
+        path: "products/$productId/images/count",
+        method: "post",
+        payload: payload,
+        jsonResponse: (json) => ProductImageCountResponse.fromJson(json)
     );
   }
 }
