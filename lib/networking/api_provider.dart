@@ -126,7 +126,7 @@ class ApiProvider {
   Future<dynamic> post(url, data) async {
     try {
       Response response =
-          await _dio.post(url, data: {"data": json.encode(data)});
+          await _dio.post(url, data: data);
       return response.data;
     } catch (error, stacktrace) {
       _printLog("$error stackTrace: $stacktrace");
