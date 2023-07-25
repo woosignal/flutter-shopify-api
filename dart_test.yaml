@@ -7,3 +7,5 @@ tags:
   get-countries:
   get-policies:
   policies-properties:
+  get-shipping-zones:
+  shipping-zones-properties:

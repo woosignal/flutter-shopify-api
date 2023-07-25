@@ -26,6 +26,8 @@ import 'package:encrypt/encrypt.dart' as enc;
 import 'package:encrypt/encrypt.dart';
 import 'dart:convert';
 
+import 'models/response/shipping_zones_response.dart';
+
 /// WooSignal Package version
 const String wooSignalVersion = "1.0.0";
 
@@ -276,6 +278,19 @@ class WooSignal {
         method: "post",
         payload: payload,
         jsonResponse: (json) => PoliciesResponse.fromJson(json)
+    );
+  }
+  /// https://woosignal.com/docs/api/1.0/shipping-zones
+  Future<ShippingZonesResponse?> getShippingZones({String? fields,
+      }) async {
+    Map<String, dynamic> payload = {};
+    if (fields != null) payload["fields"] = fields;
+
+    return await _wooSignalRequest<ShippingZonesResponse>(
+        path: "shipping-zones",
+        method: "post",
+        payload: payload,
+        jsonResponse: (json) => ShippingZonesResponse.fromJson(json)
     );
   }
 
