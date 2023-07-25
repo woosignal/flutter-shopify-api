@@ -13,3 +13,18 @@
 // IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
 // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
+class CountResponse {
+  int? count;
+
+  CountResponse({this.count});
+
+  CountResponse.fromJson(Map<String, dynamic> json) {
+    count = json['count'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = {};
+    data['count'] = count;
+    return data;
+  }
+}
