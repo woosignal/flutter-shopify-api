@@ -4,7 +4,6 @@ import 'package:woosignal_shopify/woosignal_shopify.dart';
 void main(){
   runApp(MyApp());
 }
-//void woosignalWoocommerceExample() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
@@ -15,12 +14,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
        home: MyHomePage(title: 'WooSignal Demo Home Page'),
-
     );
   }
 }
-
-
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key, required this.title}) : super(key: key);
