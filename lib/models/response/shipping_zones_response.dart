@@ -1,40 +1,40 @@
 class ShippingZonesResponse {
-  List<ShippingZone> shippingZones;
+  List<ShippingZone>? shippingZones;
 
   ShippingZonesResponse({
-    required this.shippingZones,
+    this.shippingZones,
   });
 
   factory ShippingZonesResponse.fromJson(Map<String, dynamic> json) => ShippingZonesResponse(
-    shippingZones: List<ShippingZone>.from(json["shipping_zones"].map((x) => ShippingZone.fromJson(x))),
+    shippingZones: json["shipping_zones"] == null ? [] : List<ShippingZone>.from(json["shipping_zones"]!.map((x) => ShippingZone.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
-    "shipping_zones": List<dynamic>.from(shippingZones.map((x) => x.toJson())),
+    "shipping_zones": shippingZones == null ? [] : List<dynamic>.from(shippingZones!.map((x) => x.toJson())),
   };
 }
 
 class ShippingZone {
-  int id;
-  String name;
-  String profileId;
-  String locationGroupId;
-  String adminGraphqlApiId;
-  List<Country> countries;
-  List<dynamic> weightBasedShippingRates;
-  List<PriceBasedShippingRate> priceBasedShippingRates;
-  List<dynamic> carrierShippingRateProviders;
+  int? id;
+  String? name;
+  String? profileId;
+  String? locationGroupId;
+  String? adminGraphqlApiId;
+  List<Country>? countries;
+  List<dynamic>? weightBasedShippingRates;
+  List<PriceBasedShippingRate>? priceBasedShippingRates;
+  List<dynamic>? carrierShippingRateProviders;
 
   ShippingZone({
-    required this.id,
-    required this.name,
-    required this.profileId,
-    required this.locationGroupId,
-    required this.adminGraphqlApiId,
-    required this.countries,
-    required this.weightBasedShippingRates,
-    required this.priceBasedShippingRates,
-    required this.carrierShippingRateProviders,
+    this.id,
+    this.name,
+    this.profileId,
+    this.locationGroupId,
+    this.adminGraphqlApiId,
+    this.countries,
+    this.weightBasedShippingRates,
+    this.priceBasedShippingRates,
+    this.carrierShippingRateProviders,
   });
 
   factory ShippingZone.fromJson(Map<String, dynamic> json) => ShippingZone(
@@ -43,10 +43,10 @@ class ShippingZone {
     profileId: json["profile_id"],
     locationGroupId: json["location_group_id"],
     adminGraphqlApiId: json["admin_graphql_api_id"],
-    countries: List<Country>.from(json["countries"].map((x) => Country.fromJson(x))),
-    weightBasedShippingRates: List<dynamic>.from(json["weight_based_shipping_rates"].map((x) => x)),
-    priceBasedShippingRates: List<PriceBasedShippingRate>.from(json["price_based_shipping_rates"].map((x) => PriceBasedShippingRate.fromJson(x))),
-    carrierShippingRateProviders: List<dynamic>.from(json["carrier_shipping_rate_providers"].map((x) => x)),
+    countries: json["countries"] == null ? [] : List<Country>.from(json["countries"]!.map((x) => Country.fromJson(x))),
+    weightBasedShippingRates: json["weight_based_shipping_rates"] == null ? [] : List<dynamic>.from(json["weight_based_shipping_rates"]!.map((x) => x)),
+    priceBasedShippingRates: json["price_based_shipping_rates"] == null ? [] : List<PriceBasedShippingRate>.from(json["price_based_shipping_rates"]!.map((x) => PriceBasedShippingRate.fromJson(x))),
+    carrierShippingRateProviders: json["carrier_shipping_rate_providers"] == null ? [] : List<dynamic>.from(json["carrier_shipping_rate_providers"]!.map((x) => x)),
   );
 
   Map<String, dynamic> toJson() => {
@@ -55,30 +55,30 @@ class ShippingZone {
     "profile_id": profileId,
     "location_group_id": locationGroupId,
     "admin_graphql_api_id": adminGraphqlApiId,
-    "countries": List<dynamic>.from(countries.map((x) => x.toJson())),
-    "weight_based_shipping_rates": List<dynamic>.from(weightBasedShippingRates.map((x) => x)),
-    "price_based_shipping_rates": List<dynamic>.from(priceBasedShippingRates.map((x) => x.toJson())),
-    "carrier_shipping_rate_providers": List<dynamic>.from(carrierShippingRateProviders.map((x) => x)),
+    "countries": countries == null ? [] : List<dynamic>.from(countries!.map((x) => x.toJson())),
+    "weight_based_shipping_rates": weightBasedShippingRates == null ? [] : List<dynamic>.from(weightBasedShippingRates!.map((x) => x)),
+    "price_based_shipping_rates": priceBasedShippingRates == null ? [] : List<dynamic>.from(priceBasedShippingRates!.map((x) => x.toJson())),
+    "carrier_shipping_rate_providers": carrierShippingRateProviders == null ? [] : List<dynamic>.from(carrierShippingRateProviders!.map((x) => x)),
   };
 }
 
 class Country {
-  int id;
-  String name;
-  double tax;
-  String code;
-  String taxName;
-  int shippingZoneId;
-  List<Province> provinces;
+  int? id;
+  String? name;
+  double? tax;
+  String? code;
+  String? taxName;
+  int? shippingZoneId;
+  List<Province>? provinces;
 
   Country({
-    required this.id,
-    required this.name,
-    required this.tax,
-    required this.code,
-    required this.taxName,
-    required this.shippingZoneId,
-    required this.provinces,
+    this.id,
+    this.name,
+    this.tax,
+    this.code,
+    this.taxName,
+    this.shippingZoneId,
+    this.provinces,
   });
 
   factory Country.fromJson(Map<String, dynamic> json) => Country(
@@ -88,7 +88,7 @@ class Country {
     code: json["code"],
     taxName: json["tax_name"],
     shippingZoneId: json["shipping_zone_id"],
-    provinces: List<Province>.from(json["provinces"].map((x) => Province.fromJson(x))),
+    provinces: json["provinces"] == null ? [] : List<Province>.from(json["provinces"]!.map((x) => Province.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -98,31 +98,31 @@ class Country {
     "code": code,
     "tax_name": taxName,
     "shipping_zone_id": shippingZoneId,
-    "provinces": List<dynamic>.from(provinces.map((x) => x.toJson())),
+    "provinces": provinces == null ? [] : List<dynamic>.from(provinces!.map((x) => x.toJson())),
   };
 }
 
 class Province {
-  int id;
-  int countryId;
-  String name;
-  String code;
-  int tax;
-  TaxName taxName;
+  int? id;
+  int? countryId;
+  String? name;
+  String? code;
+  int? tax;
+  TaxName? taxName;
   String? taxType;
-  int taxPercentage;
-  int shippingZoneId;
+  int? taxPercentage;
+  int? shippingZoneId;
 
   Province({
-    required this.id,
-    required this.countryId,
-    required this.name,
-    required this.code,
-    required this.tax,
-    required this.taxName,
+    this.id,
+    this.countryId,
+    this.name,
+    this.code,
+    this.tax,
+    this.taxName,
     this.taxType,
-    required this.taxPercentage,
-    required this.shippingZoneId,
+    this.taxPercentage,
+    this.shippingZoneId,
   });
 
   factory Province.fromJson(Map<String, dynamic> json) => Province(
@@ -150,7 +150,19 @@ class Province {
   };
 }
 
-enum TaxName { VAT, TAX, PST, RST, HST, QST, THE_00, SST, GST, STATE_TAX, GRT }
+enum TaxName {
+  GRT,
+  GST,
+  HST,
+  PST,
+  QST,
+  RST,
+  SST,
+  STATE_TAX,
+  TAX,
+  THE_00,
+  VAT
+}
 
 final taxNameValues = EnumValues({
   "GRT": TaxName.GRT,
@@ -167,19 +179,19 @@ final taxNameValues = EnumValues({
 });
 
 class PriceBasedShippingRate {
-  int id;
-  String name;
-  String price;
-  int shippingZoneId;
-  String minOrderSubtotal;
+  int? id;
+  String? name;
+  String? price;
+  int? shippingZoneId;
+  String? minOrderSubtotal;
   dynamic maxOrderSubtotal;
 
   PriceBasedShippingRate({
-    required this.id,
-    required this.name,
-    required this.price,
-    required this.shippingZoneId,
-    required this.minOrderSubtotal,
+    this.id,
+    this.name,
+    this.price,
+    this.shippingZoneId,
+    this.minOrderSubtotal,
     this.maxOrderSubtotal,
   });
 

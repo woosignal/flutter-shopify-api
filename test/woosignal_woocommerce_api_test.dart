@@ -1,42 +1,3 @@
-//  import 'dart:io';
-//
-// import 'package:http/http.dart' as http;
-// import 'package:http/testing.dart';
-// import 'package:flutter_test/flutter_test.dart';
-//
-//
-// void main() {
-//
-//   test('api data testing', () async {
-//     Future<http.Response> _mockRequest(http.Request request) async {
-//       if (request.url
-//           .toString()
-//           .startsWith('https://api.woosignal.com/shopify/v1/shop')) {
-//         return http.Response(
-//             File('test/test_resources/shop_data.json').readAsStringSync(),
-//             200,
-//             headers: {
-//               HttpHeaders.contentTypeHeader: 'application/json',
-//             });
-//       }
-//       return http.Response('Error: Unknown endpoint', 404);
-//     }
-//
-//
-//   //   final apiProvider = ApiProvider(MockClient(_mockRequest));
-//   //   final user = await apiProvider.getUser();
-//   //   expect(user.userId, 1);
-//   //   expect(user.id, 1);
-//   //   expect(
-//   //     user.title,
-//   //     'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
-//   //   );
-//   //   expect(
-//   //     user.body,
-//   //     'quia et suscipit suscipit recusandae consequuntur expedita et cum reprehenderit molestiae ut ut quas totam nostrum rerum est autem sunt rem eveniet architecto',
-//   //   );
-//   });
-
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/test.dart';
@@ -71,7 +32,7 @@ void main() {
     }, tags: ['get-products']);
   }, tags: ['products']);
 
-  group('Testing Shopify Products', () {
+  group('Testing Shopify Shop', () {
     test('get shop', () async {
       ShopResponse? shopResponse = await WooSignal.instance.getShop();
 
@@ -105,7 +66,7 @@ void main() {
     }, tags: ['get-policies']);
   }, tags: ['policies-properties']);
 
-  /// test for policies retrieval
+  /// test for shipping-zones retrieval
   group('Testing Shopify shipping-zones', () {
     test('get shipping-zones', () async {
       ShippingZonesResponse? shippingZonesResponse =
@@ -117,7 +78,7 @@ void main() {
     }, tags: ['get-shipping-zones']);
   }, tags: ['shipping-zones-properties']);
 
-  /// test for policies retrieval
+  /// test for provinces retrieval
   group('Testing Shopify provinces', () {
     test('get provinces', () async {
       ProvincesResponse? provincesResponse =

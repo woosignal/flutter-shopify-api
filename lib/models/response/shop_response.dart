@@ -1,19 +1,17 @@
 class ShopResponse {
   Shop? shop;
 
-  ShopResponse({this.shop});
+  ShopResponse({
+    this.shop,
+  });
 
-  ShopResponse.fromJson(Map<String, dynamic> json) {
-    shop = json['shop'] != null ? new Shop.fromJson(json['shop']) : null;
-  }
+  factory ShopResponse.fromJson(Map<String, dynamic> json) => ShopResponse(
+    shop: json["shop"] == null ? null : Shop.fromJson(json["shop"]),
+  );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.shop != null) {
-      data['shop'] = this.shop!.toJson();
-    }
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+    "shop": shop?.toJson(),
+  };
 }
 
 class Shop {
@@ -26,14 +24,14 @@ class Shop {
   String? address1;
   String? zip;
   String? city;
-  Null? source;
+  dynamic source;
   String? phone;
   double? latitude;
   double? longitude;
   String? primaryLocale;
   String? address2;
-  String? createdAt;
-  String? updatedAt;
+  DateTime? createdAt;
+  DateTime? updatedAt;
   String? countryCode;
   String? countryName;
   String? currency;
@@ -46,16 +44,16 @@ class Shop {
   String? weightUnit;
   String? provinceCode;
   bool? taxesIncluded;
-  Null? autoConfigureTaxInclusivity;
-  Null? taxShipping;
+  dynamic autoConfigureTaxInclusivity;
+  dynamic taxShipping;
   bool? countyTaxes;
   String? planDisplayName;
   String? planName;
   bool? hasDiscounts;
   bool? hasGiftCards;
   String? myshopifyDomain;
-  Null? googleAppsDomain;
-  Null? googleAppsLoginEnabled;
+  dynamic googleAppsDomain;
+  dynamic googleAppsLoginEnabled;
   String? moneyInEmailsFormat;
   String? moneyWithCurrencyInEmailsFormat;
   bool? eligibleForPayments;
@@ -73,184 +71,177 @@ class Shop {
   bool? transactionalSmsDisabled;
   bool? marketingSmsConsentEnabledAtCheckout;
 
-  Shop(
-      {this.id,
-        this.name,
-        this.email,
-        this.domain,
-        this.province,
-        this.country,
-        this.address1,
-        this.zip,
-        this.city,
-        this.source,
-        this.phone,
-        this.latitude,
-        this.longitude,
-        this.primaryLocale,
-        this.address2,
-        this.createdAt,
-        this.updatedAt,
-        this.countryCode,
-        this.countryName,
-        this.currency,
-        this.customerEmail,
-        this.timezone,
-        this.ianaTimezone,
-        this.shopOwner,
-        this.moneyFormat,
-        this.moneyWithCurrencyFormat,
-        this.weightUnit,
-        this.provinceCode,
-        this.taxesIncluded,
-        this.autoConfigureTaxInclusivity,
-        this.taxShipping,
-        this.countyTaxes,
-        this.planDisplayName,
-        this.planName,
-        this.hasDiscounts,
-        this.hasGiftCards,
-        this.myshopifyDomain,
-        this.googleAppsDomain,
-        this.googleAppsLoginEnabled,
-        this.moneyInEmailsFormat,
-        this.moneyWithCurrencyInEmailsFormat,
-        this.eligibleForPayments,
-        this.requiresExtraPaymentsAgreement,
-        this.passwordEnabled,
-        this.hasStorefront,
-        this.finances,
-        this.primaryLocationId,
-        this.cookieConsentLevel,
-        this.checkoutApiSupported,
-        this.multiLocationEnabled,
-        this.setupRequired,
-        this.preLaunchEnabled,
-        this.enabledPresentmentCurrencies,
-        this.transactionalSmsDisabled,
-        this.marketingSmsConsentEnabledAtCheckout});
+  Shop({
+    this.id,
+    this.name,
+    this.email,
+    this.domain,
+    this.province,
+    this.country,
+    this.address1,
+    this.zip,
+    this.city,
+    this.source,
+    this.phone,
+    this.latitude,
+    this.longitude,
+    this.primaryLocale,
+    this.address2,
+    this.createdAt,
+    this.updatedAt,
+    this.countryCode,
+    this.countryName,
+    this.currency,
+    this.customerEmail,
+    this.timezone,
+    this.ianaTimezone,
+    this.shopOwner,
+    this.moneyFormat,
+    this.moneyWithCurrencyFormat,
+    this.weightUnit,
+    this.provinceCode,
+    this.taxesIncluded,
+    this.autoConfigureTaxInclusivity,
+    this.taxShipping,
+    this.countyTaxes,
+    this.planDisplayName,
+    this.planName,
+    this.hasDiscounts,
+    this.hasGiftCards,
+    this.myshopifyDomain,
+    this.googleAppsDomain,
+    this.googleAppsLoginEnabled,
+    this.moneyInEmailsFormat,
+    this.moneyWithCurrencyInEmailsFormat,
+    this.eligibleForPayments,
+    this.requiresExtraPaymentsAgreement,
+    this.passwordEnabled,
+    this.hasStorefront,
+    this.finances,
+    this.primaryLocationId,
+    this.cookieConsentLevel,
+    this.checkoutApiSupported,
+    this.multiLocationEnabled,
+    this.setupRequired,
+    this.preLaunchEnabled,
+    this.enabledPresentmentCurrencies,
+    this.transactionalSmsDisabled,
+    this.marketingSmsConsentEnabledAtCheckout,
+  });
 
-  Shop.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    email = json['email'];
-    domain = json['domain'];
-    province = json['province'];
-    country = json['country'];
-    address1 = json['address1'];
-    zip = json['zip'];
-    city = json['city'];
-    source = json['source'];
-    phone = json['phone'];
-    latitude = json['latitude'];
-    longitude = json['longitude'];
-    primaryLocale = json['primary_locale'];
-    address2 = json['address2'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-    countryCode = json['country_code'];
-    countryName = json['country_name'];
-    currency = json['currency'];
-    customerEmail = json['customer_email'];
-    timezone = json['timezone'];
-    ianaTimezone = json['iana_timezone'];
-    shopOwner = json['shop_owner'];
-    moneyFormat = json['money_format'];
-    moneyWithCurrencyFormat = json['money_with_currency_format'];
-    weightUnit = json['weight_unit'];
-    provinceCode = json['province_code'];
-    taxesIncluded = json['taxes_included'];
-    autoConfigureTaxInclusivity = json['auto_configure_tax_inclusivity'];
-    taxShipping = json['tax_shipping'];
-    countyTaxes = json['county_taxes'];
-    planDisplayName = json['plan_display_name'];
-    planName = json['plan_name'];
-    hasDiscounts = json['has_discounts'];
-    hasGiftCards = json['has_gift_cards'];
-    myshopifyDomain = json['myshopify_domain'];
-    googleAppsDomain = json['google_apps_domain'];
-    googleAppsLoginEnabled = json['google_apps_login_enabled'];
-    moneyInEmailsFormat = json['money_in_emails_format'];
-    moneyWithCurrencyInEmailsFormat =
-    json['money_with_currency_in_emails_format'];
-    eligibleForPayments = json['eligible_for_payments'];
-    requiresExtraPaymentsAgreement = json['requires_extra_payments_agreement'];
-    passwordEnabled = json['password_enabled'];
-    hasStorefront = json['has_storefront'];
-    finances = json['finances'];
-    primaryLocationId = json['primary_location_id'];
-    cookieConsentLevel = json['cookie_consent_level'];
-    checkoutApiSupported = json['checkout_api_supported'];
-    multiLocationEnabled = json['multi_location_enabled'];
-    setupRequired = json['setup_required'];
-    preLaunchEnabled = json['pre_launch_enabled'];
-    enabledPresentmentCurrencies =
-        json['enabled_presentment_currencies'].cast<String>();
-    transactionalSmsDisabled = json['transactional_sms_disabled'];
-    marketingSmsConsentEnabledAtCheckout =
-    json['marketing_sms_consent_enabled_at_checkout'];
-  }
+  factory Shop.fromJson(Map<String, dynamic> json) => Shop(
+    id: json["id"],
+    name: json["name"],
+    email: json["email"],
+    domain: json["domain"],
+    province: json["province"],
+    country: json["country"],
+    address1: json["address1"],
+    zip: json["zip"],
+    city: json["city"],
+    source: json["source"],
+    phone: json["phone"],
+    latitude: json["latitude"]?.toDouble(),
+    longitude: json["longitude"]?.toDouble(),
+    primaryLocale: json["primary_locale"],
+    address2: json["address2"],
+    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+    countryCode: json["country_code"],
+    countryName: json["country_name"],
+    currency: json["currency"],
+    customerEmail: json["customer_email"],
+    timezone: json["timezone"],
+    ianaTimezone: json["iana_timezone"],
+    shopOwner: json["shop_owner"],
+    moneyFormat: json["money_format"],
+    moneyWithCurrencyFormat: json["money_with_currency_format"],
+    weightUnit: json["weight_unit"],
+    provinceCode: json["province_code"],
+    taxesIncluded: json["taxes_included"],
+    autoConfigureTaxInclusivity: json["auto_configure_tax_inclusivity"],
+    taxShipping: json["tax_shipping"],
+    countyTaxes: json["county_taxes"],
+    planDisplayName: json["plan_display_name"],
+    planName: json["plan_name"],
+    hasDiscounts: json["has_discounts"],
+    hasGiftCards: json["has_gift_cards"],
+    myshopifyDomain: json["myshopify_domain"],
+    googleAppsDomain: json["google_apps_domain"],
+    googleAppsLoginEnabled: json["google_apps_login_enabled"],
+    moneyInEmailsFormat: json["money_in_emails_format"],
+    moneyWithCurrencyInEmailsFormat: json["money_with_currency_in_emails_format"],
+    eligibleForPayments: json["eligible_for_payments"],
+    requiresExtraPaymentsAgreement: json["requires_extra_payments_agreement"],
+    passwordEnabled: json["password_enabled"],
+    hasStorefront: json["has_storefront"],
+    finances: json["finances"],
+    primaryLocationId: json["primary_location_id"],
+    cookieConsentLevel: json["cookie_consent_level"],
+    checkoutApiSupported: json["checkout_api_supported"],
+    multiLocationEnabled: json["multi_location_enabled"],
+    setupRequired: json["setup_required"],
+    preLaunchEnabled: json["pre_launch_enabled"],
+    enabledPresentmentCurrencies: json["enabled_presentment_currencies"] == null ? [] : List<String>.from(json["enabled_presentment_currencies"]!.map((x) => x)),
+    transactionalSmsDisabled: json["transactional_sms_disabled"],
+    marketingSmsConsentEnabledAtCheckout: json["marketing_sms_consent_enabled_at_checkout"],
+  );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['email'] = this.email;
-    data['domain'] = this.domain;
-    data['province'] = this.province;
-    data['country'] = this.country;
-    data['address1'] = this.address1;
-    data['zip'] = this.zip;
-    data['city'] = this.city;
-    data['source'] = this.source;
-    data['phone'] = this.phone;
-    data['latitude'] = this.latitude;
-    data['longitude'] = this.longitude;
-    data['primary_locale'] = this.primaryLocale;
-    data['address2'] = this.address2;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['country_code'] = this.countryCode;
-    data['country_name'] = this.countryName;
-    data['currency'] = this.currency;
-    data['customer_email'] = this.customerEmail;
-    data['timezone'] = this.timezone;
-    data['iana_timezone'] = this.ianaTimezone;
-    data['shop_owner'] = this.shopOwner;
-    data['money_format'] = this.moneyFormat;
-    data['money_with_currency_format'] = this.moneyWithCurrencyFormat;
-    data['weight_unit'] = this.weightUnit;
-    data['province_code'] = this.provinceCode;
-    data['taxes_included'] = this.taxesIncluded;
-    data['auto_configure_tax_inclusivity'] = this.autoConfigureTaxInclusivity;
-    data['tax_shipping'] = this.taxShipping;
-    data['county_taxes'] = this.countyTaxes;
-    data['plan_display_name'] = this.planDisplayName;
-    data['plan_name'] = this.planName;
-    data['has_discounts'] = this.hasDiscounts;
-    data['has_gift_cards'] = this.hasGiftCards;
-    data['myshopify_domain'] = this.myshopifyDomain;
-    data['google_apps_domain'] = this.googleAppsDomain;
-    data['google_apps_login_enabled'] = this.googleAppsLoginEnabled;
-    data['money_in_emails_format'] = this.moneyInEmailsFormat;
-    data['money_with_currency_in_emails_format'] =
-        this.moneyWithCurrencyInEmailsFormat;
-    data['eligible_for_payments'] = this.eligibleForPayments;
-    data['requires_extra_payments_agreement'] =
-        this.requiresExtraPaymentsAgreement;
-    data['password_enabled'] = this.passwordEnabled;
-    data['has_storefront'] = this.hasStorefront;
-    data['finances'] = this.finances;
-    data['primary_location_id'] = this.primaryLocationId;
-    data['cookie_consent_level'] = this.cookieConsentLevel;
-    data['checkout_api_supported'] = this.checkoutApiSupported;
-    data['multi_location_enabled'] = this.multiLocationEnabled;
-    data['setup_required'] = this.setupRequired;
-    data['pre_launch_enabled'] = this.preLaunchEnabled;
-    data['enabled_presentment_currencies'] = this.enabledPresentmentCurrencies;
-    data['transactional_sms_disabled'] = this.transactionalSmsDisabled;
-    data['marketing_sms_consent_enabled_at_checkout'] =
-        this.marketingSmsConsentEnabledAtCheckout;
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "name": name,
+    "email": email,
+    "domain": domain,
+    "province": province,
+    "country": country,
+    "address1": address1,
+    "zip": zip,
+    "city": city,
+    "source": source,
+    "phone": phone,
+    "latitude": latitude,
+    "longitude": longitude,
+    "primary_locale": primaryLocale,
+    "address2": address2,
+    "created_at": createdAt?.toIso8601String(),
+    "updated_at": updatedAt?.toIso8601String(),
+    "country_code": countryCode,
+    "country_name": countryName,
+    "currency": currency,
+    "customer_email": customerEmail,
+    "timezone": timezone,
+    "iana_timezone": ianaTimezone,
+    "shop_owner": shopOwner,
+    "money_format": moneyFormat,
+    "money_with_currency_format": moneyWithCurrencyFormat,
+    "weight_unit": weightUnit,
+    "province_code": provinceCode,
+    "taxes_included": taxesIncluded,
+    "auto_configure_tax_inclusivity": autoConfigureTaxInclusivity,
+    "tax_shipping": taxShipping,
+    "county_taxes": countyTaxes,
+    "plan_display_name": planDisplayName,
+    "plan_name": planName,
+    "has_discounts": hasDiscounts,
+    "has_gift_cards": hasGiftCards,
+    "myshopify_domain": myshopifyDomain,
+    "google_apps_domain": googleAppsDomain,
+    "google_apps_login_enabled": googleAppsLoginEnabled,
+    "money_in_emails_format": moneyInEmailsFormat,
+    "money_with_currency_in_emails_format": moneyWithCurrencyInEmailsFormat,
+    "eligible_for_payments": eligibleForPayments,
+    "requires_extra_payments_agreement": requiresExtraPaymentsAgreement,
+    "password_enabled": passwordEnabled,
+    "has_storefront": hasStorefront,
+    "finances": finances,
+    "primary_location_id": primaryLocationId,
+    "cookie_consent_level": cookieConsentLevel,
+    "checkout_api_supported": checkoutApiSupported,
+    "multi_location_enabled": multiLocationEnabled,
+    "setup_required": setupRequired,
+    "pre_launch_enabled": preLaunchEnabled,
+    "enabled_presentment_currencies": enabledPresentmentCurrencies == null ? [] : List<dynamic>.from(enabledPresentmentCurrencies!.map((x) => x)),
+    "transactional_sms_disabled": transactionalSmsDisabled,
+    "marketing_sms_consent_enabled_at_checkout": marketingSmsConsentEnabledAtCheckout,
+  };
 }

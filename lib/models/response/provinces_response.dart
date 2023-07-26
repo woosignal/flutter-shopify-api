@@ -1,40 +1,40 @@
 class ProvincesResponse {
-  List<Province> provinces;
+  List<Province>? provinces;
 
   ProvincesResponse({
-    required this.provinces,
+    this.provinces,
   });
 
   factory ProvincesResponse.fromJson(Map<String, dynamic> json) => ProvincesResponse(
-    provinces: List<Province>.from(json["provinces"].map((x) => Province.fromJson(x))),
+    provinces: json["provinces"] == null ? [] : List<Province>.from(json["provinces"]!.map((x) => Province.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
-    "provinces": List<dynamic>.from(provinces.map((x) => x.toJson())),
+    "provinces": provinces == null ? [] : List<dynamic>.from(provinces!.map((x) => x.toJson())),
   };
 }
 
 class Province {
-  int id;
-  int countryId;
-  String name;
-  String code;
-  String taxName;
-  String? taxType;
+  int? id;
+  int? countryId;
+  String? name;
+  String? code;
+  String? taxName;
+  dynamic taxType;
   dynamic shippingZoneId;
-  int tax;
-  int taxPercentage;
+  int? tax;
+  int? taxPercentage;
 
   Province({
-    required this.id,
-    required this.countryId,
-    required this.name,
-    required this.code,
-    required this.taxName,
+    this.id,
+    this.countryId,
+    this.name,
+    this.code,
+    this.taxName,
     this.taxType,
     this.shippingZoneId,
-    required this.tax,
-    required this.taxPercentage,
+    this.tax,
+    this.taxPercentage,
   });
 
   factory Province.fromJson(Map<String, dynamic> json) => Province(

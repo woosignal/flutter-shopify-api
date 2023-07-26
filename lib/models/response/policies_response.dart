@@ -1,59 +1,51 @@
 class PoliciesResponse {
-  List<Policies>? policies;
+  List<Policy>? policies;
 
-  PoliciesResponse({this.policies});
+  PoliciesResponse({
+    this.policies,
+  });
 
-  PoliciesResponse.fromJson(Map<String, dynamic> json) {
-    if (json['policies'] != null) {
-      policies = <Policies>[];
-      json['policies'].forEach((v) {
-        policies!.add(new Policies.fromJson(v));
-      });
-    }
-  }
+  factory PoliciesResponse.fromJson(Map<String, dynamic> json) => PoliciesResponse(
+    policies: json["policies"] == null ? [] : List<Policy>.from(json["policies"]!.map((x) => Policy.fromJson(x))),
+  );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.policies != null) {
-      data['policies'] = this.policies!.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+    "policies": policies == null ? [] : List<dynamic>.from(policies!.map((x) => x.toJson())),
+  };
 }
 
-class Policies {
+class Policy {
   String? body;
-  String? createdAt;
-  String? updatedAt;
+  DateTime? createdAt;
+  DateTime? updatedAt;
   String? handle;
   String? title;
   String? url;
 
-  Policies(
-      {this.body,
-        this.createdAt,
-        this.updatedAt,
-        this.handle,
-        this.title,
-        this.url});
+  Policy({
+    this.body,
+    this.createdAt,
+    this.updatedAt,
+    this.handle,
+    this.title,
+    this.url,
+  });
 
-  Policies.fromJson(Map<String, dynamic> json) {
-    body = json['body'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-    handle = json['handle'];
-    title = json['title'];
-    url = json['url'];
-  }
+  factory Policy.fromJson(Map<String, dynamic> json) => Policy(
+    body: json["body"],
+    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+    handle: json["handle"],
+    title: json["title"],
+    url: json["url"],
+  );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['body'] = this.body;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['handle'] = this.handle;
-    data['title'] = this.title;
-    data['url'] = this.url;
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+    "body": body,
+    "created_at": createdAt?.toIso8601String(),
+    "updated_at": updatedAt?.toIso8601String(),
+    "handle": handle,
+    "title": title,
+    "url": url,
+  };
 }
