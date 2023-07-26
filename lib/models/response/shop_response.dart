@@ -4,13 +4,13 @@ class ShopResponse {
   ShopResponse({this.shop});
 
   ShopResponse.fromJson(Map<String, dynamic> json) {
-    shop = json['shop'] != null ? new Shop.fromJson(json['shop']) : null;
+    shop = json['shop'] != null ? Shop.fromJson(json['shop']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.shop != null) {
-      data['shop'] = this.shop!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (shop != null) {
+      data['shop'] = shop!.toJson();
     }
     return data;
   }
@@ -192,65 +192,65 @@ class Shop {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['email'] = this.email;
-    data['domain'] = this.domain;
-    data['province'] = this.province;
-    data['country'] = this.country;
-    data['address1'] = this.address1;
-    data['zip'] = this.zip;
-    data['city'] = this.city;
-    data['source'] = this.source;
-    data['phone'] = this.phone;
-    data['latitude'] = this.latitude;
-    data['longitude'] = this.longitude;
-    data['primary_locale'] = this.primaryLocale;
-    data['address2'] = this.address2;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['country_code'] = this.countryCode;
-    data['country_name'] = this.countryName;
-    data['currency'] = this.currency;
-    data['customer_email'] = this.customerEmail;
-    data['timezone'] = this.timezone;
-    data['iana_timezone'] = this.ianaTimezone;
-    data['shop_owner'] = this.shopOwner;
-    data['money_format'] = this.moneyFormat;
-    data['money_with_currency_format'] = this.moneyWithCurrencyFormat;
-    data['weight_unit'] = this.weightUnit;
-    data['province_code'] = this.provinceCode;
-    data['taxes_included'] = this.taxesIncluded;
-    data['auto_configure_tax_inclusivity'] = this.autoConfigureTaxInclusivity;
-    data['tax_shipping'] = this.taxShipping;
-    data['county_taxes'] = this.countyTaxes;
-    data['plan_display_name'] = this.planDisplayName;
-    data['plan_name'] = this.planName;
-    data['has_discounts'] = this.hasDiscounts;
-    data['has_gift_cards'] = this.hasGiftCards;
-    data['myshopify_domain'] = this.myshopifyDomain;
-    data['google_apps_domain'] = this.googleAppsDomain;
-    data['google_apps_login_enabled'] = this.googleAppsLoginEnabled;
-    data['money_in_emails_format'] = this.moneyInEmailsFormat;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['email'] = email;
+    data['domain'] = domain;
+    data['province'] = province;
+    data['country'] = country;
+    data['address1'] = address1;
+    data['zip'] = zip;
+    data['city'] = city;
+    data['source'] = source;
+    data['phone'] = phone;
+    data['latitude'] = latitude;
+    data['longitude'] = longitude;
+    data['primary_locale'] = primaryLocale;
+    data['address2'] = address2;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    data['country_code'] = countryCode;
+    data['country_name'] = countryName;
+    data['currency'] = currency;
+    data['customer_email'] = customerEmail;
+    data['timezone'] = timezone;
+    data['iana_timezone'] = ianaTimezone;
+    data['shop_owner'] = shopOwner;
+    data['money_format'] = moneyFormat;
+    data['money_with_currency_format'] = moneyWithCurrencyFormat;
+    data['weight_unit'] = weightUnit;
+    data['province_code'] = provinceCode;
+    data['taxes_included'] = taxesIncluded;
+    data['auto_configure_tax_inclusivity'] = autoConfigureTaxInclusivity;
+    data['tax_shipping'] = taxShipping;
+    data['county_taxes'] = countyTaxes;
+    data['plan_display_name'] = planDisplayName;
+    data['plan_name'] = planName;
+    data['has_discounts'] = hasDiscounts;
+    data['has_gift_cards'] = hasGiftCards;
+    data['myshopify_domain'] = myshopifyDomain;
+    data['google_apps_domain'] = googleAppsDomain;
+    data['google_apps_login_enabled'] = googleAppsLoginEnabled;
+    data['money_in_emails_format'] = moneyInEmailsFormat;
     data['money_with_currency_in_emails_format'] =
-        this.moneyWithCurrencyInEmailsFormat;
-    data['eligible_for_payments'] = this.eligibleForPayments;
+        moneyWithCurrencyInEmailsFormat;
+    data['eligible_for_payments'] = eligibleForPayments;
     data['requires_extra_payments_agreement'] =
-        this.requiresExtraPaymentsAgreement;
-    data['password_enabled'] = this.passwordEnabled;
-    data['has_storefront'] = this.hasStorefront;
-    data['finances'] = this.finances;
-    data['primary_location_id'] = this.primaryLocationId;
-    data['cookie_consent_level'] = this.cookieConsentLevel;
-    data['checkout_api_supported'] = this.checkoutApiSupported;
-    data['multi_location_enabled'] = this.multiLocationEnabled;
-    data['setup_required'] = this.setupRequired;
-    data['pre_launch_enabled'] = this.preLaunchEnabled;
-    data['enabled_presentment_currencies'] = this.enabledPresentmentCurrencies;
-    data['transactional_sms_disabled'] = this.transactionalSmsDisabled;
+        requiresExtraPaymentsAgreement;
+    data['password_enabled'] = passwordEnabled;
+    data['has_storefront'] = hasStorefront;
+    data['finances'] = finances;
+    data['primary_location_id'] = primaryLocationId;
+    data['cookie_consent_level'] = cookieConsentLevel;
+    data['checkout_api_supported'] = checkoutApiSupported;
+    data['multi_location_enabled'] = multiLocationEnabled;
+    data['setup_required'] = setupRequired;
+    data['pre_launch_enabled'] = preLaunchEnabled;
+    data['enabled_presentment_currencies'] = enabledPresentmentCurrencies;
+    data['transactional_sms_disabled'] = transactionalSmsDisabled;
     data['marketing_sms_consent_enabled_at_checkout'] =
-        this.marketingSmsConsentEnabledAtCheckout;
+        marketingSmsConsentEnabledAtCheckout;
     return data;
   }
 }

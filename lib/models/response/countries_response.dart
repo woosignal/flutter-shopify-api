@@ -7,15 +7,15 @@ class CountriesResponse {
     if (json['countries'] != null) {
       countries = <Countries>[];
       json['countries'].forEach((v) {
-        countries!.add(new Countries.fromJson(v));
+        countries!.add(Countries.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.countries != null) {
-      data['countries'] = this.countries!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (countries != null) {
+      data['countries'] = countries!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -41,20 +41,20 @@ class Countries {
     if (json['provinces'] != null) {
       provinces = <Provinces>[];
       json['provinces'].forEach((v) {
-        provinces!.add(new Provinces.fromJson(v));
+        provinces!.add(Provinces.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['code'] = this.code;
-    data['tax_name'] = this.taxName;
-    data['tax'] = this.tax;
-    if (this.provinces != null) {
-      data['provinces'] = this.provinces!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['code'] = code;
+    data['tax_name'] = taxName;
+    data['tax'] = tax;
+    if (provinces != null) {
+      data['provinces'] = provinces!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -67,7 +67,7 @@ class Provinces {
   String? code;
   String? taxName;
   String? taxType;
-  Null? shippingZoneId;
+  int? shippingZoneId;
   int? tax;
   int? taxPercentage;
 
@@ -95,16 +95,16 @@ class Provinces {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['country_id'] = this.countryId;
-    data['name'] = this.name;
-    data['code'] = this.code;
-    data['tax_name'] = this.taxName;
-    data['tax_type'] = this.taxType;
-    data['shipping_zone_id'] = this.shippingZoneId;
-    data['tax'] = this.tax;
-    data['tax_percentage'] = this.taxPercentage;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['country_id'] = countryId;
+    data['name'] = name;
+    data['code'] = code;
+    data['tax_name'] = taxName;
+    data['tax_type'] = taxType;
+    data['shipping_zone_id'] = shippingZoneId;
+    data['tax'] = tax;
+    data['tax_percentage'] = taxPercentage;
     return data;
   }
 }

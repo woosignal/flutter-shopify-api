@@ -13,18 +13,18 @@
 // IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
 // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-class Collection {
-  String? href;
+class ProductImageCountResponse {
+  int? count;
 
-  Collection({this.href});
+  ProductImageCountResponse({this.count});
 
-  Collection.fromJson(Map<String, dynamic> json) {
-    href = json['href'];
+  ProductImageCountResponse.fromJson(Map<String, dynamic> json) {
+    count = json['count'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
-    data['href'] = href;
+    data['count'] = count;
     return data;
   }
 }

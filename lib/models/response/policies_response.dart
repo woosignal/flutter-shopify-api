@@ -7,15 +7,15 @@ class PoliciesResponse {
     if (json['policies'] != null) {
       policies = <Policies>[];
       json['policies'].forEach((v) {
-        policies!.add(new Policies.fromJson(v));
+        policies!.add(Policies.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.policies != null) {
-      data['policies'] = this.policies!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (policies != null) {
+      data['policies'] = policies!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -47,13 +47,13 @@ class Policies {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['body'] = this.body;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['handle'] = this.handle;
-    data['title'] = this.title;
-    data['url'] = this.url;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['body'] = body;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    data['handle'] = handle;
+    data['title'] = title;
+    data['url'] = url;
     return data;
   }
 }

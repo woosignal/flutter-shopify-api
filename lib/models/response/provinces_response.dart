@@ -15,26 +15,26 @@ class ProvincesResponse {
 }
 
 class Province {
-  int id;
-  int countryId;
-  String name;
-  String code;
-  String taxName;
+  int? id;
+  int? countryId;
+  String? name;
+  String? code;
+  String? taxName;
   String? taxType;
-  dynamic shippingZoneId;
-  int tax;
-  int taxPercentage;
+  int? shippingZoneId;
+  int? tax;
+  int? taxPercentage;
 
   Province({
-    required this.id,
-    required this.countryId,
-    required this.name,
-    required this.code,
-    required this.taxName,
+    this.id,
+    this.countryId,
+    this.name,
+    this.code,
+    this.taxName,
     this.taxType,
     this.shippingZoneId,
-    required this.tax,
-    required this.taxPercentage,
+    this.tax,
+    this.taxPercentage,
   });
 
   factory Province.fromJson(Map<String, dynamic> json) => Province(

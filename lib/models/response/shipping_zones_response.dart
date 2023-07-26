@@ -172,7 +172,7 @@ class PriceBasedShippingRate {
   String price;
   int shippingZoneId;
   String minOrderSubtotal;
-  dynamic maxOrderSubtotal;
+  String? maxOrderSubtotal;
 
   PriceBasedShippingRate({
     required this.id,

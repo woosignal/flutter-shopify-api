@@ -1,6 +1,4 @@
 tags:
-  products:
-  get-products:
   get-shop:
   store-properties:
   countries-properties:
@@ -11,3 +9,10 @@ tags:
   shipping-zones-properties:
   shipping-provinces:
   get-provinces:
+  get-product-images:
+  products-single-product-image:
+  products-count-of-product-images:
+  shopify-products:
+  products-list-of-products:
+  products-single-product:
+  products-count-of-products:
