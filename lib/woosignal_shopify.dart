@@ -94,6 +94,7 @@ class WooSignal {
      json = await _apiProvider.get(path, data: payload);
     }
     if (method == 'post') {
+
       json = await _apiProvider.post(path, payload);
     }
     if (json is Map<String, dynamic> && json.containsKey('error')) {
