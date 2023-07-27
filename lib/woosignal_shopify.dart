@@ -14,6 +14,10 @@ library woosignal_shopify;
 // IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
 // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
+import 'package:woosignal_shopify/models/response/countries_response.dart';
+import 'package:woosignal_shopify/models/response/policies_response.dart';
+import 'package:woosignal_shopify/models/response/provinces_response.dart';
+import 'package:woosignal_shopify/models/response/shop_response.dart';
 import 'package:woosignal_shopify/models/product_image.dart';
 import 'package:woosignal_shopify/models/response/product_image_count_response.dart';
 import 'package:woosignal_shopify/models/response/product_images_response.dart';
@@ -25,6 +29,8 @@ import '/networking/api_provider.dart';
 import 'package:encrypt/encrypt.dart' as enc;
 import 'package:encrypt/encrypt.dart';
 import 'dart:convert';
+
+import 'models/response/shipping_zones_response.dart';
 
 /// WooSignal Package version
 const String wooSignalVersion = "1.0.0";
@@ -88,7 +94,8 @@ class WooSignal {
      json = await _apiProvider.get(path, data: payload);
     }
     if (method == 'post') {
-      json = await _apiProvider.post(path, {"data": payload});
+
+      json = await _apiProvider.post(path, payload);
     }
     if (json is Map<String, dynamic> && json.containsKey('error')) {
       _printLog(json['error']);
@@ -361,4 +368,75 @@ class WooSignal {
         jsonResponse: (json) => ProductImageCountResponse.fromJson(json)
     );
   }
+
+
+
+  /// https://woosignal.com/docs/api/1.0/shop
+  Future<ShopResponse?> getShop({String? fields,
+      }) async {
+    Map<String, dynamic> payload = {};
+    if (fields != null) payload["fields"] = fields;
+
+    return await _wooSignalRequest<ShopResponse>(
+        path: "shop",
+        method: "post",
+        payload: payload,
+        jsonResponse: (json) => ShopResponse.fromJson(json)
+    );
+  }
+
+  /// https://woosignal.com/docs/api/1.0/countries
+  Future<CountriesResponse?> getCountries({String? fields,
+      }) async {
+    Map<String, dynamic> payload = {};
+    if (fields != null) payload["fields"] = fields;
+
+    return await _wooSignalRequest<CountriesResponse>(
+        path: "countries",
+        method: "post",
+        payload: payload,
+        jsonResponse: (json) => CountriesResponse.fromJson(json)
+    );
+  }
+  /// https://woosignal.com/docs/api/1.0/policies
+  Future<PoliciesResponse?> getPolicies({String? fields,
+      }) async {
+    Map<String, dynamic> payload = {};
+    if (fields != null) payload["fields"] = fields;
+
+    return await _wooSignalRequest<PoliciesResponse>(
+        path: "policies",
+        method: "post",
+        payload: payload,
+        jsonResponse: (json) => PoliciesResponse.fromJson(json)
+    );
+  }
+  /// https://woosignal.com/docs/api/1.0/shipping-zones
+  Future<ShippingZonesResponse?> getShippingZones({String? fields,
+      }) async {
+    Map<String, dynamic> payload = {};
+    if (fields != null) payload["fields"] = fields;
+
+    return await _wooSignalRequest<ShippingZonesResponse>(
+        path: "shipping-zones",
+        method: "post",
+        payload: payload,
+        jsonResponse: (json) => ShippingZonesResponse.fromJson(json)
+    );
+  }
+  /// https://woosignal.com/docs/api/1.0/provinces/{countryId}
+  Future<ProvincesResponse?> getProvinces({String? fields,
+   required int id,
+      }) async {
+    Map<String, dynamic> payload = {};
+    if (fields != null) payload["fields"] = fields;
+
+    return await _wooSignalRequest<ProvincesResponse>(
+        path: "provinces/$id",
+        method: "post",
+        payload: payload,
+        jsonResponse: (json) => ProvincesResponse.fromJson(json)
+    );
+  }
+
 }

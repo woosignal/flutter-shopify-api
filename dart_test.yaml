@@ -1,4 +1,14 @@
 tags:
+  get-shop:
+  store-properties:
+  countries-properties:
+  get-countries:
+  get-policies:
+  policies-properties:
+  get-shipping-zones:
+  shipping-zones-properties:
+  shipping-provinces:
+  get-provinces:
   get-product-images:
   products-single-product-image:
   products-count-of-product-images:

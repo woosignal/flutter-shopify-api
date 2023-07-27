@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:woosignal_shopify/woosignal_shopify.dart';
 
-void woosignalWoocommerceExample() => runApp(MyApp());
+void main(){
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -11,7 +13,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'WooSignal Demo Home Page'),
+       home: MyHomePage(title: 'WooSignal Demo Home Page'),
     );
   }
 }
