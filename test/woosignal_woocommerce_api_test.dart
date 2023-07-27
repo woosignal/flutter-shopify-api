@@ -111,7 +111,7 @@ void main() {
       }, tags: ['get-policies']);
     }, tags: ['policies-properties']);
 
-    /// test for policies retrieval
+    /// test for shipping-zones
     group('Testing Shopify shipping-zones', () {
       test('get shipping-zones', () async {
         ShippingZonesResponse? shippingZonesResponse =
@@ -123,7 +123,7 @@ void main() {
       }, tags: ['get-shipping-zones']);
     }, tags: ['shipping-zones-properties']);
 
-    /// test for policies retrieval
+    /// test for provinces
     group('Testing Shopify provinces', () {
       test('get provinces', () async {
         ProvincesResponse? provincesResponse =
