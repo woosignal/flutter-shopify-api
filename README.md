@@ -11,19 +11,19 @@ In your flutter project add the dependency:
 ``` dart 
 dependencies:
   ...
-  woosignal_shopify: ^1.0.0
+  woosignal_shopify_api: ^1.0.1
 ```
 
 ### Usage example #
-Import `woosignal_shopify.dart`
+Import `woosignal_shopify_api.dart`
 ``` dart
-import 'package:woosignal_shopify/woosignal_shopify.dart';
+import 'package:shopify_woosignal/woosignal_shopify_api.dart';
 ```
 
 ### Example using WooSignal API for Shopify
 
 ``` dart
-import 'package:woosignal_shopify/woosignal_shopify.dart';
+/woosignal_shopify_api.dart';
 
 ...
 

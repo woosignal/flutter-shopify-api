@@ -1,4 +1,4 @@
-library woosignal_shopify;
+library woosignal_shopify_api;
 // Copyright (c) 2024, WooSignal Ltd.
 // All rights reserved.
 //
@@ -15,29 +15,29 @@ library woosignal_shopify;
 // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 import 'package:nylo_framework/nylo_framework.dart';
-import 'package:woosignal_shopify/models/discount_code.dart';
-import 'package:woosignal_shopify/models/response/auth/auth_customer_address_updated.dart';
-import 'package:woosignal_shopify/models/response/auth/auth_customer_info.dart';
-import 'package:woosignal_shopify/models/response/auth/auth_customer_order.dart';
-import 'package:woosignal_shopify/models/response/auth/auth_customer_updated_response.dart';
-import 'package:woosignal_shopify/models/response/auth/auth_user.dart';
-import 'package:woosignal_shopify/models/response/order_created_response.dart';
-import 'package:woosignal_shopify/models/response/order_response.dart';
-import 'package:woosignal_shopify/models/response/policies_response.dart';
-import 'package:woosignal_shopify/models/response/price_rule_response.dart';
-import 'package:woosignal_shopify/models/response/product_variants_response.dart';
-import 'package:woosignal_shopify/models/response/provinces_response.dart';
-import 'package:woosignal_shopify/models/response/shop_response.dart';
-import 'package:woosignal_shopify/models/product_image.dart';
-import 'package:woosignal_shopify/models/response/product_image_count_response.dart';
-import 'package:woosignal_shopify/models/response/product_images_response.dart';
-import 'package:woosignal_shopify/models/product.dart';
-import 'package:woosignal_shopify/models/response/count_response.dart';
-import 'package:woosignal_shopify/models/response/shopify_country_response.dart';
-import 'package:woosignal_shopify/models/response/shopify_product_response.dart';
-import 'package:woosignal_shopify/models/response/shopify_product_search_response.dart';
-import 'package:woosignal_shopify/models/shopify_order.dart';
-import 'package:woosignal_shopify/models/shopify_shipping_zone.dart';
+import '/models/discount_code.dart';
+import '/models/response/auth/auth_customer_address_updated.dart';
+import '/models/response/auth/auth_customer_info.dart';
+import '/models/response/auth/auth_customer_order.dart';
+import '/models/response/auth/auth_customer_updated_response.dart';
+import '/models/response/auth/auth_user.dart';
+import '/models/response/order_created_response.dart';
+import '/models/response/order_response.dart';
+import '/models/response/policies_response.dart';
+import '/models/response/price_rule_response.dart';
+import '/models/response/product_variants_response.dart';
+import '/models/response/provinces_response.dart';
+import '/models/response/shop_response.dart';
+import '/models/product_image.dart';
+import '/models/response/product_image_count_response.dart';
+import '/models/response/product_images_response.dart';
+import '/models/product.dart';
+import '/models/response/count_response.dart';
+import '/models/response/shopify_country_response.dart';
+import '/models/response/shopify_product_response.dart';
+import '/models/response/shopify_product_search_response.dart';
+import '/models/shopify_order.dart';
+import '/models/shopify_shipping_zone.dart';
 import 'models/response/shipping_zones_response.dart';
 import '/models/response/woosignal_app.dart';
 import '/networking/api_provider.dart';

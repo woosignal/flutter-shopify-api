@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:test/test.dart';
-import 'package:woosignal_shopify/models/response/countries_response.dart';
-import 'package:woosignal_shopify/models/response/policies_response.dart';
-import 'package:woosignal_shopify/models/product_image.dart';
-import 'package:woosignal_shopify/models/response/product_image_count_response.dart';
-import 'package:woosignal_shopify/models/response/product_images_response.dart';
-import 'package:woosignal_shopify/models/product.dart';
-import 'package:woosignal_shopify/models/response/count_response.dart';
-import 'package:woosignal_shopify/models/response/provinces_response.dart';
-import 'package:woosignal_shopify/models/response/shipping_zones_response.dart';
-import 'package:woosignal_shopify/models/response/shop_response.dart';
-import 'package:woosignal_shopify/models/response/shopify_country_response.dart';
-import 'package:woosignal_shopify/models/response/shopify_product_response.dart';
-import 'package:woosignal_shopify/woosignal_shopify.dart';
+import 'package:woosignal_shopify_api/models/product.dart';
+import 'package:woosignal_shopify_api/models/product_image.dart';
+import 'package:woosignal_shopify_api/models/response/count_response.dart';
+import 'package:woosignal_shopify_api/models/response/countries_response.dart';
+import 'package:woosignal_shopify_api/models/response/policies_response.dart';
+import 'package:woosignal_shopify_api/models/response/product_image_count_response.dart';
+import 'package:woosignal_shopify_api/models/response/product_images_response.dart';
+import 'package:woosignal_shopify_api/models/response/provinces_response.dart';
+import 'package:woosignal_shopify_api/models/response/shipping_zones_response.dart';
+import 'package:woosignal_shopify_api/models/response/shop_response.dart';
+import 'package:woosignal_shopify_api/models/response/shopify_country_response.dart';
+import 'package:woosignal_shopify_api/models/response/shopify_product_response.dart';
+import 'package:woosignal_shopify_api/woosignal_shopify_api.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
+  String appKey = "app_key";
   int testProductId = 0;
   int testImageId = 0;
   int testProvinceId = 0;
 
   setUp(() async {
     await WooSignalShopify.instance.init(
-      appKey: "app_key",
+      appKey: appKey,
       debugMode: false,
     );
   });

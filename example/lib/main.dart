@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:woosignal_shopify/models/response/shopify_product_response.dart';
-import 'package:woosignal_shopify/woosignal_shopify.dart';
+import 'package:woosignal_shopify_api/models/response/shopify_product_response.dart';
+import 'package:woosignal_shopify_api/woosignal_shopify_api.dart';
 
 void main() {
   runApp(MyApp());

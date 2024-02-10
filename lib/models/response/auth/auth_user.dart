@@ -14,7 +14,7 @@
 // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 import 'package:nylo_framework/nylo_framework.dart';
-import 'package:woosignal_shopify/models/response/shopify_error.dart';
+import '/models/response/shopify_error.dart';
 
 /// AuthCustomer Model.
 
