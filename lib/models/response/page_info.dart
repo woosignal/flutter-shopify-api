@@ -13,27 +13,31 @@
 // IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
 // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-import 'package:woosignal_shopify/models/product_image.dart';
+class PageInfo {
+  String? startCursor;
+  bool? hasNextPage;
+  bool? hasPreviousPage;
+  String? endCursor;
 
-class ProductImagesResponse {
-  List<ProductImage>? images;
+  PageInfo(
+      {this.startCursor,
+      this.hasNextPage,
+      this.hasPreviousPage,
+      this.endCursor});
 
-  ProductImagesResponse({this.images});
-
-  ProductImagesResponse.fromJson(Map<String, dynamic> json) {
-    if (json['images'] != null) {
-      images = <ProductImage>[];
-      json['images'].forEach((v) {
-        images!.add(ProductImage.fromJson(v));
-      });
-    }
+  PageInfo.fromJson(Map<String, dynamic> json) {
+    startCursor = json['startCursor'];
+    hasNextPage = json['hasNextPage'];
+    hasPreviousPage = json['hasPreviousPage'];
+    endCursor = json['endCursor'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = {};
-    if (images != null) {
-      data['images'] = images!.map((v) => v.toJson()).toList();
-    }
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['startCursor'] = startCursor;
+    data['hasNextPage'] = hasNextPage;
+    data['hasPreviousPage'] = hasPreviousPage;
+    data['endCursor'] = endCursor;
     return data;
   }
 }

@@ -1,5 +1,5 @@
 library woosignal_shopify;
-// Copyright (c) 2023, WooSignal Ltd.
+// Copyright (c) 2024, WooSignal Ltd.
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms are permitted
@@ -14,8 +14,18 @@ library woosignal_shopify;
 // IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
 // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-import 'package:woosignal_shopify/models/response/countries_response.dart';
+import 'package:nylo_framework/nylo_framework.dart';
+import 'package:woosignal_shopify/models/discount_code.dart';
+import 'package:woosignal_shopify/models/response/auth/auth_customer_address_updated.dart';
+import 'package:woosignal_shopify/models/response/auth/auth_customer_info.dart';
+import 'package:woosignal_shopify/models/response/auth/auth_customer_order.dart';
+import 'package:woosignal_shopify/models/response/auth/auth_customer_updated_response.dart';
+import 'package:woosignal_shopify/models/response/auth/auth_user.dart';
+import 'package:woosignal_shopify/models/response/order_created_response.dart';
+import 'package:woosignal_shopify/models/response/order_response.dart';
 import 'package:woosignal_shopify/models/response/policies_response.dart';
+import 'package:woosignal_shopify/models/response/price_rule_response.dart';
+import 'package:woosignal_shopify/models/response/product_variants_response.dart';
 import 'package:woosignal_shopify/models/response/provinces_response.dart';
 import 'package:woosignal_shopify/models/response/shop_response.dart';
 import 'package:woosignal_shopify/models/product_image.dart';
@@ -23,21 +33,25 @@ import 'package:woosignal_shopify/models/response/product_image_count_response.d
 import 'package:woosignal_shopify/models/response/product_images_response.dart';
 import 'package:woosignal_shopify/models/product.dart';
 import 'package:woosignal_shopify/models/response/count_response.dart';
-import '/models/response/products_response.dart';
+import 'package:woosignal_shopify/models/response/shopify_country_response.dart';
+import 'package:woosignal_shopify/models/response/shopify_product_response.dart';
+import 'package:woosignal_shopify/models/response/shopify_product_search_response.dart';
+import 'package:woosignal_shopify/models/shopify_order.dart';
+import 'package:woosignal_shopify/models/shopify_shipping_zone.dart';
+import 'models/response/shipping_zones_response.dart';
 import '/models/response/woosignal_app.dart';
 import '/networking/api_provider.dart';
 import 'package:encrypt/encrypt.dart' as enc;
 import 'package:encrypt/encrypt.dart';
 import 'dart:convert';
 
-import 'models/response/shipping_zones_response.dart';
-
 /// WooSignal Package version
 const String wooSignalVersion = "1.0.0";
 
-class WooSignal {
-  WooSignal._privateConstructor();
-  static final WooSignal instance = WooSignal._privateConstructor();
+class WooSignalShopify {
+  WooSignalShopify._privateConstructor();
+  static final WooSignalShopify instance =
+      WooSignalShopify._privateConstructor();
 
   late ApiProvider _apiProvider;
   bool? _debugMode;
@@ -83,19 +97,29 @@ class WooSignal {
 
   /// WooSignal Request
   Future<T?> _wooSignalRequest<T>(
-      {dynamic payload = const {},
+      {dynamic payload,
       required String method,
       required String path,
-      required T Function(dynamic json) jsonResponse}) async {
+      required T Function(dynamic json) jsonResponse,
+      bool auth = false}) async {
     _printLog("Parameters: $payload");
+
+    if (auth == true && !payload.containsKey('access_token')) {
+      AuthCustomer? authCustomer = Auth.user(key: "shopify_customer");
+      if (authCustomer != null) {
+        payload["access_token"] = authCustomer.user?.accessToken;
+      }
+    }
 
     dynamic json;
     if (method == 'get') {
-     json = await _apiProvider.get(path, data: payload);
+      json = await _apiProvider.get(path, data: payload);
     }
     if (method == 'post') {
-
       json = await _apiProvider.post(path, payload);
+    }
+    if (method == 'put') {
+      json = await _apiProvider.put(path, payload);
     }
     if (json is Map<String, dynamic> && json.containsKey('error')) {
       _printLog(json['error']);
@@ -103,6 +127,9 @@ class WooSignal {
     }
 
     T model;
+    if (json == null) {
+      throw Exception("No response from server");
+    }
     try {
       model = jsonResponse(json);
     } on Exception catch (e) {
@@ -157,30 +184,8 @@ class WooSignal {
     return wooSignalApp;
   }
 
-  /// Creates a new payment intent
-  Future<Map<String, dynamic>?> stripePaymentIntent(
-      {String? amount,
-        String? desc,
-        String? email,
-        Map<String, dynamic>? shipping}) async {
-    Map<String, dynamic> payload = {
-      "amount": amount,
-      "receipt_email": email,
-      "shipping": shipping,
-      "desc": desc,
-      "path": "order/pi",
-      "type": "post"
-    };
-    Map<String, dynamic>? payloadRsp = {};
-    await _apiProvider.post("/order/pi", payload).then((json) {
-      payloadRsp = json;
-    });
-    _printLog(payloadRsp.toString());
-    return payloadRsp;
-  }
-
   /// Creates a new payment intent and save details
-  Future<Map<String, dynamic>?> stripePaymentIntentV2({
+  Future<Map<String, dynamic>?> stripePaymentIntent({
     String? amount,
     String? desc,
     String? email,
@@ -197,7 +202,7 @@ class WooSignal {
       "customer_details": customerDetails,
     };
     Map<String, dynamic>? payloadRsp =
-    await _apiProvider.post("/order/v2/pi", payload);
+        await _apiProvider.post("/order/v2/pi", {"data": payload});
 
     _printLog(payloadRsp.toString());
     return payloadRsp;
@@ -206,79 +211,60 @@ class WooSignal {
   /// Check if the cart items are in stock and returns the users cart
   Future<List<dynamic>?> cartCheck(List<Map<String, dynamic>> cartLines) async {
     return await _wooSignalRequest<List<dynamic>?>(
-      method: "get",
+      method: "post",
       path: "cart-check",
-      payload: cartLines,
+      payload: {"data": cartLines},
       jsonResponse: (json) => json,
     );
+  }
+
+  /// Fetch the shipping zones
+  Future<ShopifyShippingZone?> fetchShippingZones() async {
+    return await _wooSignalRequest<ShopifyShippingZone>(
+        path: "ws/shipping_methods",
+        method: "get",
+        payload: {},
+        jsonResponse: (json) => ShopifyShippingZone.fromJson(json));
   }
 
   /// checks if the app can make orders
   Future<bool> checkAppStatus() async {
     return await _wooSignalRequest<bool>(
-      method: "get",
-      path: "ws/app-status",
-      jsonResponse: (json) =>
-      (json['status'] == "200" && json['result']['value'] == 1)
-          ? true
-          : false,
-    ) ??
+          method: "post",
+          path: "ws/app-status",
+          jsonResponse: (json) =>
+              (json['status'] == "200" && json['result']['value'] == 1),
+        ) ??
         false;
   }
 
-  /// https://woosignal.com/docs/api/1.0/products
-  Future<ProductsResponse?> getProducts(
-      {int? limit,
-        String? productType,
-        int? collectionId,
-        String? createdAtMax,
-        String? createdAtMin,
-        String? fields,
-        String? handle,
-        List<int>? ids,
-        String? presentmentCurrencies,
-        String? publishedAtMax,
-        String? publishedAtMin,
-        String? publishedStatus,
-        int? sinceId,
-        String? status,
-        String? title,
-        String? updatedAtMax,
-        String? updatedAtMin,
-        String? vendor,
-      }) async {
-    Map<String, dynamic> payload = {};
-    if (limit != null) payload["limit"] = limit;
-    if (productType != null) payload["product_type"] = productType;
-    if (collectionId != null) payload["collection_id"] = collectionId;
-    if (createdAtMax != null) payload["created_at_max"] = createdAtMax;
-    if (createdAtMin != null) payload["created_at_min"] = createdAtMin;
-    if (fields != null) payload["fields"] = fields;
-    if (handle != null) payload["handle"] = handle;
-    if (ids != null) payload["ids"] = ids;
-    if (presentmentCurrencies != null) payload["presentment_currencies"] = presentmentCurrencies;
-    if (publishedAtMax != null) payload["published_at_max"] = publishedAtMax;
-    if (publishedAtMin != null) payload["published_at_min"] = publishedAtMin;
-    if (publishedStatus != null) payload["published_status"] = publishedStatus;
-    if (sinceId != null) payload["since_id"] = sinceId;
-    if (status != null) payload["status"] = status;
-    if (title != null) payload["title"] = title;
-    if (updatedAtMax != null) payload["updated_at_max"] = updatedAtMax;
-    if (updatedAtMin != null) payload["updated_at_min"] = updatedAtMin;
-    if (vendor != null) payload["vendor"] = vendor;
+  /// Create an order
+  Future<OrderCreatedResponse?> createOrder(ShopifyOrder shopifyOrder) async {
+    return await _wooSignalRequest<OrderCreatedResponse>(
+        path: "order",
+        method: "post",
+        payload: shopifyOrder.toJson(),
+        jsonResponse: (json) => OrderCreatedResponse.fromJson(json));
+  }
 
-    return await _wooSignalRequest<ProductsResponse>(
+  Future<ShopifyProductResponse?> getProducts({
+    int? first,
+    String? after,
+    String? status = 'active', // active, archived, draft
+  }) async {
+    Map<String, dynamic> payload = {};
+    if (first != null) payload["first"] = first;
+    if (after != null) payload["after"] = after;
+    if (status != null) payload["query"] = "status:$status";
+
+    return await _wooSignalRequest<ShopifyProductResponse>(
         path: "products",
         method: "post",
         payload: payload,
-        jsonResponse: (json) => ProductsResponse.fromJson(json)
-    );
+        jsonResponse: (json) => ShopifyProductResponse.fromJson(json));
   }
 
-  Future<Product?> getProduct(
-      {required int productId,
-        String? fields
-      }) async {
+  Future<Product?> getProduct({required int productId, String? fields}) async {
     Map<String, dynamic> payload = {};
     if (fields != null) payload["fields"] = fields;
 
@@ -286,22 +272,21 @@ class WooSignal {
         path: "products/$productId",
         method: "post",
         payload: payload,
-        jsonResponse: (json) => Product.fromJson(json['product'])
-    );
+        jsonResponse: (json) => Product.fromJson(json['product']));
   }
 
-  Future<CountResponse?> getProductCount(
-      {String? productType,
-        int? collectionId,
-        String? createdAtMax,
-        String? createdAtMin,
-        String? publishedAtMax,
-        String? publishedAtMin,
-        String? publishedStatus,
-        String? updatedAtMax,
-        String? updatedAtMin,
-        String? vendor,
-      }) async {
+  Future<CountResponse?> getProductCount({
+    String? productType,
+    int? collectionId,
+    String? createdAtMax,
+    String? createdAtMin,
+    String? publishedAtMax,
+    String? publishedAtMin,
+    String? publishedStatus,
+    String? updatedAtMax,
+    String? updatedAtMin,
+    String? vendor,
+  }) async {
     Map<String, dynamic> payload = {};
     if (productType != null) payload["productType"] = productType;
     if (collectionId != null) payload["collection_id"] = collectionId;
@@ -318,15 +303,15 @@ class WooSignal {
         path: "products/count",
         method: "post",
         payload: payload,
-        jsonResponse: (json) => CountResponse.fromJson(json)
-    );
+        jsonResponse: (json) => CountResponse.fromJson(json));
   }
 
-  Future<ProductImagesResponse?> getProductImages(
-      {required int productId,
-        String? fields,
-        int? sinceId,
-      }) async {
+  /// Get Product Images
+  Future<ProductImagesResponse?> getProductImages({
+    required int productId,
+    String? fields,
+    int? sinceId,
+  }) async {
     Map<String, dynamic> payload = {};
     if (fields != null) payload["fields"] = fields;
     if (sinceId != null) payload["since_id"] = sinceId;
@@ -334,15 +319,15 @@ class WooSignal {
         path: "products/$productId/images",
         method: "post",
         payload: payload,
-        jsonResponse: (json) => ProductImagesResponse.fromJson(json)
-    );
+        jsonResponse: (json) => ProductImagesResponse.fromJson(json));
   }
 
-  Future<ProductImage?> getProductImage(
-      {required int imageId,
-        required int productId,
-        String? fields,
-      }) async {
+  /// Get Product Image
+  Future<ProductImage?> getProductImage({
+    required int imageId,
+    required int productId,
+    String? fields,
+  }) async {
     Map<String, dynamic> payload = {};
     if (fields != null) payload["fields"] = fields;
 
@@ -350,14 +335,14 @@ class WooSignal {
         path: "products/$productId/image/$imageId",
         method: "post",
         payload: payload,
-        jsonResponse: (json) => ProductImage.fromJson(json['image'])
-    );
+        jsonResponse: (json) => ProductImage.fromJson(json['image']));
   }
 
-  Future<ProductImageCountResponse?> getProductImageCount(
-      {required int? productId,
-        int? sinceId,
-      }) async {
+  /// Get Product Image Count
+  Future<ProductImageCountResponse?> getProductImageCount({
+    required int? productId,
+    int? sinceId,
+  }) async {
     Map<String, dynamic> payload = {};
     if (sinceId != null) payload["since_id"] = sinceId;
 
@@ -365,15 +350,30 @@ class WooSignal {
         path: "products/$productId/images/count",
         method: "post",
         payload: payload,
-        jsonResponse: (json) => ProductImageCountResponse.fromJson(json)
-    );
+        jsonResponse: (json) => ProductImageCountResponse.fromJson(json));
   }
 
+  /// Get Product Variants
+  Future<ProductVariantsResponse?> getProductVariants(
+      {required int productId,
+      String? fields,
+      int? sinceId,
+      int? limit}) async {
+    Map<String, dynamic> payload = {};
+    if (fields != null) payload["fields"] = fields;
+    if (sinceId != null) payload["since_id"] = sinceId;
+    if (limit != null) payload["limit"] = limit;
+    return await _wooSignalRequest<ProductVariantsResponse>(
+        path: "products/$productId/variants",
+        method: "post",
+        payload: payload,
+        jsonResponse: (json) => ProductVariantsResponse.fromJson(json));
+  }
 
-
-  /// https://woosignal.com/docs/api/1.0/shop
-  Future<ShopResponse?> getShop({String? fields,
-      }) async {
+  /// Get Shop
+  Future<ShopResponse?> getShop({
+    String? fields,
+  }) async {
     Map<String, dynamic> payload = {};
     if (fields != null) payload["fields"] = fields;
 
@@ -381,26 +381,13 @@ class WooSignal {
         path: "shop",
         method: "post",
         payload: payload,
-        jsonResponse: (json) => ShopResponse.fromJson(json)
-    );
+        jsonResponse: (json) => ShopResponse.fromJson(json));
   }
 
-  /// https://woosignal.com/docs/api/1.0/countries
-  Future<CountriesResponse?> getCountries({String? fields,
-      }) async {
-    Map<String, dynamic> payload = {};
-    if (fields != null) payload["fields"] = fields;
-
-    return await _wooSignalRequest<CountriesResponse>(
-        path: "countries",
-        method: "post",
-        payload: payload,
-        jsonResponse: (json) => CountriesResponse.fromJson(json)
-    );
-  }
-  /// https://woosignal.com/docs/api/1.0/policies
-  Future<PoliciesResponse?> getPolicies({String? fields,
-      }) async {
+  /// Get Policies
+  Future<PoliciesResponse?> getPolicies({
+    String? fields,
+  }) async {
     Map<String, dynamic> payload = {};
     if (fields != null) payload["fields"] = fields;
 
@@ -408,12 +395,13 @@ class WooSignal {
         path: "policies",
         method: "post",
         payload: payload,
-        jsonResponse: (json) => PoliciesResponse.fromJson(json)
-    );
+        jsonResponse: (json) => PoliciesResponse.fromJson(json));
   }
-  /// https://woosignal.com/docs/api/1.0/shipping-zones
-  Future<ShippingZonesResponse?> getShippingZones({String? fields,
-      }) async {
+
+  /// Get Shipping Zones
+  Future<ShippingZonesResponse?> getShippingZones({
+    String? fields,
+  }) async {
     Map<String, dynamic> payload = {};
     if (fields != null) payload["fields"] = fields;
 
@@ -421,13 +409,14 @@ class WooSignal {
         path: "shipping-zones",
         method: "post",
         payload: payload,
-        jsonResponse: (json) => ShippingZonesResponse.fromJson(json)
-    );
+        jsonResponse: (json) => ShippingZonesResponse.fromJson(json));
   }
-  /// https://woosignal.com/docs/api/1.0/provinces/{countryId}
-  Future<ProvincesResponse?> getProvinces({String? fields,
-   required int id,
-      }) async {
+
+  /// Get Provinces
+  Future<ProvincesResponse?> getProvinces({
+    String? fields,
+    required int id,
+  }) async {
     Map<String, dynamic> payload = {};
     if (fields != null) payload["fields"] = fields;
 
@@ -435,8 +424,213 @@ class WooSignal {
         path: "provinces/$id",
         method: "post",
         payload: payload,
-        jsonResponse: (json) => ProvincesResponse.fromJson(json)
-    );
+        jsonResponse: (json) => ProvincesResponse.fromJson(json));
   }
 
+  /// Get the discount code by lookup [code]
+  Future<DiscountCode?> getDiscountCodeByLookup({
+    String? code,
+  }) async {
+    Map<String, dynamic> payload = {};
+    if (code != null) payload["code"] = code;
+
+    return await _wooSignalRequest<DiscountCode>(
+        path: "discount-code-by-lookup",
+        method: "get",
+        payload: payload,
+        jsonResponse: (json) => DiscountCode.fromJson(json));
+  }
+
+  /// Get the Price Rule by [priceRuleId]
+  Future<PriceRuleResponse?> getPriceRuleById({
+    String? priceRuleId,
+  }) async {
+    Map<String, dynamic> payload = {};
+    if (priceRuleId != null) payload["id"] = priceRuleId;
+
+    return await _wooSignalRequest<PriceRuleResponse>(
+        path: "price-rule-by-id",
+        method: "post",
+        payload: payload,
+        jsonResponse: (json) => PriceRuleResponse.fromJson(json));
+  }
+
+  /// Get countries
+  Future<ShopifyCountryResponse?> getCountries({
+    String? sinceId,
+  }) async {
+    Map<String, dynamic> payload = {};
+    if (sinceId != null) payload["since_id"] = sinceId;
+
+    return await _wooSignalRequest<ShopifyCountryResponse>(
+        path: "countries",
+        method: "get",
+        payload: payload,
+        jsonResponse: (json) => ShopifyCountryResponse.fromJson(json));
+  }
+
+  /// Customer Login
+  Future<AuthCustomer?> authCustomerLogin(
+      {required String? email,
+      required String? password,
+      bool? loginUser}) async {
+    Map<String, dynamic> payload = {};
+    if (email != null) payload["email"] = email;
+    if (password != null) payload["password"] = password;
+
+    AuthCustomer? authCustomer = await _wooSignalRequest<AuthCustomer>(
+        path: "auth/customer/login",
+        method: "post",
+        payload: payload,
+        jsonResponse: (json) => AuthCustomer.fromJson(json));
+
+    if (authCustomer != null && loginUser == true) {
+      await authCustomer.auth(key: "shopify_customer");
+    }
+    return authCustomer;
+  }
+
+  /// Customer Register
+  Future<AuthCustomer?> authCustomerRegister(
+      {required String? email,
+      required String? password,
+      String? firstName,
+      String? lastName,
+      bool? acceptsMarketing,
+      bool? loginUser}) async {
+    Map<String, dynamic> payload = {};
+    if (email != null) payload["email"] = email;
+    if (password != null) payload["password"] = password;
+    if (firstName != null) payload["first_name"] = firstName;
+    if (lastName != null) payload["last_name"] = lastName;
+    if (acceptsMarketing != null) {
+      payload["accepts_marketing"] = acceptsMarketing;
+    }
+
+    AuthCustomer? authCustomer = await _wooSignalRequest<AuthCustomer>(
+        path: "auth/customer/register",
+        method: "post",
+        payload: payload,
+        jsonResponse: (json) => AuthCustomer.fromJson(json));
+
+    if (authCustomer != null && loginUser == true) {
+      await authCustomer.auth(key: "shopify_customer");
+    }
+    return authCustomer;
+  }
+
+  /// Get the customer details
+  Future<AuthCustomerInfo?> authCustomer({String? accessToken}) async {
+    Map<String, dynamic> payload = {};
+    if (accessToken != null) payload["access_token"] = accessToken;
+
+    return await _wooSignalRequest<AuthCustomerInfo>(
+        path: "auth/customer",
+        method: "get",
+        payload: payload,
+        jsonResponse: (json) => AuthCustomerInfo.fromJson(json),
+        auth: true);
+  }
+
+  /// Search products
+  Future<ShopifyProductSearch?> productSearch(
+      {String? query, int first = 100, String? after}) async {
+    Map<String, dynamic> payload = {};
+    if (query != null) payload["query"] = query;
+    payload["first"] = first;
+    payload["after"] = after;
+
+    return await _wooSignalRequest<ShopifyProductSearch>(
+        path: "product-search",
+        method: "post",
+        payload: payload,
+        jsonResponse: (json) => ShopifyProductSearch.fromJson(json),
+        auth: true);
+  }
+
+  /// Update the customer details
+  /// [customerAccessToken] is optional
+  /// [firstName] is optional
+  /// [lastName] is optional
+  Future<AuthCustomerUpdateResponse?> authCustomerUpdate(
+      {String? customerAccessToken,
+      String? firstName,
+      String? lastName}) async {
+    Map<String, dynamic> payload = {};
+    if (customerAccessToken != null) {
+      payload["access_token"] = customerAccessToken;
+    }
+    if (firstName != null) payload["first_name"] = firstName;
+    if (lastName != null) payload["last_name"] = lastName;
+
+    return await _wooSignalRequest<AuthCustomerUpdateResponse>(
+        path: "auth/customer/update",
+        method: "put",
+        payload: payload,
+        jsonResponse: (json) => AuthCustomerUpdateResponse.fromJson(json),
+        auth: true);
+  }
+
+  /// Get the orders by [customerAccessToken]
+  Future<AuthCustomerOrder?> authCustomerOrders(
+      {String? customerAccessToken, int? perPage, String? after}) async {
+    Map<String, dynamic> payload = {};
+    if (customerAccessToken != null) {
+      payload["access_token"] = customerAccessToken;
+    }
+    if (perPage != null) payload["perPage"] = perPage;
+    if (after != null) payload["after"] = after;
+
+    return await _wooSignalRequest<AuthCustomerOrder>(
+        path: "auth/customer/orders",
+        method: "get",
+        payload: payload,
+        jsonResponse: (json) => AuthCustomerOrder.fromJson(json),
+        auth: true);
+  }
+
+  /// Update the customer address
+  Future<AuthCustomerAddressUpdated?> authCustomerUpdateAddress({
+    String? customerAccessToken,
+    String? address1,
+    String? city,
+    String? country,
+    String? province,
+    String? zip,
+    String? firstName,
+    String? lastName,
+    String? phone,
+  }) async {
+    Map<String, dynamic> payload = {};
+    if (customerAccessToken != null) {
+      payload["access_token"] = customerAccessToken;
+    }
+    if (address1 != null) payload["address1"] = address1;
+    if (city != null) payload["city"] = city;
+    if (country != null) payload["country"] = country;
+    if (province != null) payload["province"] = province;
+    if (zip != null) payload["zip"] = zip;
+    if (firstName != null) payload["first_name"] = firstName;
+    if (lastName != null) payload["last_name"] = lastName;
+    if (phone != null) payload["phone"] = phone;
+
+    return await _wooSignalRequest<AuthCustomerAddressUpdated>(
+        path: "auth/customer/address/update",
+        method: "put",
+        payload: payload,
+        jsonResponse: (json) => AuthCustomerAddressUpdated.fromJson(json),
+        auth: true);
+  }
+
+  /// Get the order by [orderId]
+  Future<OrderResponse?> getOrder({required String orderId}) async {
+    Map<String, dynamic> payload = {};
+
+    return await _wooSignalRequest<OrderResponse>(
+      path: "order/$orderId",
+      method: "get",
+      payload: payload,
+      jsonResponse: (json) => OrderResponse.fromJson(json),
+    );
+  }
 }

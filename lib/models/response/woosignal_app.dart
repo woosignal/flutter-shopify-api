@@ -1,4 +1,4 @@
-// Copyright (c) 2023, WooSignal Ltd.
+// Copyright (c) 2024, WooSignal Ltd.
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms are permitted
@@ -35,8 +35,10 @@ class WooSignalApp {
   String? wpLoginForgotPasswordUrl;
   String? wpLoginWpApiPath;
   int? productPricesIncludeTax;
-  int? disableShipping;
+  bool? disableShipping;
   String? theme;
+  bool? taxesIncluded;
+  bool? taxShipping;
   String? locale;
   String? paypalLocale;
   String? paypalEmail;
@@ -135,7 +137,7 @@ class WooSignalApp {
     wpLoginForgotPasswordUrl = json['wp_login_forgot_password_url'];
     wpLoginWpApiPath = json['wp_login_wp_api_path'];
     productPricesIncludeTax = json['product_prices_include_tax'];
-    disableShipping = json['disable_shipping'];
+    disableShipping = json['disable_shipping'] == 1 ? true : false;
     theme = json['theme'];
     locale = json['locale'];
     paypalLocale = json['paypal_locale'] ?? "en-GB";

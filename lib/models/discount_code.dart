@@ -13,27 +13,40 @@
 // IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
 // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-import 'package:woosignal_shopify/models/product_image.dart';
+class DiscountCode {
+  int? id;
+  int? priceRuleId;
+  String? code;
+  int? usageCount;
+  String? createdAt;
+  String? updatedAt;
 
-class ProductImagesResponse {
-  List<ProductImage>? images;
+  DiscountCode({
+    this.id,
+    this.priceRuleId,
+    this.code,
+    this.usageCount,
+    this.createdAt,
+    this.updatedAt,
+  });
 
-  ProductImagesResponse({this.images});
-
-  ProductImagesResponse.fromJson(Map<String, dynamic> json) {
-    if (json['images'] != null) {
-      images = <ProductImage>[];
-      json['images'].forEach((v) {
-        images!.add(ProductImage.fromJson(v));
-      });
-    }
+  DiscountCode.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    priceRuleId = json['price_rule_id'];
+    code = json['code']?.toString();
+    usageCount = json['usage_count'];
+    createdAt = json['created_at']?.toString();
+    updatedAt = json['updated_at']?.toString();
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = {};
-    if (images != null) {
-      data['images'] = images!.map((v) => v.toJson()).toList();
-    }
-    return data;
+    return {
+      'id': id,
+      'price_rule_id': priceRuleId,
+      'code': code,
+      'usage_count': usageCount,
+      'created_at': createdAt,
+      'updated_at': updatedAt,
+    };
   }
 }

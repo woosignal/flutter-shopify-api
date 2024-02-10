@@ -13,29 +13,27 @@
 // IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
 // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-import 'package:collection/collection.dart';
-
-class Product {
+class CartProduct {
   int? id;
   String? title;
   String? bodyHtml;
   String? vendor;
   String? productType;
-  DateTime? createdAt;
+  String? createdAt;
   String? handle;
-  DateTime? updatedAt;
-  DateTime? publishedAt;
+  String? updatedAt;
+  String? publishedAt;
   String? templateSuffix;
   String? status;
   String? publishedScope;
   String? tags;
   String? adminGraphqlApiId;
-  List<Variants>? variants;
-  List<Options>? options;
-  List<Images>? images;
-  Images? image;
+  Variant? variant;
+  Image? image;
+  bool? isVariation;
+  int? cartQuantity;
 
-  Product(
+  CartProduct(
       {this.id,
       this.title,
       this.bodyHtml,
@@ -50,146 +48,36 @@ class Product {
       this.publishedScope,
       this.tags,
       this.adminGraphqlApiId,
-      this.variants,
-      this.options,
-      this.images,
-      this.image});
+      this.variant,
+      this.image,
+      this.cartQuantity,
+      this.isVariation});
 
-  String get price {
-    return defaultVariant?.price ?? "0.00";
-  }
-
-  String get compareAtPrice {
-    return defaultVariant?.compareAtPrice ?? "0.00";
-  }
-
-  bool get onSale {
-    return defaultVariant?.compareAtPrice != null &&
-        defaultVariant?.compareAtPrice != defaultVariant?.price;
-  }
-
-  Variants? get defaultVariant {
-    if (variants?.isEmpty ?? false) {
-      return null;
-    }
-    Variants? variant =
-        variants?.firstWhereOrNull((element) => element.position == 1);
-    if (variant != null) {
-      return variant;
-    }
-    return variants?.first;
-  }
-
-  String? findVariationImage(int? imageId) {
-    Images? image = images?.firstWhereOrNull((image) => image.id == imageId);
-    if (image != null) {
-      return image.src;
-    }
-    image = images!.firstWhereOrNull((image) => image.position == 1);
-    if (image != null) {
-      return image.src;
-    }
-    return images?.first.src;
-  }
-
-  List<String?>? optionNameList() {
-    return options?.map((e) => e.name).toList();
-  }
-
-  Options? getOption(String name) {
-    return options?.firstWhereOrNull((element) => element.name == name);
-  }
-
-  List<String>? getOptionValues(String name) {
-    Options? option = getOption(name);
-    return option != null ? option.values : [];
-  }
-
-  findVariation(Map<int, dynamic> options) {
-    List<int?> positions = this.options!.map((e) => e.position).toList();
-
-    List<Variants>? variants;
-    for (int i = 1; i < positions.length + 1; i++) {
-      if (i == 1) {
-        variants = this
-            .variants!
-            .where((element) => element.option1 == options[i])
-            .toList();
-      }
-
-      if (i == 2) {
-        variants = variants!
-            .where((element) => element.option2 == options[i])
-            .toList();
-      }
-
-      if (i == 3) {
-        variants = variants!
-            .where((element) => element.option3 == options[i])
-            .toList();
-      }
-
-      if (variants == null || variants.isEmpty) {
-        return null;
-      }
-    }
-
-    if (variants != null && variants.isNotEmpty) {
-      return variants.first;
-    }
-    return null;
-  }
-
-  bool hasVariations() {
-    return (variants?.length ?? 0) > 1;
-  }
-
-  String get name {
-    return title ?? "";
-  }
-
-  Product.fromJson(Map<String, dynamic> json) {
+  CartProduct.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
     bodyHtml = json['body_html'];
     vendor = json['vendor'];
     productType = json['product_type'];
-    createdAt =
-        json['created_at'] != null ? DateTime.parse(json['created_at']) : null;
+    createdAt = json['created_at'];
     handle = json['handle'];
-    updatedAt =
-        json['updated_at'] != null ? DateTime.parse(json['updated_at']) : null;
-    publishedAt = json['published_at'] != null
-        ? DateTime.parse(json['published_at'])
-        : null;
+    updatedAt = json['updated_at'];
+    publishedAt = json['published_at'];
     templateSuffix = json['template_suffix'];
     status = json['status'];
     publishedScope = json['published_scope'];
     tags = json['tags'];
     adminGraphqlApiId = json['admin_graphql_api_id'];
-    if (json['variants'] != null) {
-      variants = <Variants>[];
-      json['variants'].forEach((v) {
-        variants!.add(Variants.fromJson(v));
-      });
+    cartQuantity = json['cart_quantity'];
+    isVariation = json['is_variation'];
+    if (json['variant'] != null) {
+      variant = Variant.fromJson(json['variant']);
     }
-    if (json['options'] != null) {
-      options = <Options>[];
-      json['options'].forEach((v) {
-        options!.add(Options.fromJson(v));
-      });
-    }
-    if (json['images'] != null) {
-      images = <Images>[];
-      json['images'].forEach((v) {
-        images!.add(Images.fromJson(v));
-      });
-    }
-    image = json['image'] != null ? Images.fromJson(json['image']) : null;
+    image = json['image'] != null ? Image.fromJson(json['image']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = {};
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['title'] = title;
     data['body_html'] = bodyHtml;
@@ -204,23 +92,30 @@ class Product {
     data['published_scope'] = publishedScope;
     data['tags'] = tags;
     data['admin_graphql_api_id'] = adminGraphqlApiId;
-    if (variants != null) {
-      data['variants'] = variants!.map((v) => v.toJson()).toList();
+    data['is_variation'] = isVariation;
+    data['cart_quantity'] = cartQuantity;
+    if (variant != null) {
+      data['variant'] = variant!.toJson();
     }
-    if (options != null) {
-      data['options'] = options!.map((v) => v.toJson()).toList();
-    }
-    if (images != null) {
-      data['images'] = images!.map((v) => v.toJson()).toList();
+    if (image != null) {
+      data['images'] = image!.toJson();
     }
     if (image != null) {
       data['image'] = image!.toJson();
     }
     return data;
   }
+
+  String? findVariationImage() {
+    return (image == null ? '' : image!.src);
+  }
+
+  String? price() {
+    return variant!.price;
+  }
 }
 
-class Variants {
+class Variant {
   int? id;
   int? productId;
   String? title;
@@ -234,13 +129,13 @@ class Variants {
   String? option1;
   String? option2;
   String? option3;
-  DateTime? createdAt;
-  DateTime? updatedAt;
+  String? createdAt;
+  String? updatedAt;
   bool? taxable;
   String? barcode;
   int? grams;
   int? imageId;
-  int? weight;
+  double? weight;
   String? weightUnit;
   int? inventoryItemId;
   int? inventoryQuantity;
@@ -248,7 +143,7 @@ class Variants {
   bool? requiresShipping;
   String? adminGraphqlApiId;
 
-  Variants(
+  Variant(
       {this.id,
       this.productId,
       this.title,
@@ -276,7 +171,7 @@ class Variants {
       this.requiresShipping,
       this.adminGraphqlApiId});
 
-  Variants.fromJson(Map<String, dynamic> json) {
+  Variant.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     productId = json['product_id'];
     title = json['title'];
@@ -290,15 +185,13 @@ class Variants {
     option1 = json['option1'];
     option2 = json['option2'];
     option3 = json['option3'];
-    createdAt =
-        json['created_at'] != null ? DateTime.parse(json['created_at']) : null;
-    updatedAt =
-        json['updated_at'] != null ? DateTime.parse(json['updated_at']) : null;
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
     taxable = json['taxable'];
     barcode = json['barcode'];
     grams = json['grams'];
     imageId = json['image_id'];
-    weight = json['weight'];
+    weight = double.parse(json['weight'].toString());
     weightUnit = json['weight_unit'];
     inventoryItemId = json['inventory_item_id'];
     inventoryQuantity = json['inventory_quantity'];
@@ -308,7 +201,7 @@ class Variants {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = {};
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['product_id'] = productId;
     data['title'] = title;
@@ -339,58 +232,11 @@ class Variants {
   }
 
   bool inStock() {
-    if (inventoryManagement == null) return true;
-
-    if (inventoryManagement == 'shopify') {
-      if (inventoryPolicy == 'continue') {
-        return true;
-      }
-      if (inventoryPolicy == 'deny') {
-        return inventoryQuantity! > 0;
-      }
-      return true;
-    }
-    return true;
-  }
-
-  bool isOutOfStock() {
-    return !inStock();
-  }
-
-  bool get canPurchase {
-    return inStock();
+    return inventoryQuantity! > 0;
   }
 }
 
-class Options {
-  int? id;
-  int? productId;
-  String? name;
-  int? position;
-  List<String>? values;
-
-  Options({this.id, this.productId, this.name, this.position, this.values});
-
-  Options.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    productId = json['product_id'];
-    name = json['name'];
-    position = json['position'];
-    values = json['values'].cast<String>();
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = {};
-    data['id'] = id;
-    data['product_id'] = productId;
-    data['name'] = name;
-    data['position'] = position;
-    data['values'] = values;
-    return data;
-  }
-}
-
-class Images {
+class Image {
   int? id;
   int? productId;
   int? position;
@@ -403,7 +249,7 @@ class Images {
   List<int>? variantIds;
   String? adminGraphqlApiId;
 
-  Images(
+  Image(
       {this.id,
       this.productId,
       this.position,
@@ -416,7 +262,7 @@ class Images {
       this.variantIds,
       this.adminGraphqlApiId});
 
-  Images.fromJson(Map<String, dynamic> json) {
+  Image.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     productId = json['product_id'];
     position = json['position'];
@@ -431,7 +277,7 @@ class Images {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = {};
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['product_id'] = productId;
     data['position'] = position;

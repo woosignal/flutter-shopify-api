@@ -13,27 +13,19 @@
 // IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
 // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-import 'package:woosignal_shopify/models/product_image.dart';
+class CheckoutTax {
+  int? id;
+  double? taxPercentage;
+  String? name;
+  String? taxType; // null, normal, or harmonized
+  String? code;
+  int? shippingZoneId;
 
-class ProductImagesResponse {
-  List<ProductImage>? images;
-
-  ProductImagesResponse({this.images});
-
-  ProductImagesResponse.fromJson(Map<String, dynamic> json) {
-    if (json['images'] != null) {
-      images = <ProductImage>[];
-      json['images'].forEach((v) {
-        images!.add(ProductImage.fromJson(v));
-      });
-    }
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = {};
-    if (images != null) {
-      data['images'] = images!.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
+  CheckoutTax(
+      {this.id,
+      this.taxPercentage,
+      this.name,
+      this.taxType,
+      this.code,
+      this.shippingZoneId});
 }

@@ -13,27 +13,33 @@
 // IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
 // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-import 'package:woosignal_shopify/models/product_image.dart';
+/// TaxName enum
+enum TaxName { grt, gst, hst, pst, qst, rst, sst, stateTax, tax, the_00, vat }
 
-class ProductImagesResponse {
-  List<ProductImage>? images;
+/// The following EnumValues class is used to convert the enum to and from a string
+final taxNameValues = EnumValues({
+  "GRT": TaxName.grt,
+  "GST": TaxName.gst,
+  "HST": TaxName.hst,
+  "PST": TaxName.pst,
+  "QST": TaxName.qst,
+  "RST": TaxName.rst,
+  "SST": TaxName.sst,
+  "State Tax": TaxName.stateTax,
+  "Tax": TaxName.tax,
+  "0.0": TaxName.the_00,
+  "VAT": TaxName.vat
+});
 
-  ProductImagesResponse({this.images});
+/// EnumValues class
+class EnumValues<T> {
+  Map<String, T> map;
+  late Map<T, String> reverseMap;
 
-  ProductImagesResponse.fromJson(Map<String, dynamic> json) {
-    if (json['images'] != null) {
-      images = <ProductImage>[];
-      json['images'].forEach((v) {
-        images!.add(ProductImage.fromJson(v));
-      });
-    }
-  }
+  EnumValues(this.map);
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = {};
-    if (images != null) {
-      data['images'] = images!.map((v) => v.toJson()).toList();
-    }
-    return data;
+  Map<T, String> get reverse {
+    reverseMap = map.map((k, v) => MapEntry(v, k));
+    return reverseMap;
   }
 }

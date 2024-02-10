@@ -13,26 +13,26 @@
 // IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
 // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-import 'package:woosignal_shopify/models/product_image.dart';
+import 'package:woosignal_shopify/models/product.dart';
 
-class ProductImagesResponse {
-  List<ProductImage>? images;
+class ProductVariantsResponse {
+  List<Product>? products;
 
-  ProductImagesResponse({this.images});
+  ProductVariantsResponse({this.products});
 
-  ProductImagesResponse.fromJson(Map<String, dynamic> json) {
-    if (json['images'] != null) {
-      images = <ProductImage>[];
-      json['images'].forEach((v) {
-        images!.add(ProductImage.fromJson(v));
+  ProductVariantsResponse.fromJson(Map<String, dynamic> json) {
+    if (json['variants'] != null) {
+      products = <Product>[];
+      json['variants'].forEach((v) {
+        products!.add(Product.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
-    if (images != null) {
-      data['images'] = images!.map((v) => v.toJson()).toList();
+    if (products != null) {
+      data['variants'] = products!.map((v) => v.toJson()).toList();
     }
     return data;
   }

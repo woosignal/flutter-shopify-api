@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:woosignal_shopify/models/response/shopify_product_response.dart';
 import 'package:woosignal_shopify/woosignal_shopify.dart';
 
-void main(){
+void main() {
   runApp(MyApp());
 }
 
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-       home: MyHomePage(title: 'WooSignal Demo Home Page'),
+      home: MyHomePage(title: 'WooSignal Demo Home Page'),
     );
   }
 }
@@ -28,16 +29,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String _productName = "";
+  String? _productName;
 
   _incrementCounter() async {
-    // CREATING AN INSTANCE FOR WOOSIGNAL
-    await WooSignal.instance.init(appKey: "your app key");
+    // Add your WooSignal API key here
+    await WooSignalShopify.instance.init(appKey: "your app key");
 
-    // ProductResponse? product = await WooSignal.instance.getProducts();
-    // if (products.isNotEmpty) {
-    //   _productName = products[0].name ?? "";
-    // }
+    ShopifyProductResponse? shopifyProductResponse =
+        await WooSignalShopify.instance.getProducts();
+    if ((shopifyProductResponse?.products ?? []).isNotEmpty) {
+      _productName = shopifyProductResponse?.products?[0].title ?? "";
+    }
     setState(() {});
   }
 
@@ -52,9 +54,9 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text('Tap the light bulb to get a product'),
-            if (_productName != "")
+            if (_productName != null)
               Text(
-                'WooCommerce product :\n $_productName',
+                'Shopify product :\n $_productName',
               ),
           ],
         ),

@@ -1,5 +1,5 @@
 name: woosignal_shopify
-description: Shopify REST API for dart, connect a Shopify store and start developing with our interface for their API endpoints.
+description: Shopify API for Dart, connect a Shopify store on WooSignal and start using the API to get products, login, create orders and more.
 version: 1.0.0
 homepage: https://woosignal.com
 repository: https://github.com/woosignal/flutter-shopify-api
@@ -10,11 +10,11 @@ environment:
   sdk: '>=3.0.0 <4.0.0'
 
 dependencies:
-  dio: ^5.2.1+1
-  device_info_plus: ^9.0.2
-  shared_preferences: ^2.2.0
-  encrypt: ^5.0.1
-  uuid: ^3.0.6
+  dio: ^5.3.3
+  nylo_framework: ^5.20.18
+  device_meta: ^1.1.7
+  collection: ^1.18.0
+  encrypt: ^5.0.3
 
   flutter:
     sdk: flutter
@@ -22,7 +22,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  lints: ^2.1.1
+  lints: ^3.0.0
   test: ^1.24.1
 
 screenshots:

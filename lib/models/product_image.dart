@@ -1,4 +1,4 @@
-// Copyright (c) 2023, WooSignal Ltd.
+// Copyright (c) 2024, WooSignal Ltd.
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms are permitted
@@ -28,23 +28,25 @@ class ProductImage {
 
   ProductImage(
       {this.id,
-        this.productId,
-        this.position,
-        this.createdAt,
-        this.updatedAt,
-        this.alt,
-        this.width,
-        this.height,
-        this.src,
-        this.variantIds,
-        this.adminGraphqlApiId});
+      this.productId,
+      this.position,
+      this.createdAt,
+      this.updatedAt,
+      this.alt,
+      this.width,
+      this.height,
+      this.src,
+      this.variantIds,
+      this.adminGraphqlApiId});
 
   ProductImage.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     productId = json['product_id'];
     position = json['position'];
-    createdAt = json['created_at'] != null ? DateTime.parse(json['created_at']) : null;
-    updatedAt = json['updated_at'] != null ? DateTime.parse(json['updated_at']) : null;
+    createdAt =
+        json['created_at'] != null ? DateTime.parse(json['created_at']) : null;
+    updatedAt =
+        json['updated_at'] != null ? DateTime.parse(json['updated_at']) : null;
     alt = json['alt'];
     width = json['width'];
     height = json['height'];

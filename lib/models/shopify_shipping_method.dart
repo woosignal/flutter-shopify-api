@@ -13,26 +13,34 @@
 // IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
 // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-import 'package:woosignal_shopify/models/product_image.dart';
+import 'package:woosignal_shopify/models/shopify_order.dart';
 
-class ProductImagesResponse {
-  List<ProductImage>? images;
+class ShippingMethod {
+  String? code;
+  String? price;
+  String? title;
+  String? name;
+  String? carrierIdentifier;
+  List<TaxLines>? taxLines = [];
 
-  ProductImagesResponse({this.images});
-
-  ProductImagesResponse.fromJson(Map<String, dynamic> json) {
-    if (json['images'] != null) {
-      images = <ProductImage>[];
-      json['images'].forEach((v) {
-        images!.add(ProductImage.fromJson(v));
-      });
-    }
-  }
+  ShippingMethod(
+      {this.code,
+      this.price,
+      this.title,
+      this.name,
+      this.carrierIdentifier,
+      this.taxLines});
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = {};
-    if (images != null) {
-      data['images'] = images!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['price'] = price;
+    data['title'] = title;
+    data['name'] = name;
+    if (carrierIdentifier != null) {
+      data['carrier_identifier'] = carrierIdentifier;
+    }
+    if (taxLines != null) {
+      data['taxLines'] = taxLines!.map((e) => e.toJson());
     }
     return data;
   }
