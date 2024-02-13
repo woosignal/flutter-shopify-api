@@ -1,3 +1,7 @@
+## [1.0.3] - 2024-02-13
+
+* Updated README.md
+
 ## [1.0.2] - 2024-02-10
 
 * Updated README.md
