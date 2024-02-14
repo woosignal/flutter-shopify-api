@@ -11,7 +11,7 @@ In your flutter project add the dependency:
 ``` dart 
 dependencies:
   ...
-  woosignal_shopify_api: ^1.0.4
+  woosignal_shopify_api: ^1.0.5
 ```
 
 ### Usage example #
@@ -23,7 +23,7 @@ import 'package:shopify_woosignal/woosignal_shopify_api.dart';
 ### Example using WooSignal API for Shopify
 
 ``` dart
-/woosignal_shopify_api.dart';
+import 'woosignal_shopify_api/woosignal_shopify_api.dart';
 
 ...
 
@@ -44,6 +44,5 @@ _getProducts() async {
 ### Available API Requests
 
 Coming soon
-
 
 Disclaimer: This plugin is not affiliated with or supported by Shopify. All logos and trademarks are the property of their respective owners.

@@ -1,3 +1,8 @@
+## [1.0.5] - 2024-02-14
+
+* Update README
+* pubspec.yaml updates
+
 ## [1.0.4] - 2024-02-14
 
 * pubspec.yaml updates
