@@ -32,7 +32,10 @@ class AuthCustomerInfo {
       this.phone,
       this.defaultAddress});
 
-  AuthCustomerInfo.fromJson(Map<String, dynamic> json) {
+  AuthCustomerInfo.fromJson(dynamic json) {
+    if (json is! Map<String, dynamic>) {
+      return;
+    }
     email = json['email'];
     firstName = json['firstName'];
     lastName = json['lastName'];

@@ -82,6 +82,7 @@ class ApiProvider {
     _dio.options.headers = {
       "Authorization": "Bearer $_apiKey",
       "Content-Type": "application/json",
+      "Accept": "application/json",
       "X-DMETA": json.encode(_deviceMeta).toString()
     };
   }

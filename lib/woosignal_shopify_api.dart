@@ -46,7 +46,7 @@ import 'package:encrypt/encrypt.dart';
 import 'dart:convert';
 
 /// WooSignal Package version
-const String wooSignalVersion = "1.0.3";
+const String wooSignalVersion = "1.0.4";
 
 class WooSignalShopify {
   WooSignalShopify._privateConstructor();
@@ -245,6 +245,55 @@ class WooSignalShopify {
         method: "post",
         payload: shopifyOrder.toJson(),
         jsonResponse: (json) => OrderCreatedResponse.fromJson(json));
+  }
+
+  Future<List<Product>?> getProductsJson({
+    int? limit,
+    String? productType,
+    int? collectionId,
+    String? createdAtMax,
+    String? createdAtMin,
+    String? fields,
+    String? handle,
+    List<int>? ids,
+    String? presentmentCurrencies,
+    String? publishedAtMax,
+    String? publishedAtMin,
+    String? publishedStatus,
+    int? sinceId,
+    String? status,
+    String? title,
+    String? updatedAtMax,
+    String? updatedAtMin,
+    String? vendor,
+  }) async {
+    Map<String, dynamic> payload = {};
+    if (limit != null) payload["limit"] = limit;
+    if (productType != null) payload["product_type"] = productType;
+    if (collectionId != null) payload["collection_id"] = collectionId;
+    if (createdAtMax != null) payload["created_at_max"] = createdAtMax;
+    if (createdAtMin != null) payload["created_at_min"] = createdAtMin;
+    if (fields != null) payload["fields"] = fields;
+    if (handle != null) payload["handle"] = handle;
+    if (ids != null) payload["ids"] = ids;
+    if (presentmentCurrencies != null) {
+      payload["presentment_currencies"] = presentmentCurrencies;
+    }
+    if (publishedAtMax != null) payload["published_at_max"] = publishedAtMax;
+    if (publishedAtMin != null) payload["published_at_min"] = publishedAtMin;
+    if (publishedStatus != null) payload["published_status"] = publishedStatus;
+    if (sinceId != null) payload["since_id"] = sinceId;
+    if (status != null) payload["status"] = status;
+    if (title != null) payload["title"] = title;
+    if (updatedAtMax != null) payload["updated_at_max"] = updatedAtMax;
+    if (updatedAtMin != null) payload["updated_at_min"] = updatedAtMin;
+    if (vendor != null) payload["vendor"] = vendor;
+
+    return await _wooSignalRequest<List<Product>>(
+        path: "products/json",
+        method: "post",
+        payload: payload,
+        jsonResponse: (json) => List<Product>.from(json));
   }
 
   Future<ShopifyProductResponse?> getProducts({
@@ -525,11 +574,12 @@ class WooSignalShopify {
     if (accessToken != null) payload["access_token"] = accessToken;
 
     return await _wooSignalRequest<AuthCustomerInfo>(
-        path: "auth/customer",
-        method: "get",
-        payload: payload,
-        jsonResponse: (json) => AuthCustomerInfo.fromJson(json),
-        auth: true);
+      path: "auth/customer",
+      method: "get",
+      payload: payload,
+      jsonResponse: (json) => AuthCustomerInfo.fromJson(json),
+      auth: true,
+    );
   }
 
   /// Search products
