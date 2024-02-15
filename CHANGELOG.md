@@ -1,3 +1,7 @@
+## [1.0.6] - 2024-02-15
+
+* Fix `getProductsRestApi` method
+
 ## [1.0.5] - 2024-02-14
 
 * Update README

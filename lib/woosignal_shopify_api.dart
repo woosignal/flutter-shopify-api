@@ -15,6 +15,7 @@ library woosignal_shopify_api;
 // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 import 'package:nylo_framework/nylo_framework.dart';
+import 'package:woosignal_shopify_api/models/response/products_response.dart';
 import '/models/discount_code.dart';
 import '/models/response/auth/auth_customer_address_updated.dart';
 import '/models/response/auth/auth_customer_info.dart';
@@ -46,7 +47,7 @@ import 'package:encrypt/encrypt.dart';
 import 'dart:convert';
 
 /// WooSignal Package version
-const String wooSignalVersion = "1.0.4";
+const String wooSignalVersion = "1.0.6";
 
 class WooSignalShopify {
   WooSignalShopify._privateConstructor();
@@ -247,7 +248,8 @@ class WooSignalShopify {
         jsonResponse: (json) => OrderCreatedResponse.fromJson(json));
   }
 
-  Future<List<Product>?> getProductsJson({
+  /// Get the products using the rest API
+  Future<List<Product>> getProductsRestApi({
     int? limit,
     String? productType,
     int? collectionId,
@@ -275,7 +277,7 @@ class WooSignalShopify {
     if (createdAtMin != null) payload["created_at_min"] = createdAtMin;
     if (fields != null) payload["fields"] = fields;
     if (handle != null) payload["handle"] = handle;
-    if (ids != null) payload["ids"] = ids;
+    if (ids != null) payload["ids"] = ids.join(",");
     if (presentmentCurrencies != null) {
       payload["presentment_currencies"] = presentmentCurrencies;
     }
@@ -289,13 +291,19 @@ class WooSignalShopify {
     if (updatedAtMin != null) payload["updated_at_min"] = updatedAtMin;
     if (vendor != null) payload["vendor"] = vendor;
 
-    return await _wooSignalRequest<List<Product>>(
-        path: "products/json",
-        method: "post",
-        payload: payload,
-        jsonResponse: (json) => List<Product>.from(json));
+    return await _wooSignalRequest<List<Product>?>(
+            path: "products/json",
+            method: "post",
+            payload: payload,
+            jsonResponse: (json) {
+              ProductsResponse productsResponse =
+                  ProductsResponse.fromJson(json);
+              return productsResponse.products;
+            }) ??
+        [];
   }
 
+  /// Get products
   Future<ShopifyProductResponse?> getProducts({
     int? first,
     String? after,
@@ -324,6 +332,7 @@ class WooSignalShopify {
         jsonResponse: (json) => Product.fromJson(json['product']));
   }
 
+  /// Get Product Count
   Future<CountResponse?> getProductCount({
     String? productType,
     int? collectionId,
