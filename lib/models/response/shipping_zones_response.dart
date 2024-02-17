@@ -13,7 +13,7 @@
 // IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
 // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-import 'package:woosignal_shopify_api/enums/tax_values.dart';
+import '/enums/tax_values.dart';
 
 class ShippingZonesResponse {
   List<ShippingZone>? shippingZones;

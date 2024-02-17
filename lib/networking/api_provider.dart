@@ -17,6 +17,7 @@ import 'dart:convert';
 import 'package:device_meta/device_meta.dart';
 import 'package:dio/dio.dart';
 import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class ApiProvider {
   late Dio _dio;
@@ -29,6 +30,20 @@ class ApiProvider {
   Future<void> setDeviceMeta() async {
     DeviceMeta deviceMeta =
         await DeviceMeta.init(storageKey: "woosignal_device_meta");
+
+    if (kIsWeb) {
+      _deviceMeta = {
+        "model": 'X Model',
+        "brand": 'X Brand',
+        "manufacturer": "X Manufacturer",
+        "version": 'X Version',
+        "uuid": '1234567890',
+        "platform_type": "web",
+        "api_version": "$_version/v1",
+        "sdk_name": "woosignal-shopify"
+      };
+      return;
+    }
 
     if (Platform.environment.containsKey('FLUTTER_TEST')) {
       _deviceMeta = {
@@ -79,12 +94,16 @@ class ApiProvider {
 
   /// Set the http headers for Dio
   _setDioHeaders() {
-    _dio.options.headers = {
+    Map<String, dynamic> headers = {
       "Authorization": "Bearer $_apiKey",
       "Content-Type": "application/json",
       "Accept": "application/json",
       "X-DMETA": json.encode(_deviceMeta).toString()
     };
+    if (kIsWeb) {
+      headers.addAll({"Access-Control-Allow-Origin": "*"});
+    }
+    _dio.options.headers = headers;
   }
 
   /// Constructor requires a [appKey] from WooSignal
@@ -132,7 +151,7 @@ class ApiProvider {
   /// HTTP GET request using a [url]
   Future<dynamic> get(url, {dynamic data}) async {
     try {
-      Response response = await _dio.get(url, data: data);
+      Response response = await _dio.get(url, queryParameters: data);
       return response.data;
     } catch (error, stacktrace) {
       _printLog("$error stackTrace: $stacktrace");

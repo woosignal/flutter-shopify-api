@@ -55,6 +55,7 @@ class WooSignalApp {
   Map<String, dynamic>? firebaseOptionsIos = {};
   Map<String, dynamic>? firebaseOptionsAndroid = {};
   bool? firebaseFcmIsEnabled;
+  String? supportEmail;
 
   WooSignalApp(
       {this.appName,
@@ -88,6 +89,7 @@ class WooSignalApp {
       this.socialLinks,
       this.menuLinks = const [],
       this.themeColors,
+      this.supportEmail,
       this.firebaseOptionsIos = const {},
       this.firebaseOptionsAndroid = const {}});
 
@@ -132,6 +134,9 @@ class WooSignalApp {
       showUpsellProducts = true;
     } else {
       showUpsellProducts = false;
+    }
+    if (json['support_email'] != null) {
+      supportEmail = json['support_email'];
     }
     wpLoginBaseUrl = json['wp_login_base_url'];
     wpLoginForgotPasswordUrl = json['wp_login_forgot_password_url'];
@@ -209,6 +214,7 @@ class WooSignalApp {
     data['disable_shipping'] = disableShipping;
     data['theme'] = theme;
     data['locale'] = locale;
+    data['support_email'] = supportEmail;
     data['paypal_locale'] = paypalLocale;
     data['paypal_email'] = paypalEmail;
     data['stripe_enabled'] = stripeEnabled;

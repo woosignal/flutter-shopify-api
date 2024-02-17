@@ -15,7 +15,7 @@ library woosignal_shopify_api;
 // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 import 'package:nylo_framework/nylo_framework.dart';
-import 'package:woosignal_shopify_api/models/response/products_response.dart';
+import '/models/response/products_response.dart';
 import '/models/discount_code.dart';
 import '/models/response/auth/auth_customer_address_updated.dart';
 import '/models/response/auth/auth_customer_info.dart';
@@ -47,7 +47,7 @@ import 'package:encrypt/encrypt.dart';
 import 'dart:convert';
 
 /// WooSignal Package version
-const String wooSignalVersion = "1.0.6";
+const String wooSignalVersion = "1.0.7";
 
 class WooSignalShopify {
   WooSignalShopify._privateConstructor();
