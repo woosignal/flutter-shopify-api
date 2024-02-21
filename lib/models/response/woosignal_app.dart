@@ -13,6 +13,7 @@
 // IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
 // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
+import 'package:woosignal_shopify_api/models/response/app_shopify_collection.dart';
 import '/models/menu_link.dart';
 
 class WooSignalApp {
@@ -56,6 +57,7 @@ class WooSignalApp {
   Map<String, dynamic>? firebaseOptionsAndroid = {};
   bool? firebaseFcmIsEnabled;
   String? supportEmail;
+  List<AppShopifyCollection> shopifyCollections = [];
 
   WooSignalApp(
       {this.appName,
@@ -91,6 +93,7 @@ class WooSignalApp {
       this.themeColors,
       this.supportEmail,
       this.firebaseOptionsIos = const {},
+      this.shopifyCollections = const [],
       this.firebaseOptionsAndroid = const {}});
 
   WooSignalApp.fromJson(Map<String, dynamic> json) {
@@ -137,6 +140,11 @@ class WooSignalApp {
     }
     if (json['support_email'] != null) {
       supportEmail = json['support_email'];
+    }
+    if (json['collections'] != null) {
+      shopifyCollections = List.from(json['collections'])
+          .map((collection) => AppShopifyCollection.fromJson(collection))
+          .toList();
     }
     wpLoginBaseUrl = json['wp_login_base_url'];
     wpLoginForgotPasswordUrl = json['wp_login_forgot_password_url'];

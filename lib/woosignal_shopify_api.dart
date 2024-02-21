@@ -15,6 +15,8 @@ library woosignal_shopify_api;
 // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 import 'package:nylo_framework/nylo_framework.dart';
+import 'package:woosignal_shopify_api/models/response/collection_item_response.dart';
+import 'package:woosignal_shopify_api/models/response/products_by_collection_id_response.dart';
 import '/models/response/products_response.dart';
 import '/models/discount_code.dart';
 import '/models/response/auth/auth_customer_address_updated.dart';
@@ -47,7 +49,7 @@ import 'package:encrypt/encrypt.dart';
 import 'dart:convert';
 
 /// WooSignal Package version
-const String wooSignalVersion = "1.0.7";
+const String wooSignalVersion = "1.1.0";
 
 class WooSignalShopify {
   WooSignalShopify._privateConstructor();
@@ -248,6 +250,21 @@ class WooSignalShopify {
         jsonResponse: (json) => OrderCreatedResponse.fromJson(json));
   }
 
+  /// Get the collections by [ids]
+  Future<CollectionItem?> getCollectionsByIds(
+      {required List<String> ids}) async {
+    return await _wooSignalRequest<CollectionItem?>(
+        path: "collections/id",
+        method: "post",
+        payload: {"collection_ids": ids},
+        jsonResponse: (json) {
+          if (json is! Map<String, dynamic>) {
+            return null;
+          }
+          return CollectionItem.fromJson(json);
+        });
+  }
+
   /// Get the products using the rest API
   Future<List<Product>> getProductsRestApi({
     int? limit,
@@ -319,6 +336,24 @@ class WooSignalShopify {
         method: "post",
         payload: payload,
         jsonResponse: (json) => ShopifyProductResponse.fromJson(json));
+  }
+
+  /// Get products by collection ID
+  Future<ProductsByCollectionIdResponse?> getProductsByCollectionId({
+    String? id,
+    int? first,
+    String? after,
+  }) async {
+    Map<String, dynamic> payload = {};
+    if (first != null) payload["first"] = first;
+    if (after != null) payload["after"] = after;
+    if (id != null) payload["id"] = id;
+
+    return await _wooSignalRequest<ProductsByCollectionIdResponse>(
+        path: "products/collection/id",
+        method: "post",
+        payload: payload,
+        jsonResponse: (json) => ProductsByCollectionIdResponse.fromJson(json));
   }
 
   Future<Product?> getProduct({required int productId, String? fields}) async {
@@ -646,6 +681,22 @@ class WooSignalShopify {
         payload: payload,
         jsonResponse: (json) => AuthCustomerOrder.fromJson(json),
         auth: true);
+  }
+
+  /// Forgot password
+  Future<bool> authCustomerForgotPassword({required String email}) async {
+    Map<String, dynamic> payload = {
+      "email": email,
+    };
+
+    return await _wooSignalRequest<bool>(
+          path: "auth/customer/send-reset-email",
+          method: "post",
+          payload: payload,
+          jsonResponse: (json) => json['status'] == 200,
+          auth: true,
+        ) ??
+        false;
   }
 
   /// Update the customer address

@@ -1,3 +1,8 @@
+## [1.1.0] - 2024-02-21
+
+* New method to get collections by ids `getCollectionsByIds`
+* Refactor ProductSearch model
+
 ## [1.0.7] - 2024-02-17
 
 * Update `_setDioHeaders` method in Api Provider

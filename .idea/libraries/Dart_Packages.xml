@@ -126,14 +126,14 @@
         <entry key="device_meta">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/device_meta-1.1.9/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/device_meta-1.1.10/lib" />
             </list>
           </value>
         </entry>
         <entry key="dio">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/dio-5.4.0/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/dio-5.4.1/lib" />
             </list>
           </value>
         </entry>
@@ -832,8 +832,8 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/dart_console-1.2.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/device_info_plus-9.1.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/device_info_plus_platform_interface-7.0.0/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/device_meta-1.1.9/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/dio-5.4.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/device_meta-1.1.10/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/dio-5.4.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/encrypt-5.0.3/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/equatable-2.0.5/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/fake_async-1.3.1/lib" />

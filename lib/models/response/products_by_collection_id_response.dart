@@ -13,18 +13,20 @@
 // IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
 // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
+import 'package:woosignal_shopify_api/models/response/page_info.dart';
 import 'package:woosignal_shopify_api/models/response/product_search.dart';
-import '/models/response/page_info.dart';
 
-class ShopifyProductSearch {
+class ProductsByCollectionIdResponse {
   int? status;
   List<ProductSearch>? products;
   List<dynamic>? errors;
   PageInfo? pageInfo;
+  String? title;
 
-  ShopifyProductSearch({this.status, this.products, this.errors});
+  ProductsByCollectionIdResponse(
+      {this.status, this.products, this.errors, this.pageInfo, this.title});
 
-  ShopifyProductSearch.fromJson(Map<String, dynamic> json) {
+  ProductsByCollectionIdResponse.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     if (json['products'] != null) {
       products = <ProductSearch>[];
@@ -35,6 +37,7 @@ class ShopifyProductSearch {
     errors = json['errors'];
     pageInfo =
         json['pageInfo'] != null ? PageInfo.fromJson(json['pageInfo']) : null;
+    title = json['title'];
   }
 
   Map<String, dynamic> toJson() {
@@ -47,6 +50,7 @@ class ShopifyProductSearch {
     if (pageInfo != null) {
       data['pageInfo'] = pageInfo!.toJson();
     }
+    data['title'] = title;
     return data;
   }
 }
