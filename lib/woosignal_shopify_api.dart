@@ -49,7 +49,7 @@ import 'package:encrypt/encrypt.dart';
 import 'dart:convert';
 
 /// WooSignal Package version
-const String wooSignalVersion = "1.1.0";
+const String wooSignalVersion = "1.1.1";
 
 class WooSignalShopify {
   WooSignalShopify._privateConstructor();
@@ -144,6 +144,7 @@ class WooSignalShopify {
     return model;
   }
 
+  /// Encrypt [text]
   String encrypt(String text) {
     if (_encryptKey == null) {
       return "";
@@ -158,6 +159,7 @@ class WooSignalShopify {
     return encrypted.base64;
   }
 
+  /// Decrypt [text]
   String decrypt(String text) {
     if (_encryptKey == null) {
       return "";
@@ -226,7 +228,7 @@ class WooSignalShopify {
     return await _wooSignalRequest<ShopifyShippingZone>(
         path: "ws/shipping_methods",
         method: "get",
-        payload: {},
+        payload: null,
         jsonResponse: (json) => ShopifyShippingZone.fromJson(json));
   }
 
