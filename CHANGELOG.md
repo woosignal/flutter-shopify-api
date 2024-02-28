@@ -1,3 +1,7 @@
+## [1.1.2] - 2024-02-28
+
+* pubspec.yaml updates
+
 ## [1.1.1] - 2024-02-25
 
 * Fix `fetchShippingZones` method
