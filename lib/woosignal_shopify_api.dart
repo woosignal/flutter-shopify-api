@@ -49,12 +49,14 @@ import 'package:encrypt/encrypt.dart';
 import 'dart:convert';
 
 /// WooSignal Package version
-const String wooSignalVersion = "1.1.3";
+const String _wooSignalVersion = "1.2.0";
 
 class WooSignalShopify {
   WooSignalShopify._privateConstructor();
   static final WooSignalShopify instance =
       WooSignalShopify._privateConstructor();
+
+  String get version => _wooSignalVersion;
 
   late ApiProvider _apiProvider;
   bool? _debugMode;
@@ -68,8 +70,8 @@ class WooSignalShopify {
       String? encryptSecret}) async {
     assert(appKey != null && appKey != "",
         "Provide a valid app key. Visit https://woosignal.com");
-    _apiProvider = ApiProvider(
-        appKey: appKey!, debugMode: debugMode, version: wooSignalVersion);
+    _apiProvider =
+        ApiProvider(appKey: appKey!, debugMode: debugMode, version: version);
     setDebugMode(debugMode);
     if (encryptKey != null) {
       _encryptKey = encryptKey;
@@ -83,6 +85,11 @@ class WooSignalShopify {
   /// Set the FCM token for notifications
   void setFcmToken(String token) {
     _apiProvider.setFcmToken(token);
+  }
+
+  /// Set the Shopify customer ID
+  void setShopifyUserId(String userId) {
+    _apiProvider.setShopifyCustomerId(userId);
   }
 
   /// Enable debug mode for logging information

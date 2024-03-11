@@ -70,6 +70,12 @@ class ApiProvider {
     };
   }
 
+  /// set the Shopify Customer ID
+  void setShopifyCustomerId(String userId) {
+    _deviceMeta['shopify_customer_id'] = userId;
+    _setDioHeaders();
+  }
+
   /// set the FCM token
   void setFcmToken(String token) {
     if (_deviceMeta.containsKey('fcm_token')) {
