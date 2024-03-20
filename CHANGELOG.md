@@ -1,3 +1,7 @@
+## [1.2.1] - 2024-03-20
+
+* pubspec.yaml updates
+
 ## [1.2.0] - 2024-03-11
 
 * Ability to set the Shopify customer id from the `WooSignalShopify` class
