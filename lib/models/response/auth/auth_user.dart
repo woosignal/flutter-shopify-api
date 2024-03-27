@@ -48,6 +48,7 @@ class AuthCustomer extends Model {
 }
 
 class User {
+  String? uid;
   String? accessToken;
   String? expiresAt;
 
@@ -56,12 +57,16 @@ class User {
   User.fromJson(Map<String, dynamic> json) {
     accessToken = json['accessToken'];
     expiresAt = json['expiresAt'];
+    if (json.containsKey('uid')) {
+      uid = json['uid'];
+    }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['accessToken'] = accessToken;
     data['expiresAt'] = expiresAt;
+    data['uid'] = uid;
     return data;
   }
 }

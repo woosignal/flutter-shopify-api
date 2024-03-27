@@ -1,3 +1,15 @@
+## [1.3.0] - 2024-03-27
+
+* Fix `get` http method not setting data
+* Added `authUserAccessToken()` to get the users access token
+* Added `authUserId()` to get the users id
+* Added `authUser()` to get the logged in user
+* Added `authUserLoggedIn()` to check if a user is logged in
+* Added `authShopifyUserModel()` to login a user
+* Added `authLogout()` to logout a user
+* Added `authLogin()` to login a user
+* pubspec.yaml updates
+
 ## [1.2.2] - 2024-03-23
 
 * pubspec.yaml updates

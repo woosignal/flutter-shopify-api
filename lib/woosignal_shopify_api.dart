@@ -15,8 +15,8 @@ library woosignal_shopify_api;
 // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 import 'package:nylo_framework/nylo_framework.dart';
-import 'package:woosignal_shopify_api/models/response/collection_item_response.dart';
-import 'package:woosignal_shopify_api/models/response/products_by_collection_id_response.dart';
+import '/models/response/collection_item_response.dart';
+import '/models/response/products_by_collection_id_response.dart';
 import '/models/response/products_response.dart';
 import '/models/discount_code.dart';
 import '/models/response/auth/auth_customer_address_updated.dart';
@@ -49,7 +49,7 @@ import 'package:encrypt/encrypt.dart';
 import 'dart:convert';
 
 /// WooSignal Package version
-const String _wooSignalVersion = "1.2.2";
+const String _wooSignalVersion = "1.3.0";
 
 class WooSignalShopify {
   WooSignalShopify._privateConstructor();
@@ -61,6 +61,9 @@ class WooSignalShopify {
   late ApiProvider _apiProvider;
   bool? _debugMode;
   String? _encryptKey, _encryptSecret;
+
+  /// Returns the storage key for the plugin
+  static String storageKey() => 'shopify_customer';
 
   /// Initialize the class
   Future<void> init(
@@ -114,10 +117,14 @@ class WooSignalShopify {
       bool auth = false}) async {
     _printLog("Parameters: $payload");
 
-    if (auth == true && !payload.containsKey('access_token')) {
-      AuthCustomer? authCustomer = Auth.user(key: "shopify_customer");
-      if (authCustomer != null) {
-        payload["access_token"] = authCustomer.user?.accessToken;
+    if (auth == true) {
+      if (!payload.containsKey('access_token')) {
+        AuthCustomer? authCustomer =
+            Auth.user(key: WooSignalShopify.storageKey());
+        if (authCustomer?.user?.accessToken == null) {
+          return null;
+        }
+        payload["access_token"] = authCustomer!.user!.accessToken;
       }
     }
 
@@ -149,6 +156,54 @@ class WooSignalShopify {
 
     _printLog(model.toString());
     return model;
+  }
+
+  /// Login a user with the [AuthCustomer]
+  static authLogin(AuthCustomer authCustomer) async {
+    await Auth.set(authCustomer, key: storageKey());
+  }
+
+  /// Logout a user
+  static authLogout() async {
+    await Auth.logout(key: storageKey());
+  }
+
+  /// Authenticate a user if they are logged in
+  static authShopifyUserModel() async {
+    await Auth.loginModel(
+        WooSignalShopify.storageKey(), (data) => AuthCustomer.fromJson(data));
+  }
+
+  /// Check if a user is logged in
+  static bool authUserLoggedIn() {
+    AuthCustomer? authCustomer = Auth.user(key: storageKey());
+    if (authCustomer == null) {
+      return false;
+    }
+    if (authCustomer.user?.accessToken == null) {
+      return false;
+    }
+    return true;
+  }
+
+  /// Returns the logged in user
+  static Future<AuthCustomer?> authUser() async {
+    return await NyStorage.read<AuthCustomer>(storageKey(), modelDecoders: {
+      AuthCustomer: (json) => AuthCustomer.fromJson(json),
+    });
+  }
+
+  /// Returns the user ID of the logged in user
+  static Future<String?> authUserId() async {
+    AuthCustomer? authCustomer = await authUser();
+    return authCustomer?.user?.uid.toString();
+  }
+
+  /// Get the token for the user
+  static Future<String?> authUserAccessToken() async {
+    AuthCustomer? authCustomer = await authUser();
+    if (authCustomer == null) return null;
+    return authCustomer.user?.accessToken;
   }
 
   /// Encrypt [text]
@@ -581,13 +636,18 @@ class WooSignalShopify {
     if (password != null) payload["password"] = password;
 
     AuthCustomer? authCustomer = await _wooSignalRequest<AuthCustomer>(
-        path: "auth/customer/login",
-        method: "post",
-        payload: payload,
-        jsonResponse: (json) => AuthCustomer.fromJson(json));
+      path: "auth/customer/login",
+      method: "post",
+      payload: payload,
+      jsonResponse: (json) => AuthCustomer.fromJson(json),
+    );
 
-    if (authCustomer != null && loginUser == true) {
-      await authCustomer.auth(key: "shopify_customer");
+    if (authCustomer?.user == null) {
+      return null;
+    }
+
+    if (authCustomer?.user?.accessToken != null && loginUser == true) {
+      await authCustomer!.auth(key: "shopify_customer");
     }
     return authCustomer;
   }
@@ -685,11 +745,12 @@ class WooSignalShopify {
     if (after != null) payload["after"] = after;
 
     return await _wooSignalRequest<AuthCustomerOrder>(
-        path: "auth/customer/orders",
-        method: "get",
-        payload: payload,
-        jsonResponse: (json) => AuthCustomerOrder.fromJson(json),
-        auth: true);
+      path: "auth/customer/orders",
+      method: "get",
+      payload: payload,
+      jsonResponse: (json) => AuthCustomerOrder.fromJson(json),
+      auth: true,
+    );
   }
 
   /// Forgot password
