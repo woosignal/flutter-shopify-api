@@ -1,3 +1,7 @@
+## [1.3.1] - 2024-03-28
+
+* pubspec.yaml updates
+
 ## [1.3.0] - 2024-03-27
 
 * Fix `get` http method not setting data
