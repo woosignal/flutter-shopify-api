@@ -49,7 +49,7 @@ import 'package:encrypt/encrypt.dart';
 import 'dart:convert';
 
 /// WooSignal Package version
-const String _wooSignalVersion = "1.3.2";
+const String _wooSignalVersion = "1.3.3";
 
 class WooSignalShopify {
   WooSignalShopify._privateConstructor();
