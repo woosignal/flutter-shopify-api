@@ -126,7 +126,7 @@
         <entry key="device_meta">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/device_meta-1.1.22/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/device_meta-1.1.23/lib" />
             </list>
           </value>
         </entry>
@@ -148,6 +148,13 @@
           <value>
             <list>
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/equatable-2.0.5/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="error_stack">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/error_stack-1.2.0/lib" />
             </list>
           </value>
         </entry>
@@ -400,14 +407,14 @@
         <entry key="nylo_framework">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/nylo_framework-5.26.0/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/nylo_framework-5.27.0/lib" />
             </list>
           </value>
         </entry>
         <entry key="nylo_support">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/nylo_support-5.66.0/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/nylo_support-5.68.0/lib" />
             </list>
           </value>
         </entry>
@@ -624,7 +631,7 @@
         <entry key="skeletonizer">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/skeletonizer-1.1.1/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/skeletonizer-1.1.2+1/lib" />
             </list>
           </value>
         </entry>
@@ -733,6 +740,62 @@
             </list>
           </value>
         </entry>
+        <entry key="url_launcher">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher-6.2.6/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="url_launcher_android">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_android-6.2.2/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="url_launcher_ios">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_ios-6.2.5/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="url_launcher_linux">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_linux-3.1.1/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="url_launcher_macos">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_macos-3.1.0/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="url_launcher_platform_interface">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_platform_interface-2.3.0/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="url_launcher_web">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_web-2.3.1/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="url_launcher_windows">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_windows-3.1.1/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="uuid">
           <value>
             <list>
@@ -765,6 +828,13 @@
           <value>
             <list>
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/watcher-1.0.2/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="web">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/web-0.5.1/lib" />
             </list>
           </value>
         </entry>
@@ -832,10 +902,11 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/dart_console-1.2.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/device_info_plus-9.1.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/device_info_plus_platform_interface-7.0.0/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/device_meta-1.1.22/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/device_meta-1.1.23/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/dio-5.4.3+1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/encrypt-5.0.3/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/equatable-2.0.5/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/error_stack-1.2.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/fake_async-1.3.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/ffi-2.0.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/file-6.1.4/lib" />
@@ -868,8 +939,8 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/meta-1.11.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/mime-1.0.4/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/node_preamble-2.0.1/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/nylo_framework-5.26.0/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/nylo_support-5.66.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/nylo_framework-5.27.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/nylo_support-5.68.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/package_config-2.1.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/page_transition-2.1.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/path-1.9.0/lib" />
@@ -900,7 +971,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/shelf_packages_handler-3.0.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/shelf_static-1.1.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/shelf_web_socket-1.0.3/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/skeletonizer-1.1.1/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/skeletonizer-1.1.2+1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/source_map_stack_trace-2.1.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/source_maps-0.10.11/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/source_span-1.10.0/lib" />
@@ -915,11 +986,20 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/theme_provider-0.6.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/typed_data-1.3.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/universal_platform-1.0.0+1/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher-6.2.6/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_android-6.2.2/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_ios-6.2.5/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_linux-3.1.1/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_macos-3.1.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_platform_interface-2.3.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_web-2.3.1/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_windows-3.1.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/uuid-4.4.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/validated-2.0.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/vector_math-2.1.4/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/vm_service-13.0.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/watcher-1.0.2/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/web-0.5.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/web_socket_channel-2.3.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/webkit_inspection_protocol-1.2.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/win32-5.0.3/lib" />
