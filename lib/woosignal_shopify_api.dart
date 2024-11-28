@@ -49,7 +49,7 @@ import 'package:encrypt/encrypt.dart';
 import 'dart:convert';
 
 /// WooSignal Package version
-const String _wooSignalVersion = "1.3.12";
+const String _wooSignalVersion = "2.0.0";
 
 class WooSignalShopify {
   WooSignalShopify._privateConstructor();
@@ -63,14 +63,15 @@ class WooSignalShopify {
   String? _encryptKey, _encryptSecret;
 
   /// Returns the storage key for the plugin
-  static String storageKey() => 'shopify_customer';
+  static String storageKey() => "woosignal_shopify";
 
   /// Initialize the class
   Future<void> init(
       {required String? appKey,
       bool debugMode = false,
       String? encryptKey,
-      String? encryptSecret}) async {
+      String? encryptSecret,
+      bool nylo = false}) async {
     assert(appKey != null && appKey != "",
         "Provide a valid app key. Visit https://woosignal.com");
     _apiProvider =
@@ -81,6 +82,10 @@ class WooSignalShopify {
     }
     if (encryptSecret != null) {
       _encryptSecret = encryptSecret;
+    }
+    if (!nylo) {
+      Nylo.package();
+      Nylo.instance.addAuthKey(storageKey());
     }
     await _apiProvider.init();
   }
@@ -119,8 +124,7 @@ class WooSignalShopify {
 
     if (auth == true) {
       if (!payload.containsKey('access_token')) {
-        AuthCustomer? authCustomer =
-            Auth.user(key: WooSignalShopify.storageKey());
+        AuthCustomer? authCustomer = Auth.data();
         if (authCustomer?.user?.accessToken == null) {
           return null;
         }
@@ -160,23 +164,17 @@ class WooSignalShopify {
 
   /// Login a user with the [AuthCustomer]
   static authLogin(AuthCustomer authCustomer) async {
-    await Auth.set(authCustomer, key: storageKey());
+    await Auth.authenticate(data: authCustomer);
   }
 
   /// Logout a user
   static authLogout() async {
-    await Auth.logout(key: storageKey());
-  }
-
-  /// Authenticate a user if they are logged in
-  static authShopifyUserModel() async {
-    await Auth.loginModel(
-        WooSignalShopify.storageKey(), (data) => AuthCustomer.fromJson(data));
+    await Auth.logout();
   }
 
   /// Check if a user is logged in
   static bool authUserLoggedIn() {
-    AuthCustomer? authCustomer = Auth.user(key: storageKey());
+    AuthCustomer? authCustomer = Auth.data();
     if (authCustomer == null) {
       return false;
     }
@@ -647,7 +645,7 @@ class WooSignalShopify {
     }
 
     if (authCustomer?.user?.accessToken != null && loginUser == true) {
-      await authCustomer!.auth(key: "shopify_customer");
+      Auth.authenticate(data: authCustomer);
     }
     return authCustomer;
   }
@@ -676,7 +674,7 @@ class WooSignalShopify {
         jsonResponse: (json) => AuthCustomer.fromJson(json));
 
     if (authCustomer != null && loginUser == true) {
-      await authCustomer.auth(key: "shopify_customer");
+      await Auth.authenticate(data: authCustomer);
     }
     return authCustomer;
   }
