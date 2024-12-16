@@ -15,7 +15,10 @@ library woosignal_shopify_api;
 // IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
 // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-import 'package:nylo_framework/nylo_framework.dart';
+import 'package:nylo_support/helpers/auth.dart';
+import 'package:nylo_support/local_storage/local_storage.dart';
+import 'package:nylo_support/nylo.dart';
+
 import '/models/response/collection_item_response.dart';
 import '/models/response/products_by_collection_id_response.dart';
 import '/models/response/products_response.dart';
@@ -50,7 +53,7 @@ import 'package:encrypt/encrypt.dart';
 import 'dart:convert';
 
 /// WooSignal Package version
-const String _wooSignalVersion = "2.0.1";
+const String _wooSignalVersion = "2.1.0";
 
 class WooSignalShopify {
   WooSignalShopify._privateConstructor();
@@ -72,7 +75,7 @@ class WooSignalShopify {
       bool debugMode = false,
       String? encryptKey,
       String? encryptSecret,
-      bool nylo = false}) async {
+      Nylo? nylo}) async {
     assert(appKey != null && appKey != "",
         "Provide a valid app key. Visit https://woosignal.com");
     _apiProvider =
@@ -84,9 +87,8 @@ class WooSignalShopify {
     if (encryptSecret != null) {
       _encryptSecret = encryptSecret;
     }
-    if (!nylo) {
-      Nylo.package();
-      Nylo.instance.addAuthKey(storageKey());
+    if (nylo != null) {
+      nylo.addAuthKey(storageKey());
     }
     await _apiProvider.init();
   }

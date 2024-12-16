@@ -13,7 +13,7 @@
 // IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
 // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-import 'package:nylo_framework/nylo_framework.dart';
+import 'package:nylo_support/helpers/model.dart';
 import '/models/response/shopify_error.dart';
 
 /// AuthCustomer Model.

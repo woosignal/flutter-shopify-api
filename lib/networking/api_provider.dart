@@ -18,7 +18,6 @@ import 'package:device_meta/device_meta.dart';
 import 'package:dio/dio.dart';
 import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:nylo_framework/nylo_framework.dart';
 
 class ApiProvider {
   late Dio _dio;

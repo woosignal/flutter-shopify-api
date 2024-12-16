@@ -238,9 +238,9 @@ class Variants {
   DateTime? updatedAt;
   bool? taxable;
   String? barcode;
-  int? grams;
+  double? grams;
   int? imageId;
-  int? weight;
+  double? weight;
   String? weightUnit;
   int? inventoryItemId;
   int? inventoryQuantity;
@@ -296,9 +296,9 @@ class Variants {
         json['updated_at'] != null ? DateTime.parse(json['updated_at']) : null;
     taxable = json['taxable'];
     barcode = json['barcode'];
-    grams = json['grams'];
+    grams = double.tryParse(json['grams'].toString());
     imageId = json['image_id'];
-    weight = json['weight'];
+    weight = double.tryParse(json['weight'].toString());
     weightUnit = json['weight_unit'];
     inventoryItemId = json['inventory_item_id'];
     inventoryQuantity = json['inventory_quantity'];

@@ -11,7 +11,7 @@ In your flutter project add the dependency:
 ``` dart 
 dependencies:
   ...
-  woosignal_shopify_api: ^2.0.1
+  woosignal_shopify_api: ^2.1.0
 ```
 
 ### Usage example #
