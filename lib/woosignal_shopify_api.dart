@@ -1,6 +1,6 @@
 // ignore: unnecessary_library_name
 library woosignal_shopify_api;
-// Copyright (c) 2024, WooSignal Ltd.
+// Copyright (c) 2025, WooSignal Ltd.
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms are permitted
@@ -53,7 +53,7 @@ import 'package:encrypt/encrypt.dart';
 import 'dart:convert';
 
 /// WooSignal Package version
-const String _wooSignalVersion = "2.1.0";
+const String _wooSignalVersion = "2.2.0";
 
 class WooSignalShopify {
   WooSignalShopify._privateConstructor();
@@ -151,10 +151,11 @@ class WooSignalShopify {
     }
 
     T model;
-    if (json == null) {
-      throw Exception("No response from server");
-    }
+
     try {
+      if (json == null || json == "") {
+        return null;
+      }
       model = jsonResponse(json);
     } on Exception catch (e) {
       _printLog(e.toString());
@@ -339,7 +340,7 @@ class WooSignalShopify {
     String? createdAtMin,
     String? fields,
     String? handle,
-    List<int>? ids,
+    List<String>? ids,
     String? presentmentCurrencies,
     String? publishedAtMax,
     String? publishedAtMin,
@@ -421,7 +422,11 @@ class WooSignalShopify {
         jsonResponse: (json) => ProductsByCollectionIdResponse.fromJson(json));
   }
 
-  Future<Product?> getProduct({required int productId, String? fields}) async {
+  /// Get Product
+  /// [productId] is required
+  /// [fields] is optional
+  Future<Product?> getProduct(
+      {required String productId, String? fields}) async {
     Map<String, dynamic> payload = {};
     if (fields != null) payload["fields"] = fields;
 
@@ -429,13 +434,16 @@ class WooSignalShopify {
         path: "products/$productId",
         method: "post",
         payload: payload,
-        jsonResponse: (json) => Product.fromJson(json['product']));
+        jsonResponse: (json) {
+          print(['json', json]);
+          return Product.fromJson(json['product']);
+        });
   }
 
   /// Get Product Count
   Future<CountResponse?> getProductCount({
     String? productType,
-    int? collectionId,
+    String? collectionId,
     String? createdAtMax,
     String? createdAtMin,
     String? publishedAtMax,
@@ -466,9 +474,9 @@ class WooSignalShopify {
 
   /// Get Product Images
   Future<ProductImagesResponse?> getProductImages({
-    required int productId,
+    required String productId,
     String? fields,
-    int? sinceId,
+    String? sinceId,
   }) async {
     Map<String, dynamic> payload = {};
     if (fields != null) payload["fields"] = fields;
@@ -482,8 +490,8 @@ class WooSignalShopify {
 
   /// Get Product Image
   Future<ProductImage?> getProductImage({
-    required int imageId,
-    required int productId,
+    required String imageId,
+    required String productId,
     String? fields,
   }) async {
     Map<String, dynamic> payload = {};
@@ -498,7 +506,7 @@ class WooSignalShopify {
 
   /// Get Product Image Count
   Future<ProductImageCountResponse?> getProductImageCount({
-    required int? productId,
+    required String? productId,
     int? sinceId,
   }) async {
     Map<String, dynamic> payload = {};
@@ -513,9 +521,9 @@ class WooSignalShopify {
 
   /// Get Product Variants
   Future<ProductVariantsResponse?> getProductVariants(
-      {required int productId,
+      {required String productId,
       String? fields,
-      int? sinceId,
+      String? sinceId,
       int? limit}) async {
     Map<String, dynamic> payload = {};
     if (fields != null) payload["fields"] = fields;
@@ -573,7 +581,7 @@ class WooSignalShopify {
   /// Get Provinces
   Future<ProvincesResponse?> getProvinces({
     String? fields,
-    required int id,
+    required String id,
   }) async {
     Map<String, dynamic> payload = {};
     if (fields != null) payload["fields"] = fields;

@@ -1,3 +1,10 @@
+## [2.2.0] - 2024-12-31
+
+* Breaking change: Update ids to use String
+* Update readme
+* Update copyright year
+* pubspec.yaml updates
+
 ## [2.1.0] - 2024-12-16
 
 * pubspec.yaml updates

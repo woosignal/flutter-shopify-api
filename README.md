@@ -11,7 +11,7 @@ In your flutter project add the dependency:
 ``` dart 
 dependencies:
   ...
-  woosignal_shopify_api: ^2.1.0
+  woosignal_shopify_api: ^2.2.0
 ```
 
 ### Usage example #
@@ -76,7 +76,7 @@ Fetches products using REST API with extensive filtering options.
 - **Returns**: List of `Product`
 - **Method**: POST
 
-### `getProduct({required int productId, String? fields})`
+### `getProduct({required String productId, String? fields})`
 Fetches a single product by ID.
 - **Parameters**:
     - `productId`: Product identifier
@@ -219,7 +219,7 @@ Fetches detailed shipping zone information.
 - **Returns**: `ShippingZonesResponse`
 - **Method**: POST
 
-### `getProvinces({required int id, String? fields})`
+### `getProvinces({required String id, String? fields})`
 Retrieves provinces/states for a country.
 - **Parameters**:
     - `id`: Country ID

@@ -18,9 +18,9 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
   String appKey = "app_key";
-  int testProductId = 0;
-  int testImageId = 0;
-  int testProvinceId = 0;
+  String testProductId = "0";
+  String testImageId = "0";
+  String testProvinceId = "0";
 
   setUp(() async {
     await WooSignalShopify.instance.init(
@@ -40,9 +40,8 @@ void main() {
     }, tags: ['products-list-of-products']);
 
     test('products - single product', () async {
-      int productId = testProductId;
       Product? product =
-          await WooSignalShopify.instance.getProduct(productId: productId);
+          await WooSignalShopify.instance.getProduct(productId: testProductId);
 
       expect(product is Product, true);
     }, tags: ['products-single-product']);
