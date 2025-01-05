@@ -1,3 +1,7 @@
+## [2.2.1] - 2025-01-05
+
+* pubspec.yaml updates
+
 ## [2.2.0] - 2024-12-31
 
 * Breaking change: Update ids to use String
