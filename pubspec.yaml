@@ -15,6 +15,7 @@ dependencies:
   device_meta: ^2.1.7
   collection: ^1.19.1
   encrypt: ^5.0.3
+  intl: ^0.20.2
 
   flutter:
     sdk: flutter
