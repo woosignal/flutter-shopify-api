@@ -92,14 +92,14 @@ class ApiProvider {
   }
 
   /// Init Dio class
-  _initDio() {
+  void _initDio() {
     BaseOptions options =
         BaseOptions(baseUrl: "https://api.woosignal.com/shopify/v1/");
     _dio = Dio(options);
   }
 
   /// Set the http headers for Dio
-  _setDioHeaders() {
+  void _setDioHeaders() {
     Map<String, dynamic> headers = {
       "Authorization": "Bearer $_apiKey",
       "Content-Type": "application/json",
@@ -123,7 +123,7 @@ class ApiProvider {
   Future init() async {
     _initDio();
     await setDeviceMeta();
-    await _setDioHeaders();
+    _setDioHeaders();
   }
 
   /// Print to the console with a [log] response
@@ -134,7 +134,7 @@ class ApiProvider {
   }
 
   /// HTTP POST request using a [url] and [data] payload
-  Future<dynamic> post(url, data) async {
+  Future<dynamic> post(String url, data) async {
     try {
       Response response = await _dio.post(url, data: data);
       return response.data;
@@ -144,7 +144,7 @@ class ApiProvider {
     }
   }
 
-  Future<dynamic> put(url, data) async {
+  Future<dynamic> put(String url, data) async {
     try {
       Response response = await _dio.put(url, data: data);
       return response.data;
@@ -155,7 +155,7 @@ class ApiProvider {
   }
 
   /// HTTP GET request using a [url]
-  Future<dynamic> get(url, {dynamic data}) async {
+  Future<dynamic> get(String url, {dynamic data}) async {
     try {
       Response response =
           await _dio.get(url, queryParameters: data, data: data);

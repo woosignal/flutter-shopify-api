@@ -31,7 +31,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   String? _productName;
 
-  _incrementCounter() async {
+  Future<void> _incrementCounter() async {
     // Add your WooSignal API key here
     await WooSignalShopify.instance.init(appKey: "your app key");
 

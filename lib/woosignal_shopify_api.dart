@@ -167,12 +167,12 @@ class WooSignalShopify {
   }
 
   /// Login a user with the [AuthCustomer]
-  static authLogin(AuthCustomer authCustomer) async {
+  static Future<void> authLogin(AuthCustomer authCustomer) async {
     await Auth.authenticate(data: authCustomer);
   }
 
   /// Logout a user
-  static authLogout() async {
+  static Future<void> authLogout() async {
     await Auth.logout();
   }
 

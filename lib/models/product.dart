@@ -105,7 +105,7 @@ class Product {
     return option != null ? option.values : [];
   }
 
-  findVariation(Map<int, dynamic> options) {
+  Variants? findVariation(Map<int, dynamic> options) {
     List<int?> positions = this.options!.map((e) => e.position).toList();
 
     List<Variants>? variants;
