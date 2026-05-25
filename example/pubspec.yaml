@@ -1,20 +1,20 @@
 name: woosignal_shopify_example
-description: Demonstrates how to use the woosignal plugin.
+description: API explorer demo for the woosignal_shopify_api plugin.
+publish_to: 'none'
 
 environment:
-  sdk: '>=2.19.0 <3.0.0'
+  sdk: '>=3.0.0 <4.0.0'
 
 dependencies:
   woosignal_shopify_api:
     path: ../
   flutter:
     sdk: flutter
+
 dev_dependencies:
-  lints: ^1.0.0
-  test: ^1.16.0
+  flutter_lints: ^4.0.0
   flutter_test:
     sdk: flutter
 
 flutter:
-
   uses-material-design: true

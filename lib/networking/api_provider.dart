@@ -1,4 +1,4 @@
-// Copyright (c) 2025, WooSignal Ltd.
+// Copyright (c) 2026, WooSignal Ltd.
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms are permitted
@@ -28,9 +28,6 @@ class ApiProvider {
 
   /// Set the device meta
   Future<void> setDeviceMeta() async {
-    DeviceMeta deviceMeta =
-        await DeviceMeta.init(storageKey: "woosignal_device_meta");
-
     if (kIsWeb) {
       _deviceMeta = {
         "model": 'X Model',
@@ -58,6 +55,10 @@ class ApiProvider {
       };
       return;
     }
+
+    DeviceMeta deviceMeta =
+        await DeviceMeta.init(storageKey: "woosignal_device_meta");
+
     _deviceMeta = {
       "model": deviceMeta.model,
       "brand": deviceMeta.brand,
@@ -125,6 +126,9 @@ class ApiProvider {
     await setDeviceMeta();
     _setDioHeaders();
   }
+
+  /// Handle to the underlying Dio client.
+  Dio get dio => _dio;
 
   /// Print to the console with a [log] response
   void _printLog(String log) {

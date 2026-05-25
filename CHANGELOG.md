@@ -1,3 +1,19 @@
+## [2.4.0] - 2026-05-25
+
+### Added
+- Test-only `dio` getter on `WooSignalShopify` for HTTP mocking via `@visibleForTesting`.
+- `http_mock_adapter` dev dependency and rewritten test suite that mocks all endpoints.
+- Rewritten example app: API explorer with grouped endpoints, request log, customer session persistence, and `--dart-define=WOOSIGNAL_KEY` config.
+
+### Changed
+- Upgraded `nylo_support` from `^6.38.1` to `^7.27.0` (major).
+- Upgraded `device_meta` from `^2.1.10` to `^3.0.2` (major).
+- Bumped `dio` to `^5.9.2`, `lints` to `^6.1.0`, `test` to `^1.31.0`.
+- Updated copyright year to 2026.
+
+### Fixed
+- `setDeviceMeta()` no longer calls `DeviceMeta.init()` on web platforms before the platform check, avoiding unnecessary work and potential errors.
+
 ## [2.3.3] - 2025-12-13
 
 * pubspec.yaml updates

@@ -1,6 +1,6 @@
 // ignore: unnecessary_library_name
 library woosignal_shopify_api;
-// Copyright (c) 2025, WooSignal Ltd.
+// Copyright (c) 2026, WooSignal Ltd.
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms are permitted
@@ -15,9 +15,9 @@ library woosignal_shopify_api;
 // IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
 // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-import 'package:nylo_support/helpers/auth.dart';
-import 'package:nylo_support/local_storage/local_storage.dart';
-import 'package:nylo_support/nylo.dart';
+import 'package:dio/dio.dart' show Dio;
+import 'package:flutter/foundation.dart' show visibleForTesting;
+import 'package:nylo_support/ny_core.dart' hide CollectionItem;
 
 import '/models/response/collection_item_response.dart';
 import '/models/response/products_by_collection_id_response.dart';
@@ -53,7 +53,7 @@ import 'package:encrypt/encrypt.dart';
 import 'dart:convert';
 
 /// WooSignal Package version
-const String _wooSignalVersion = "2.3.3";
+const String _wooSignalVersion = "2.4.0";
 
 class WooSignalShopify {
   WooSignalShopify._privateConstructor();
@@ -92,6 +92,10 @@ class WooSignalShopify {
     }
     await _apiProvider.init();
   }
+
+  /// Test-only handle to the underlying Dio client for HTTP mocking.
+  @visibleForTesting
+  Dio get dio => _apiProvider.dio;
 
   /// Set the FCM token for notifications
   void setFcmToken(String token) {
