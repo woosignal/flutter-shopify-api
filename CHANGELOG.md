@@ -1,3 +1,9 @@
+## [2.4.1] - 2026-09-07
+
+### Changed
+- Bumped `dio` to `^5.11.1`, `nylo_support` to `^7.29.0`, `device_meta` to `^3.0.4`, `intl` to `^0.20.3`, `test` to `^1.31.1`.
+- Excluded generated `build/**` directories (and `android/**`, `ios/**` in the example) from analyzer checks.
+
 ## [2.4.0] - 2026-05-25
 
 ### Added
