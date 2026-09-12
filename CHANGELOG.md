@@ -1,3 +1,9 @@
+## [2.4.3] - 2026-09-13
+
+### Changed
+- IDE-generated files (`.idea/caches/`, `.idea/libraries/`, `*.iml`) are no longer tracked in git, and `woosignal-woocommerce-api.iml` is no longer included in the published package.
+- Updated the publish workflow to `actions/checkout@v5`.
+
 ## [2.4.2] - 2026-09-12
 
 ### Changed
