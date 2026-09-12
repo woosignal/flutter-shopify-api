@@ -1,3 +1,14 @@
+## [2.4.2] - 2026-09-12
+
+### Changed
+- Debug logging (`debugMode: true`) now uses `debugPrint` instead of `print`.
+- Switched the analyzer config from `package:lints/recommended.yaml` to the `vibe_check` Nylo preset and added `vibe_check` `^1.0.1` as a dev dependency.
+- Migrated the test suite from `package:test` to `flutter_test` and removed the `test` dev dependency, which could not resolve alongside `flutter_test` and `vibe_check`.
+- Added explicit type annotations flagged by the `specify_nonobvious_*` lint rules.
+
+### Fixed
+- `getProduct()` no longer prints the raw JSON response to the console on every call, even with `debugMode` off.
+
 ## [2.4.1] - 2026-09-07
 
 ### Changed

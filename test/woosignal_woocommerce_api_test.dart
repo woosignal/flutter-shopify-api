@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
-import 'package:test/test.dart';
 import 'package:woosignal_shopify_api/models/product.dart';
 import 'package:woosignal_shopify_api/models/product_image.dart';
 import 'package:woosignal_shopify_api/models/response/count_response.dart';
@@ -57,7 +57,7 @@ void main() {
           await WooSignalShopify.instance.getProducts();
       expect(productsResponse is ShopifyProductResponse, true);
       expect(productsResponse?.products!.isNotEmpty, true);
-    }, tags: ['products-list-of-products']);
+    }, tags: ['products-list-of-products', 'shopify-products']);
 
     test('products - single product', () async {
       dioAdapter.onPost(
@@ -75,7 +75,7 @@ void main() {
           await WooSignalShopify.instance.getProduct(productId: testProductId);
 
       expect(product is Product, true);
-    }, tags: ['products-single-product']);
+    }, tags: ['products-single-product', 'shopify-products']);
 
     test('products - count of products', () async {
       dioAdapter.onPost(
@@ -88,7 +88,7 @@ void main() {
           await WooSignalShopify.instance.getProductCount();
 
       expect(countResponse is CountResponse, true);
-    }, tags: ['products-count-of-products']);
+    }, tags: ['products-count-of-products', 'shopify-products']);
 
     test('get product images', () async {
       dioAdapter.onPost(
@@ -112,7 +112,7 @@ void main() {
           .getProductImages(productId: testProductId);
       expect(productImagesResponse is ProductImagesResponse, true);
       expect(productImagesResponse?.images!.isNotEmpty, true);
-    }, tags: ['get-product-images']);
+    }, tags: ['get-product-images', 'shopify-products']);
 
     test('products single product image', () async {
       dioAdapter.onPost(
@@ -132,7 +132,7 @@ void main() {
       ProductImage? productImage = await WooSignalShopify.instance
           .getProductImage(imageId: testImageId, productId: testProductId);
       expect(productImage is ProductImage, true);
-    }, tags: ['products-single-product-image']);
+    }, tags: ['products-single-product-image', 'shopify-products']);
 
     test('products count of product images', () async {
       dioAdapter.onPost(
@@ -145,8 +145,8 @@ void main() {
           await WooSignalShopify.instance
               .getProductImageCount(productId: testProductId);
       expect(productImageCountResponse is ProductImageCountResponse, true);
-    }, tags: ['products-count-of-product-images']);
-  }, tags: ['shopify-products']);
+    }, tags: ['products-count-of-product-images', 'shopify-products']);
+  });
 
   group('Testing Shopify Shop', () {
     test('get shop', () async {
@@ -166,7 +166,7 @@ void main() {
 
       expect(shopResponse is ShopResponse, true);
       expect(shopResponse != null, true);
-    }, tags: ['get-shop']);
+    }, tags: ['get-shop', 'store-properties']);
 
     group('Testing Shopify provinces', () {
       test('get provinces', () async {
@@ -194,8 +194,8 @@ void main() {
         expect(provincesResponse is ProvincesResponse, true);
 
         expect(provincesResponse != null, true);
-      }, tags: ['get-provinces']);
-    }, tags: ['shipping-provinces']);
+      }, tags: ['get-provinces', 'shipping-provinces', 'store-properties']);
+    });
 
     group('Testing Shopify countries', () {
       test('get countries', () async {
@@ -223,8 +223,8 @@ void main() {
         expect(countriesResponse is ShopifyCountryResponse, true);
 
         expect(countriesResponse != null, true);
-      }, tags: ['get-countries']);
-    }, tags: ['countries-properties']);
+      }, tags: ['get-countries', 'countries-properties', 'store-properties']);
+    });
 
     group('Testing Shopify policies', () {
       test('get policies', () async {
@@ -249,8 +249,8 @@ void main() {
         expect(policiesResponse is PoliciesResponse, true);
 
         expect(policiesResponse != null, true);
-      }, tags: ['get-policies']);
-    }, tags: ['policies-properties']);
+      }, tags: ['get-policies', 'policies-properties', 'store-properties']);
+    });
 
     group('Testing Shopify shipping-zones', () {
       test('get shipping-zones', () async {
@@ -277,8 +277,12 @@ void main() {
         expect(shippingZonesResponse is ShippingZonesResponse, true);
 
         expect(shippingZonesResponse != null, true);
-      }, tags: ['get-shipping-zones']);
-    }, tags: ['shipping-zones-properties']);
+      }, tags: [
+        'get-shipping-zones',
+        'shipping-zones-properties',
+        'store-properties'
+      ]);
+    });
 
     group('Testing Shopify provinces', () {
       test('get provinces', () async {
@@ -306,7 +310,7 @@ void main() {
         expect(provincesResponse is ProvincesResponse, true);
 
         expect(provincesResponse != null, true);
-      }, tags: ['get-provinces']);
-    }, tags: ['shipping-provinces']);
-  }, tags: ['store-properties']);
+      }, tags: ['get-provinces', 'shipping-provinces', 'store-properties']);
+    });
+  });
 }

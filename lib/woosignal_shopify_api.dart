@@ -16,7 +16,7 @@ library woosignal_shopify_api;
 // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 import 'package:dio/dio.dart' show Dio;
-import 'package:flutter/foundation.dart' show visibleForTesting;
+import 'package:flutter/foundation.dart' show debugPrint, visibleForTesting;
 import 'package:nylo_support/ny_core.dart' hide CollectionItem;
 
 import '/models/response/collection_item_response.dart';
@@ -53,7 +53,7 @@ import 'package:encrypt/encrypt.dart';
 import 'dart:convert';
 
 /// WooSignal Package version
-const String _wooSignalVersion = "2.4.1";
+const String _wooSignalVersion = "2.4.2";
 
 class WooSignalShopify {
   WooSignalShopify._privateConstructor();
@@ -116,7 +116,7 @@ class WooSignalShopify {
   /// Print to the console a [message]
   void _printLog(String message) {
     if (_debugMode == true) {
-      print("WooSignal LOG: $message");
+      debugPrint("WooSignal LOG: $message");
     }
   }
 
@@ -223,7 +223,7 @@ class WooSignalShopify {
     final key = enc.Key.fromUtf8(_encryptKey!);
     final iv = IV.fromUtf8(_encryptSecret!);
     final encrypter = Encrypter(AES(key, mode: AESMode.cbc));
-    final encrypted = encrypter.encrypt(text, iv: iv);
+    final Encrypted encrypted = encrypter.encrypt(text, iv: iv);
     return encrypted.base64;
   }
 
@@ -238,7 +238,8 @@ class WooSignalShopify {
     final key = enc.Key.fromUtf8(_encryptKey!);
     final iv = IV.fromUtf8(_encryptSecret!);
     final encrypter = Encrypter(AES(key, mode: AESMode.cbc));
-    final decrypted = encrypter.decrypt(Encrypted.fromBase64(text), iv: iv);
+    final String decrypted =
+        encrypter.decrypt(Encrypted.fromBase64(text), iv: iv);
     return decrypted;
   }
 
@@ -438,10 +439,7 @@ class WooSignalShopify {
         path: "products/$productId",
         method: "post",
         payload: payload,
-        jsonResponse: (json) {
-          print(['json', json]);
-          return Product.fromJson(json['product']);
-        });
+        jsonResponse: (json) => Product.fromJson(json['product']));
   }
 
   /// Get Product Count

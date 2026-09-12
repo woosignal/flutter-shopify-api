@@ -17,7 +17,7 @@ import 'dart:convert';
 import 'package:device_meta/device_meta.dart';
 import 'package:dio/dio.dart';
 import 'dart:io' show Platform;
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/foundation.dart' show debugPrint, kIsWeb;
 
 class ApiProvider {
   late Dio _dio;
@@ -133,7 +133,7 @@ class ApiProvider {
   /// Print to the console with a [log] response
   void _printLog(String log) {
     if (_debugMode == true) {
-      print("WOOSIGNAL LOG: $log");
+      debugPrint("WOOSIGNAL LOG: $log");
     }
   }
 

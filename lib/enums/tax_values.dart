@@ -17,7 +17,7 @@
 enum TaxName { grt, gst, hst, pst, qst, rst, sst, stateTax, tax, the_00, vat }
 
 /// The following EnumValues class is used to convert the enum to and from a string
-final taxNameValues = EnumValues({
+final EnumValues<TaxName> taxNameValues = EnumValues({
   "GRT": TaxName.grt,
   "GST": TaxName.gst,
   "HST": TaxName.hst,
