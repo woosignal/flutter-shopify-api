@@ -10,3 +10,8 @@ build/
 # https://dart.dev/guides/libraries/private-files#pubspeclock.
 pubspec.lock
 lib/env.dart
+
+# IDE-generated files (IntelliJ / Android Studio).
+/.idea/caches/
+/.idea/libraries/
+*.iml
